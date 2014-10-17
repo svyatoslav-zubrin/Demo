@@ -15,6 +15,7 @@
 		D7CD470219F03438004BA803 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7CD470019F03438004BA803 /* LaunchScreen.xib */; };
 		D7CD470E19F03438004BA803 /* MulticontextCoreDataDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD470D19F03438004BA803 /* MulticontextCoreDataDemoTests.swift */; };
 		D7CD471B19F0352E004BA803 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD471A19F0352E004BA803 /* CoreDataManager.swift */; };
+		D7CD472219F0E990004BA803 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = D7CD472119F0E990004BA803 /* README.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		D7CD470C19F03438004BA803 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7CD470D19F03438004BA803 /* MulticontextCoreDataDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticontextCoreDataDemoTests.swift; sourceTree = "<group>"; };
 		D7CD471A19F0352E004BA803 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = Classes/CoreDataStack/CoreDataManager.swift; sourceTree = "<group>"; };
+		D7CD472119F0E990004BA803 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		D7CD46F119F03438004BA803 /* MulticontextCoreDataDemo */ = {
 			isa = PBXGroup;
 			children = (
+				D7CD472119F0E990004BA803 /* README.txt */,
 				D7CD46F419F03438004BA803 /* AppDelegate.swift */,
 				D7CD471719F034B4004BA803 /* Classes */,
 				D7CD46F919F03438004BA803 /* ViewController.swift */,
@@ -216,6 +219,7 @@
 			files = (
 				D7CD46FD19F03438004BA803 /* Main.storyboard in Resources */,
 				D7CD470219F03438004BA803 /* LaunchScreen.xib in Resources */,
+				D7CD472219F0E990004BA803 /* README.txt in Resources */,
 				D7CD46FF19F03438004BA803 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,6 +433,7 @@
 				D7CD471319F03438004BA803 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D7CD471419F03438004BA803 /* Build configuration list for PBXNativeTarget "MulticontextCoreDataDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -437,6 +442,7 @@
 				D7CD471619F03438004BA803 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
