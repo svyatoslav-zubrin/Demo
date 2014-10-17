@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84A454A519F13B34003483CE /* PersonsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454A419F13B34003483CE /* PersonsTableViewController.swift */; };
+		84A454A719F13CCC003483CE /* PersonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454A619F13CCC003483CE /* PersonDetailsViewController.swift */; };
+		84A454AA19F13E4C003483CE /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454A919F13E4C003483CE /* Person.swift */; };
 		D7CD46F519F03438004BA803 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD46F419F03438004BA803 /* AppDelegate.swift */; };
 		D7CD46F819F03438004BA803 /* MulticontextCoreDataDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7CD46F619F03438004BA803 /* MulticontextCoreDataDemo.xcdatamodeld */; };
-		D7CD46FA19F03438004BA803 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD46F919F03438004BA803 /* ViewController.swift */; };
 		D7CD46FD19F03438004BA803 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7CD46FB19F03438004BA803 /* Main.storyboard */; };
 		D7CD46FF19F03438004BA803 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7CD46FE19F03438004BA803 /* Images.xcassets */; };
 		D7CD470219F03438004BA803 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7CD470019F03438004BA803 /* LaunchScreen.xib */; };
@@ -29,11 +31,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		84A454A419F13B34003483CE /* PersonsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonsTableViewController.swift; path = "Classes/View Controllers/PersonsTableViewController.swift"; sourceTree = "<group>"; };
+		84A454A619F13CCC003483CE /* PersonDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonDetailsViewController.swift; path = "Classes/View Controllers/PersonDetailsViewController.swift"; sourceTree = "<group>"; };
+		84A454A919F13E4C003483CE /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Person.swift; path = Classes/CoreDataStack/Model/Person.swift; sourceTree = "<group>"; };
 		D7CD46EF19F03438004BA803 /* MulticontextCoreDataDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MulticontextCoreDataDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7CD46F319F03438004BA803 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7CD46F419F03438004BA803 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7CD46F719F03438004BA803 /* MulticontextCoreDataDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MulticontextCoreDataDemo.xcdatamodel; sourceTree = "<group>"; };
-		D7CD46F919F03438004BA803 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D7CD46FC19F03438004BA803 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D7CD46FE19F03438004BA803 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D7CD470119F03438004BA803 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -62,6 +66,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84A454A319F13AFA003483CE /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				84A454A419F13B34003483CE /* PersonsTableViewController.swift */,
+				84A454A619F13CCC003483CE /* PersonDetailsViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		84A454A819F13E26003483CE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				84A454A919F13E4C003483CE /* Person.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		D7CD46E619F03438004BA803 = {
 			isa = PBXGroup;
 			children = (
@@ -86,7 +107,6 @@
 				D7CD472119F0E990004BA803 /* README.txt */,
 				D7CD46F419F03438004BA803 /* AppDelegate.swift */,
 				D7CD471719F034B4004BA803 /* Classes */,
-				D7CD46F919F03438004BA803 /* ViewController.swift */,
 				D7CD46FB19F03438004BA803 /* Main.storyboard */,
 				D7CD46FE19F03438004BA803 /* Images.xcassets */,
 				D7CD470019F03438004BA803 /* LaunchScreen.xib */,
@@ -123,18 +143,20 @@
 		D7CD471719F034B4004BA803 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D7CD471819F034BC004BA803 /* CoreDataStack */,
+				84A454A319F13AFA003483CE /* View Controllers */,
+				D7CD471819F034BC004BA803 /* CoreData Stack */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		D7CD471819F034BC004BA803 /* CoreDataStack */ = {
+		D7CD471819F034BC004BA803 /* CoreData Stack */ = {
 			isa = PBXGroup;
 			children = (
 				D7CD46F619F03438004BA803 /* MulticontextCoreDataDemo.xcdatamodeld */,
 				D7CD471A19F0352E004BA803 /* CoreDataManager.swift */,
+				84A454A819F13E26003483CE /* Model */,
 			);
-			name = CoreDataStack;
+			name = "CoreData Stack";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,7 +260,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7CD46FA19F03438004BA803 /* ViewController.swift in Sources */,
+				84A454AA19F13E4C003483CE /* Person.swift in Sources */,
+				84A454A719F13CCC003483CE /* PersonDetailsViewController.swift in Sources */,
+				84A454A519F13B34003483CE /* PersonsTableViewController.swift in Sources */,
 				D7CD46F519F03438004BA803 /* AppDelegate.swift in Sources */,
 				D7CD471B19F0352E004BA803 /* CoreDataManager.swift in Sources */,
 				D7CD46F819F03438004BA803 /* MulticontextCoreDataDemo.xcdatamodeld in Sources */,

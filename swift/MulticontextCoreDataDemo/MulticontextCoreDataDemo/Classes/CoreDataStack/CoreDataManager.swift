@@ -87,4 +87,15 @@ class CoreDataManager: NSObject {
             }
         }
     }
+    
+    // MARK: - Person operations
+    
+    func savePerson(#name: String, surname: String) {
+        let person = NSEntityDescription.insertNewObjectForEntityForName("Person", inManagedObjectContext: self.managedObjectContext!) as Person
+        person.name = name
+        person.surname = surname
+        
+        saveContext()
+    }
+
 }
