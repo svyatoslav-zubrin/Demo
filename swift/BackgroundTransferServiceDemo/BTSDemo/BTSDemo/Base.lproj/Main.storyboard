@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rvI-dP-K1h">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--BTS Demo-->
+        <scene sceneID="Pht-lN-vYG">
+            <objects>
+                <tableViewController id="DeV-cw-hQe" customClass="MainTableViewController" customModule="BTSDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="22" sectionFooterHeight="22" id="FHc-JN-GAJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="5Rh-CT-dvO">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <items>
+                                <barButtonItem systemItem="play" id="Mh4-Ep-ptE">
+                                    <connections>
+                                        <action selector="startAllDownload:" destination="DeV-cw-hQe" id="rqU-Rv-gcC"/>
+                                    </connections>
+                                </barButtonItem>
+                                <barButtonItem systemItem="pause" id="SLn-K7-t65">
+                                    <connections>
+                                        <action selector="stopAllDownload:" destination="DeV-cw-hQe" id="i8w-xR-Fnf"/>
+                                    </connections>
+                                </barButtonItem>
+                                <barButtonItem style="plain" systemItem="flexibleSpace" id="ChT-vv-LYH"/>
+                                <barButtonItem systemItem="refresh" id="Iab-B3-zjK">
+                                    <connections>
+                                        <action selector="initializeAll:" destination="DeV-cw-hQe" id="50y-gR-kT0"/>
+                                    </connections>
+                                </barButtonItem>
+                            </items>
+                        </toolbar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="idCell" rowHeight="66" id="zGP-6z-IUl">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zGP-6z-IUl" id="RAT-Wd-w6Y">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nFi-xX-83w">
+                                            <rect key="frame" x="22" y="16" width="459" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="mod-pD-zZw"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADk-s8-fbS">
+                                            <rect key="frame" x="495" y="15" width="22" height="22"/>
+                                            <color key="backgroundColor" red="1" green="0.80000001192092896" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="22" id="cwL-z3-Os7"/>
+                                                <constraint firstAttribute="height" constant="22" id="wSN-xg-15I"/>
+                                            </constraints>
+                                            <state key="normal" image="play">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="startOrPauseSingleFileDownload:" destination="DeV-cw-hQe" eventType="touchUpInside" id="79g-OE-QAv"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpr-hm-UK2">
+                                            <rect key="frame" x="549" y="15" width="22" height="22"/>
+                                            <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="07m-DI-HY6"/>
+                                                <constraint firstAttribute="width" constant="22" id="ysq-tF-93F"/>
+                                            </constraints>
+                                            <state key="normal" image="stop">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="stopSingleFileDownload:" destination="DeV-cw-hQe" eventType="touchUpInside" id="bT8-Ts-Ynh"/>
+                                            </connections>
+                                        </button>
+                                        <progressView opaque="NO" tag="40" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="QbN-60-p2u">
+                                            <rect key="frame" x="22" y="45" width="549" height="2"/>
+                                        </progressView>
+                                        <button opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eqA-Qf-M6C">
+                                            <rect key="frame" x="549" y="15" width="22" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="22" id="1Wa-DB-HQX"/>
+                                                <constraint firstAttribute="height" constant="22" id="bZ9-aO-iJ1"/>
+                                            </constraints>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="showFilePreview:" destination="DeV-cw-hQe" eventType="touchUpInside" id="oip-eu-vgW"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="eqA-Qf-M6C" secondAttribute="trailing" constant="21" id="2X9-Nw-l1k"/>
+                                        <constraint firstItem="eqA-Qf-M6C" firstAttribute="top" secondItem="RAT-Wd-w6Y" secondAttribute="topMargin" constant="7" id="3hp-3T-lsM"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="QbN-60-p2u" secondAttribute="bottom" constant="10" id="C03-Kh-Fw2"/>
+                                        <constraint firstItem="ADk-s8-fbS" firstAttribute="top" secondItem="RAT-Wd-w6Y" secondAttribute="topMargin" constant="7" id="GPv-FT-UX4"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="QbN-60-p2u" secondAttribute="trailing" constant="21" id="KU2-Ay-xqh"/>
+                                        <constraint firstItem="nFi-xX-83w" firstAttribute="top" secondItem="RAT-Wd-w6Y" secondAttribute="topMargin" constant="8" id="QgI-ER-fFF"/>
+                                        <constraint firstItem="QbN-60-p2u" firstAttribute="leading" secondItem="RAT-Wd-w6Y" secondAttribute="leadingMargin" constant="14" id="gcO-H1-L0f"/>
+                                        <constraint firstItem="zpr-hm-UK2" firstAttribute="leading" secondItem="ADk-s8-fbS" secondAttribute="trailing" constant="32" id="gkS-ca-fVW"/>
+                                        <constraint firstItem="zpr-hm-UK2" firstAttribute="top" secondItem="RAT-Wd-w6Y" secondAttribute="topMargin" constant="7" id="gmG-U0-ddc"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="zpr-hm-UK2" secondAttribute="trailing" constant="21" id="iQE-Su-gOY"/>
+                                        <constraint firstItem="nFi-xX-83w" firstAttribute="leading" secondItem="RAT-Wd-w6Y" secondAttribute="leadingMargin" constant="14" id="ryz-WE-yvd"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="DeV-cw-hQe" id="Ogj-3a-lYi"/>
+                            <outlet property="delegate" destination="DeV-cw-hQe" id="BCa-kK-hCH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="BTS Demo" id="Ocb-WY-XYO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OF7-I9-IUI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1293" y="170"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0Nh-43-xad">
+            <objects>
+                <navigationController id="rvI-dP-K1h" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DLk-lg-kuQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="DeV-cw-hQe" kind="relationship" relationship="rootViewController" id="8aw-I1-miR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hgt-X4-EBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="473" y="175"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="play" width="25" height="25"/>
+        <image name="stop" width="25" height="25"/>
+    </resources>
+</document>
