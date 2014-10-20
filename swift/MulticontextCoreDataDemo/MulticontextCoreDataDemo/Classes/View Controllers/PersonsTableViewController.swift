@@ -29,11 +29,13 @@ class PersonsTableViewController
         frc = getFetchedResultController()
         frc.delegate = self
         
-        var error: NSError? = nil
-        frc.performFetch(&error)
-        if error != nil {
-            println("Error fetching persons: \(error!.localizedDescription)")
-        }
+        fetchData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchData()
     }
 
     // MARK: - Table view data source
@@ -43,8 +45,6 @@ class PersonsTableViewController
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
         return frc.sections![section].numberOfObjects
     }
     
@@ -70,12 +70,24 @@ class PersonsTableViewController
     
     func personsFetchRequest() -> NSFetchRequest {
         let fetchRequest = NSFetchRequest(entityName: "Person")
-//        let sortDescriptor = NSSortDescriptor(key: "surname", ascending: true)
-//        fetchRequest.sortDescriptors = [sortDescriptor]
+        let sortDescriptor = NSSortDescriptor(key: "surname", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        println(fetchRequest)
         return fetchRequest
     }
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.reloadData()
     }
+    
+    // MARK: - Private
+    
+    func fetchData() {
+        var error: NSError? = nil
+        frc.performFetch(&error)
+        if error != nil {
+            println("Error fetching persons: \(error!.localizedDescription)")
+        }
+    }
+
 }

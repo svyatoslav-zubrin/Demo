@@ -8,7 +8,7 @@
         <!--Persons-->
         <scene sceneID="Nuo-vO-ghB">
             <objects>
-                <tableViewController id="8Aa-CV-Sfo" sceneMemberID="viewController">
+                <tableViewController id="8Aa-CV-Sfo" customClass="PersonsTableViewController" customModule="MulticontextCoreDataDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Kuq-Mu-EVh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
