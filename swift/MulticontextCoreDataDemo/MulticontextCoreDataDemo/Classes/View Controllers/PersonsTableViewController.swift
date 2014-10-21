@@ -13,6 +13,8 @@ class PersonsTableViewController
     : UITableViewController
     , NSFetchedResultsControllerDelegate
 {
+    // MARK: - Properties
+    
     var frc: NSFetchedResultsController = NSFetchedResultsController()
     
     // MARK: - View life cycle
@@ -32,13 +34,7 @@ class PersonsTableViewController
         fetchData()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        fetchData()
-    }
-
-    // MARK: - Table view data source
+    // MARK: - UITableView data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return frc.sections!.count
@@ -52,19 +48,28 @@ class PersonsTableViewController
         let cell = tableView.dequeueReusableCellWithIdentifier("personCellIdentifier", forIndexPath: indexPath) as UITableViewCell
         
         let person = frc.objectAtIndexPath(indexPath) as Person
-        cell.textLabel?.text = "\(person.surname) \(person.name)"
+        cell.textLabel.text = "\(person.surname) \(person.name)"
         
         return cell
     }
 
-    // MARK: - CoreData fetching
+    // MARK: - NSFetchedResultsController delegate
+
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        tableView.reloadData()
+    }
+}
+
+// MARK: - Private
+
+private extension PersonsTableViewController {
 
     func getFetchedResultController() -> NSFetchedResultsController {
-        let moc = CoreDataManager.sharedManager.managedObjectContext
+        let moc = CoreDataManager.sharedManager.rMOC
         frc = NSFetchedResultsController(fetchRequest: personsFetchRequest(),
-                                         managedObjectContext: moc!,
-                                         sectionNameKeyPath: nil,
-                                         cacheName: nil)
+            managedObjectContext: moc!,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
         return frc
     }
     
@@ -72,15 +77,8 @@ class PersonsTableViewController
         let fetchRequest = NSFetchRequest(entityName: "Person")
         let sortDescriptor = NSSortDescriptor(key: "surname", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        println(fetchRequest)
         return fetchRequest
     }
-    
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        tableView.reloadData()
-    }
-    
-    // MARK: - Private
     
     func fetchData() {
         var error: NSError? = nil
@@ -89,5 +87,4 @@ class PersonsTableViewController
             println("Error fetching persons: \(error!.localizedDescription)")
         }
     }
-
 }

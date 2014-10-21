@@ -15,21 +15,12 @@ class PersonDetailsViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var surnameTextField: UITextField!
     
-    // MARK: - View life cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
     // MARK: - User actions
 
     @IBAction func createAction(sender: AnyObject) {
         if isFormValid() {
             let name = nameTextField.text
             let surname = surnameTextField.text
-            println("\(name) \(surname)")
             createPerson(name: name, surname: surname)
             self.navigationController?.popViewControllerAnimated(true)
             
@@ -46,9 +37,22 @@ class PersonDetailsViewController: UIViewController {
         }
     }
 
-    // MARK: - Private
+    /*
+    // MARK: - Navigation
     
-    private func isFormValid() -> Bool {
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
+    }
+    */
+}
+
+// MARK: - Private
+
+private extension PersonDetailsViewController {
+    
+    func isFormValid() -> Bool {
         if let name = nameTextField.text {
             if let surname = surnameTextField.text {
                 if !name.isEmpty && !surname.isEmpty {
@@ -59,19 +63,7 @@ class PersonDetailsViewController: UIViewController {
         return false
     }
     
-    private func createPerson(#name: String, surname: String) {
-        CoreDataManager.sharedManager.savePerson(name: name, surname: surname)
+    func createPerson(#name: String, surname: String) {
+        Person.save(name: name, surname: surname)
     }
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

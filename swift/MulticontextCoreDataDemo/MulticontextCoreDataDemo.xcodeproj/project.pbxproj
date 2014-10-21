@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8468E88419F69BD000F5954B /* Person+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8468E88319F69BD000F5954B /* Person+Utils.swift */; };
 		84A454A519F13B34003483CE /* PersonsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454A419F13B34003483CE /* PersonsTableViewController.swift */; };
 		84A454A719F13CCC003483CE /* PersonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454A619F13CCC003483CE /* PersonDetailsViewController.swift */; };
 		84A454AA19F13E4C003483CE /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454A919F13E4C003483CE /* Person.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8468E88319F69BD000F5954B /* Person+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Person+Utils.swift"; path = "Classes/CoreDataStack/Model/Person+Utils.swift"; sourceTree = "<group>"; };
 		84A454A419F13B34003483CE /* PersonsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonsTableViewController.swift; path = "Classes/View Controllers/PersonsTableViewController.swift"; sourceTree = "<group>"; };
 		84A454A619F13CCC003483CE /* PersonDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonDetailsViewController.swift; path = "Classes/View Controllers/PersonDetailsViewController.swift"; sourceTree = "<group>"; };
 		84A454A919F13E4C003483CE /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Person.swift; path = Classes/CoreDataStack/Model/Person.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				84A454A919F13E4C003483CE /* Person.swift */,
+				8468E88319F69BD000F5954B /* Person+Utils.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				D7CD46F519F03438004BA803 /* AppDelegate.swift in Sources */,
 				D7CD471B19F0352E004BA803 /* CoreDataManager.swift in Sources */,
 				D7CD46F819F03438004BA803 /* MulticontextCoreDataDemo.xcdatamodeld in Sources */,
+				8468E88419F69BD000F5954B /* Person+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
