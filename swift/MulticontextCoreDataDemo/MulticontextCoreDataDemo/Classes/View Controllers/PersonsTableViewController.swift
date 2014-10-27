@@ -74,10 +74,21 @@ private extension PersonsTableViewController {
     }
     
     func personsFetchRequest() -> NSFetchRequest {
-        let fetchRequest = NSFetchRequest(entityName: "Person")
+        var fr: NSFetchRequest? = nil
+        
+        let mom = CoreDataManager.sharedManager.MOM
+        if let fetchRequest = mom.fetchRequestFromTemplateWithName("getAllPersons", substitutionVariables: [NSObject: AnyObject]()) {
+            // fetch request from the model
+            fr = fetchRequest
+        } else {
+            // manually created fetch request
+            fr = NSFetchRequest(entityName: "Person")
+        }
+
         let sortDescriptor = NSSortDescriptor(key: "surname", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        return fetchRequest
+        fr!.sortDescriptors = [sortDescriptor]
+        
+        return fr!
     }
     
     func fetchData() {
