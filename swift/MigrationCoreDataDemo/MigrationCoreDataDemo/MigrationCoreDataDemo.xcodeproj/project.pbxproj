@@ -39,6 +39,7 @@
 		8D9D983F1A0579A900ABEA40 /* CDMUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDMUtils.swift; path = Classes/Controllers/CDMUtils.swift; sourceTree = "<group>"; };
 		8DC1BD5F1A0787D0001B5F50 /* MigrationCoreDataDemo v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MigrationCoreDataDemo v2.xcdatamodel"; sourceTree = "<group>"; };
 		8DC1BD601A078AD0001B5F50 /* CDMImageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDMImageTransformer.swift; path = Classes/CoreDataStack/ValueTransformers/CDMImageTransformer.swift; sourceTree = "<group>"; };
+		8DC1BD631A07B937001B5F50 /* MigrationCoreDataDemo v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MigrationCoreDataDemo v3.xcdatamodel"; sourceTree = "<group>"; };
 		8DFCEB101A055FD90067DFEB /* MigrationCoreDataDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MigrationCoreDataDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DFCEB141A055FD90067DFEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DFCEB151A055FD90067DFEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -495,10 +496,11 @@
 		8DFCEB171A055FD90067DFEB /* MigrationCoreDataDemo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				8DC1BD631A07B937001B5F50 /* MigrationCoreDataDemo v3.xcdatamodel */,
 				8DC1BD5F1A0787D0001B5F50 /* MigrationCoreDataDemo v2.xcdatamodel */,
 				8DFCEB181A055FD90067DFEB /* MigrationCoreDataDemo.xcdatamodel */,
 			);
-			currentVersion = 8DC1BD5F1A0787D0001B5F50 /* MigrationCoreDataDemo v2.xcdatamodel */;
+			currentVersion = 8DC1BD631A07B937001B5F50 /* MigrationCoreDataDemo v3.xcdatamodel */;
 			path = MigrationCoreDataDemo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

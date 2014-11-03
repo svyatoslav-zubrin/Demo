@@ -12,7 +12,7 @@ class CDMImageTransformer: NSValueTransformer
 {
     override class func transformedValueClass() -> AnyClass
     {
-        return UIImage.self
+        return NSData.self
     }
     
     class override func allowsReverseTransformation() -> Bool
@@ -31,7 +31,7 @@ class CDMImageTransformer: NSValueTransformer
         }
         
         let image: UIImage = value as UIImage
-        return UIImageJPEGRepresentation(image, 0.0)
+        return UIImagePNGRepresentation(image)
         
         // TODO: correct bridging and conversions
 //        CGDataProviderRef provider = CGImageGetDataProvider(image.CGImage);
@@ -48,6 +48,7 @@ class CDMImageTransformer: NSValueTransformer
         }
         
         let data: NSData = value as NSData
-        return UIImage(data: data)
+        let image = UIImage(data: data)
+        return image
     }
 }

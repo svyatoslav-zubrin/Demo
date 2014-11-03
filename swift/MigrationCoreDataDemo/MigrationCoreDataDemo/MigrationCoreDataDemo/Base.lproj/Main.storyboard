@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="EAj-EG-DaG" style="IBUITableViewCellStyleDefault" id="ZtW-Lq-ZEO">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="EAj-EG-DaG" style="IBUITableViewCellStyleDefault" id="ZtW-Lq-ZEO">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZtW-Lq-ZEO" id="TgR-LA-DMm">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -45,6 +45,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Notes" id="wTP-8A-aUZ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="csF-nr-fL1">
+                            <connections>
+                                <action selector="editAction:" destination="vXZ-lx-hvc" id="a11-Jb-pmh"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="6uG-u9-X7f">
                             <connections>
                                 <segue destination="RDP-pK-eXK" kind="show" identifier="NotesListToNewNote" id="QQa-4S-OiF"/>

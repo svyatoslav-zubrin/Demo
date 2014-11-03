@@ -37,12 +37,20 @@ class CDMNotesViewController
         }
     }
 
-    override func didReceiveMemoryWarning()
+    override func viewWillAppear(animated: Bool)
     {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        super.viewWillAppear(animated)
+        
+        self.selectedIndexPath = nil
     }
+    
+    // MARK: - User actions
 
+    @IBAction func editAction(sender: AnyObject?)
+    {
+        self.notesTableView.setEditing(!self.notesTableView.editing, animated: true)
+    }
+    
     // MARK: - UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
@@ -80,6 +88,7 @@ class CDMNotesViewController
 
             if let image = note.image
             {
+                println("Image != nil")
                 cell.imageView.image = image
             }
             else
@@ -91,6 +100,12 @@ class CDMNotesViewController
         return cell
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    {
+        return true
+    }
+    
+    
     // MARK: - UITableViewDelegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
@@ -101,6 +116,32 @@ class CDMNotesViewController
         self.performSegueWithIdentifier("NotesListToNewNote", sender: self)
     }
 
+    func tableView(tableView: UITableView,
+                   commitEditingStyle editingStyle: UITableViewCellEditingStyle,
+                   forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        if editingStyle == UITableViewCellEditingStyle.Delete
+        {
+            
+            self.deleteNoteAtIndexPath(indexPath){ (error: NSError?) -> Void in
+                if let err = error
+                {
+                    println("Unable to delete note: \(err.localizedDescription)")
+                }
+                else
+                {
+                    println("Note was deleted")
+                    self.notesTableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    func tableView(tableView: UITableView,
+                   editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle
+    {
+        return UITableViewCellEditingStyle.Delete
+    }
     
     // MARK: - NSFetchedResultsControllerDelegate
     
@@ -111,7 +152,6 @@ class CDMNotesViewController
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         if self.selectedIndexPath != nil
@@ -149,5 +189,15 @@ private extension CDMNotesViewController
     func notesSortByDateDescriptor() -> NSSortDescriptor
     {
         return NSSortDescriptor(key: "dateCreated", ascending: true)
+    }
+    
+    func deleteNoteAtIndexPath(indexPath: NSIndexPath, resultHandler: (error: NSError?) -> Void )
+    {
+        if let note = self.frc!.objectAtIndexPath(indexPath) as? Note
+        {
+            let moc = CDMCoreDataManager.sharedManager.moc!
+            moc.deleteObject(note)
+            CDMCoreDataManager.sharedManager.saveContext()
+        }
     }
 }
