@@ -10,7 +10,8 @@
 		8468E88419F69BD000F5954B /* Person+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8468E88319F69BD000F5954B /* Person+Utils.swift */; };
 		84A454A519F13B34003483CE /* PersonsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454A419F13B34003483CE /* PersonsTableViewController.swift */; };
 		84A454A719F13CCC003483CE /* PersonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454A619F13CCC003483CE /* PersonDetailsViewController.swift */; };
-		84A454AA19F13E4C003483CE /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454A919F13E4C003483CE /* Person.swift */; };
+		8DC51B2D19FFC78700ACCCAA /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC51B2C19FFC78700ACCCAA /* Person.swift */; };
+		8DC51B2F19FFCA0900ACCCAA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC51B2E19FFCA0900ACCCAA /* Color.swift */; };
 		D7CD46F519F03438004BA803 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD46F419F03438004BA803 /* AppDelegate.swift */; };
 		D7CD46F819F03438004BA803 /* MulticontextCoreDataDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7CD46F619F03438004BA803 /* MulticontextCoreDataDemo.xcdatamodeld */; };
 		D7CD46FD19F03438004BA803 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7CD46FB19F03438004BA803 /* Main.storyboard */; };
@@ -35,7 +36,8 @@
 		8468E88319F69BD000F5954B /* Person+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Person+Utils.swift"; path = "Classes/CoreDataStack/Model/Person+Utils.swift"; sourceTree = "<group>"; };
 		84A454A419F13B34003483CE /* PersonsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonsTableViewController.swift; path = "Classes/View Controllers/PersonsTableViewController.swift"; sourceTree = "<group>"; };
 		84A454A619F13CCC003483CE /* PersonDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonDetailsViewController.swift; path = "Classes/View Controllers/PersonDetailsViewController.swift"; sourceTree = "<group>"; };
-		84A454A919F13E4C003483CE /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Person.swift; path = Classes/CoreDataStack/Model/Person.swift; sourceTree = "<group>"; };
+		8DC51B2C19FFC78700ACCCAA /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Person.swift; path = Classes/CoreDataStack/Model/Person.swift; sourceTree = "<group>"; };
+		8DC51B2E19FFCA0900ACCCAA /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = Classes/CoreDataStack/Model/Color.swift; sourceTree = "<group>"; };
 		D7CD46EF19F03438004BA803 /* MulticontextCoreDataDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MulticontextCoreDataDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7CD46F319F03438004BA803 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7CD46F419F03438004BA803 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,7 +82,8 @@
 		84A454A819F13E26003483CE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				84A454A919F13E4C003483CE /* Person.swift */,
+				8DC51B2C19FFC78700ACCCAA /* Person.swift */,
+				8DC51B2E19FFCA0900ACCCAA /* Color.swift */,
 				8468E88319F69BD000F5954B /* Person+Utils.swift */,
 			);
 			name = Model;
@@ -263,11 +266,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84A454AA19F13E4C003483CE /* Person.swift in Sources */,
 				84A454A719F13CCC003483CE /* PersonDetailsViewController.swift in Sources */,
 				84A454A519F13B34003483CE /* PersonsTableViewController.swift in Sources */,
 				D7CD46F519F03438004BA803 /* AppDelegate.swift in Sources */,
 				D7CD471B19F0352E004BA803 /* CoreDataManager.swift in Sources */,
+				8DC51B2D19FFC78700ACCCAA /* Person.swift in Sources */,
+				8DC51B2F19FFCA0900ACCCAA /* Color.swift in Sources */,
 				D7CD46F819F03438004BA803 /* MulticontextCoreDataDemo.xcdatamodeld in Sources */,
 				8468E88419F69BD000F5954B /* Person+Utils.swift in Sources */,
 			);

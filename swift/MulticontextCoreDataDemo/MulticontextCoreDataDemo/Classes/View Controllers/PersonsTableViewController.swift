@@ -48,7 +48,7 @@ class PersonsTableViewController
         let cell = tableView.dequeueReusableCellWithIdentifier("personCellIdentifier", forIndexPath: indexPath) as UITableViewCell
         
         let person = frc.objectAtIndexPath(indexPath) as Person
-        cell.textLabel.text = "\(person.surname) \(person.name)"
+        cell.textLabel.text = "\(person.surname) \(person.name) \(person.favoriteColor.toString())"
         
         return cell
     }

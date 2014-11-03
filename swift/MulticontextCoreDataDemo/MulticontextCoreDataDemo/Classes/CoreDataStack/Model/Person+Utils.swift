@@ -19,6 +19,7 @@ extension Person {
                 let person = NSEntityDescription.insertNewObjectForEntityForName("Person", inManagedObjectContext: moc) as Person
                 person.name = name
                 person.surname = surname
+                person.favoriteColor = Color(Color.AvalableColors.red)
             })
             CoreDataManager.sharedManager.saveContext()
         }
