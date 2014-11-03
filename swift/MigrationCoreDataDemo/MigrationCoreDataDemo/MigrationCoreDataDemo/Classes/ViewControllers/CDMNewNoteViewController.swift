@@ -12,11 +12,16 @@ import CoreData
 
 class CDMNewNoteViewController
     : UIViewController
+    , UINavigationControllerDelegate
+    , UIImagePickerControllerDelegate
 {
     // MARK: - Properties
 
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var bodyTextView: UITextView!
+    @IBOutlet weak var imageButton: UIButton!
+    
+    var selectedImage: UIImage? = nil
     
     // MARK: - View lifecycle
     
@@ -43,6 +48,28 @@ class CDMNewNoteViewController
         }
         
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @IBAction func selectImage(sender: AnyObject)
+    {
+        self.presentImagePicker()
+    }
+    
+    // MARK: - UIImagePickerControllerDelegate
+    
+    func imagePickerController(picker: UIImagePickerController!,
+                               didFinishPickingImage image: UIImage!,
+                               editingInfo: [NSObject : AnyObject]!)
+    {
+        self.selectedImage = image
+        self.imageButton.setImage(self.selectedImage, forState: UIControlState.Normal)
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController)
+    {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     /*
@@ -75,7 +102,30 @@ private extension CDMNewNoteViewController
         note.title = self.titleTextField.text
         note.body  = self.bodyTextView.text
         note.dateCreated = NSDate()
+        if let image = self.selectedImage
+        {
+            note.image = image
+        }
         
         CDMCoreDataManager.sharedManager.saveContext()
+    }
+    
+    func presentImagePicker()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary)
+        {
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            imagePicker.delegate = self
+            
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Sorry...", message: "The photo library unavailable", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: nil))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
 }

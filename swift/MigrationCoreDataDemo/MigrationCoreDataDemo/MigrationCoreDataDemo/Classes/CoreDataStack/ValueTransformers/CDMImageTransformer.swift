@@ -10,7 +10,6 @@ import UIKit
 
 class CDMImageTransformer: NSValueTransformer
 {
-   
     override class func transformedValueClass() -> AnyClass
     {
         return UIImage.self
@@ -51,5 +50,4 @@ class CDMImageTransformer: NSValueTransformer
         let data: NSData = value as NSData
         return UIImage(data: data)
     }
-    
 }

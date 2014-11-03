@@ -76,6 +76,15 @@ class CDMNotesViewController
         if let note = self.frc!.objectAtIndexPath(indexPath) as? Note
         {
             cell.textLabel.text = note.title
+
+            if let image = note.image
+            {
+                cell.imageView.image = image
+            }
+            else
+            {
+                println("Image == nil")
+            }
         }
         
         return cell

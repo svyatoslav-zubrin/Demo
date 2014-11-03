@@ -89,14 +89,28 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPK-Eu-9Pb">
+                                <rect key="frame" x="16" y="250" width="568" height="342"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Select image from gallery">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectImage:" destination="RDP-pK-eXK" eventType="touchUpInside" id="qvs-G0-ljo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FT4-zb-YXP" firstAttribute="top" secondItem="ASL-Uj-bur" secondAttribute="bottom" constant="8" id="20S-GT-O3a"/>
                             <constraint firstItem="ASL-Uj-bur" firstAttribute="top" secondItem="OQ0-1X-iLB" secondAttribute="bottom" constant="8" id="427-cs-JXi"/>
                             <constraint firstItem="FT4-zb-YXP" firstAttribute="leading" secondItem="0BP-Kr-HwK" secondAttribute="leadingMargin" id="9mj-s2-xMX"/>
+                            <constraint firstItem="sPK-Eu-9Pb" firstAttribute="trailing" secondItem="0BP-Kr-HwK" secondAttribute="trailingMargin" id="Aiz-y4-uJX"/>
+                            <constraint firstItem="sPK-Eu-9Pb" firstAttribute="top" secondItem="FT4-zb-YXP" secondAttribute="bottom" constant="8" id="LCn-w3-gQ0"/>
                             <constraint firstItem="FT4-zb-YXP" firstAttribute="trailing" secondItem="0BP-Kr-HwK" secondAttribute="trailingMargin" id="Xvh-QL-Zc3"/>
+                            <constraint firstItem="sPK-Eu-9Pb" firstAttribute="leading" secondItem="0BP-Kr-HwK" secondAttribute="leadingMargin" id="gvg-d2-dIL"/>
                             <constraint firstItem="ASL-Uj-bur" firstAttribute="trailing" secondItem="0BP-Kr-HwK" secondAttribute="trailingMargin" id="iTT-aQ-Ing"/>
+                            <constraint firstItem="0A6-vq-l4X" firstAttribute="top" secondItem="sPK-Eu-9Pb" secondAttribute="bottom" constant="8" id="qhz-tN-S9c"/>
                             <constraint firstItem="ASL-Uj-bur" firstAttribute="leading" secondItem="0BP-Kr-HwK" secondAttribute="leadingMargin" id="zba-U5-l9e"/>
                         </constraints>
                     </view>
@@ -109,6 +123,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bodyTextView" destination="FT4-zb-YXP" id="V8O-xO-PGR"/>
+                        <outlet property="imageButton" destination="sPK-Eu-9Pb" id="nTx-im-Krt"/>
                         <outlet property="titleTextField" destination="ASL-Uj-bur" id="8x9-IJ-Ixb"/>
                     </connections>
                 </viewController>
