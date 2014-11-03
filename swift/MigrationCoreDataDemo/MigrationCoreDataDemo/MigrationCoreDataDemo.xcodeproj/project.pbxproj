@@ -12,6 +12,7 @@
 		8D9D983A1A05778400ABEA40 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D98391A05778400ABEA40 /* Note.swift */; };
 		8D9D983D1A05791A00ABEA40 /* CDMCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D983C1A05791A00ABEA40 /* CDMCoreDataManager.swift */; };
 		8D9D98401A0579A900ABEA40 /* CDMUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D983F1A0579A900ABEA40 /* CDMUtils.swift */; };
+		8DC1BD611A078AD0001B5F50 /* CDMImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1BD601A078AD0001B5F50 /* CDMImageTransformer.swift */; };
 		8DFCEB161A055FD90067DFEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFCEB151A055FD90067DFEB /* AppDelegate.swift */; };
 		8DFCEB191A055FDA0067DFEB /* MigrationCoreDataDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8DFCEB171A055FD90067DFEB /* MigrationCoreDataDemo.xcdatamodeld */; };
 		8DFCEB1E1A055FDA0067DFEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DFCEB1C1A055FDA0067DFEB /* Main.storyboard */; };
@@ -36,6 +37,8 @@
 		8D9D98391A05778400ABEA40 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Note.swift; path = Classes/CoreDataStack/Model/Note.swift; sourceTree = "<group>"; };
 		8D9D983C1A05791A00ABEA40 /* CDMCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDMCoreDataManager.swift; path = Classes/CoreDataStack/CDMCoreDataManager.swift; sourceTree = "<group>"; };
 		8D9D983F1A0579A900ABEA40 /* CDMUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDMUtils.swift; path = Classes/Controllers/CDMUtils.swift; sourceTree = "<group>"; };
+		8DC1BD5F1A0787D0001B5F50 /* MigrationCoreDataDemo v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MigrationCoreDataDemo v2.xcdatamodel"; sourceTree = "<group>"; };
+		8DC1BD601A078AD0001B5F50 /* CDMImageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDMImageTransformer.swift; path = Classes/CoreDataStack/ValueTransformers/CDMImageTransformer.swift; sourceTree = "<group>"; };
 		8DFCEB101A055FD90067DFEB /* MigrationCoreDataDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MigrationCoreDataDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DFCEB141A055FD90067DFEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DFCEB151A055FD90067DFEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,9 +91,10 @@
 		8D9D98381A0575E400ABEA40 /* CoreDataStack */ = {
 			isa = PBXGroup;
 			children = (
+				8D9D983C1A05791A00ABEA40 /* CDMCoreDataManager.swift */,
 				8DFCEB171A055FD90067DFEB /* MigrationCoreDataDemo.xcdatamodeld */,
 				8D9D983B1A05778C00ABEA40 /* Model */,
-				8D9D983C1A05791A00ABEA40 /* CDMCoreDataManager.swift */,
+				8DC1BD621A0796F7001B5F50 /* ValueTransformers */,
 			);
 			name = CoreDataStack;
 			sourceTree = "<group>";
@@ -109,6 +113,14 @@
 				8D9D983F1A0579A900ABEA40 /* CDMUtils.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		8DC1BD621A0796F7001B5F50 /* ValueTransformers */ = {
+			isa = PBXGroup;
+			children = (
+				8DC1BD601A078AD0001B5F50 /* CDMImageTransformer.swift */,
+			);
+			name = ValueTransformers;
 			sourceTree = "<group>";
 		};
 		8DFCEB071A055FD90067DFEB = {
@@ -273,6 +285,7 @@
 				8DFCEB161A055FD90067DFEB /* AppDelegate.swift in Sources */,
 				8D9D98401A0579A900ABEA40 /* CDMUtils.swift in Sources */,
 				8D11BF711A05849A004331A8 /* CDMNewNoteViewController.swift in Sources */,
+				8DC1BD611A078AD0001B5F50 /* CDMImageTransformer.swift in Sources */,
 				8D9D983A1A05778400ABEA40 /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,9 +495,10 @@
 		8DFCEB171A055FD90067DFEB /* MigrationCoreDataDemo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				8DC1BD5F1A0787D0001B5F50 /* MigrationCoreDataDemo v2.xcdatamodel */,
 				8DFCEB181A055FD90067DFEB /* MigrationCoreDataDemo.xcdatamodel */,
 			);
-			currentVersion = 8DFCEB181A055FD90067DFEB /* MigrationCoreDataDemo.xcdatamodel */;
+			currentVersion = 8DC1BD5F1A0787D0001B5F50 /* MigrationCoreDataDemo v2.xcdatamodel */;
 			path = MigrationCoreDataDemo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

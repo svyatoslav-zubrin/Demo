@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import CoreData
 
 class Note: NSManagedObject {
@@ -15,5 +16,6 @@ class Note: NSManagedObject {
     @NSManaged var title: String
     @NSManaged var dateCreated: NSDate
     @NSManaged var displayIndex: NSNumber
+    @NSManaged var image: UIImage?
 
 }

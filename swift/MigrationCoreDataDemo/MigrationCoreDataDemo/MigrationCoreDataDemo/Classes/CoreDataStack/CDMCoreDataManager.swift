@@ -20,6 +20,11 @@ class CDMCoreDataManager: NSObject {
         return Singleton.instance
     }
 
+    // MARK: - Properties
+    
+    var options: NSDictionary = [NSMigratePersistentStoresAutomaticallyOption: true,
+                                 NSInferMappingModelAutomaticallyOption      : true]
+    
     // MARK: - Core Data stack
     
     lazy var mom: NSManagedObjectModel = {
@@ -35,7 +40,7 @@ class CDMCoreDataManager: NSObject {
         let url = CDMUtils.sharedInstance.applicationDocumentsDirectory.URLByAppendingPathComponent("MigrationCoreDataDemo.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: self.options, error: &error) == nil {
             coordinator = nil
             // Report any error we got.
             let dict = NSMutableDictionary()
