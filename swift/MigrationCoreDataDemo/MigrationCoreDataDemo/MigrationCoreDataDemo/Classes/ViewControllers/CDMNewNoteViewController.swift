@@ -62,7 +62,7 @@ class CDMNewNoteViewController
                                editingInfo: [NSObject : AnyObject]!)
     {
         self.selectedImage = image
-        self.imageButton.setImage(self.selectedImage, forState: UIControlState.Normal)
+        self.imageButton.setBackgroundImage(self.selectedImage, forState: UIControlState.Normal)
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
