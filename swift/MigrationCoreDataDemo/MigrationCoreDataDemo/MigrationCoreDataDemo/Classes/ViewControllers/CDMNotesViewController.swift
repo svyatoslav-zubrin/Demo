@@ -107,7 +107,7 @@ private extension CDMNotesViewController
     func prepareFRC() -> Void
     {
         var fr = NSFetchRequest(entityName: "Note")
-        fr.sortDescriptors = [self.notesSortDescriptor()]
+        fr.sortDescriptors = [self.notesSortByDateDescriptor()]
         self.frc = NSFetchedResultsController(fetchRequest: fr,
                                               managedObjectContext: CDMCoreDataManager.sharedManager.moc!,
                                               sectionNameKeyPath: nil,
@@ -115,8 +115,13 @@ private extension CDMNotesViewController
         self.frc!.delegate = self
     }
     
-    func notesSortDescriptor() -> NSSortDescriptor
+    func notesSortByTitleDescriptor() -> NSSortDescriptor
     {
         return NSSortDescriptor(key: "title", ascending: true)
+    }
+    
+    func notesSortByDateDescriptor() -> NSSortDescriptor
+    {
+        return NSSortDescriptor(key: "dateCreated", ascending: true)
     }
 }

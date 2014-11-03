@@ -76,7 +76,6 @@ private extension CDMNewNoteViewController
         note.body  = self.bodyTextView.text
         note.dateCreated = NSDate()
         
-        moc.insertObject(note)
         CDMCoreDataManager.sharedManager.saveContext()
     }
 }
