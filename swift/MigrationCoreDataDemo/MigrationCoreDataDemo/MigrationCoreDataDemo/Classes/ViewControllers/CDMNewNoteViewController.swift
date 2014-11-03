@@ -20,8 +20,10 @@ class CDMNewNoteViewController
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var imageButton: UIButton!
-    
-    var selectedImage: UIImage? = nil
+    @IBOutlet weak var saveBBI: UIBarButtonItem!
+
+    var note: Note? = nil
+    private var selectedImage: UIImage? = nil
     
     // MARK: - View lifecycle
     
@@ -30,12 +32,17 @@ class CDMNewNoteViewController
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        if let note = self.note
+        {
+            self.titleTextField.text = note.title
+            self.bodyTextView.text = note.body
+            if let image = note.image
+            {
+                self.imageButton.setBackgroundImage(image, forState: UIControlState.Normal)
+            }
+            
+            self.saveBBI.enabled = false
+        }
     }
 
     // MARK: - User actions
@@ -52,7 +59,10 @@ class CDMNewNoteViewController
     
     @IBAction func selectImage(sender: AnyObject)
     {
-        self.presentImagePicker()
+        if self.note == nil
+        {
+            self.presentImagePicker()
+        }
     }
     
     // MARK: - UIImagePickerControllerDelegate
@@ -87,7 +97,6 @@ class CDMNewNoteViewController
 
 private extension CDMNewNoteViewController
 {
-    
     func validateForm() -> Bool
     {
         return !self.titleTextField.text.isEmpty && !self.bodyTextView.text.isEmpty
@@ -122,7 +131,9 @@ private extension CDMNewNoteViewController
         }
         else
         {
-            let alert = UIAlertController(title: "Sorry...", message: "The photo library unavailable", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Sorry...",
+                                          message: "The photo library unavailable",
+                                          preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: nil))
             
             self.presentViewController(alert, animated: true, completion: nil)

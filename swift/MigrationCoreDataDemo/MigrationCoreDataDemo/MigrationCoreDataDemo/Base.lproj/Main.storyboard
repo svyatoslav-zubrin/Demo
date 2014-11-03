@@ -47,7 +47,7 @@
                     <navigationItem key="navigationItem" title="Notes" id="wTP-8A-aUZ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="6uG-u9-X7f">
                             <connections>
-                                <segue destination="RDP-pK-eXK" kind="show" id="QQa-4S-OiF"/>
+                                <segue destination="RDP-pK-eXK" kind="show" identifier="NotesListToNewNote" id="QQa-4S-OiF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -124,6 +124,7 @@
                     <connections>
                         <outlet property="bodyTextView" destination="FT4-zb-YXP" id="V8O-xO-PGR"/>
                         <outlet property="imageButton" destination="sPK-Eu-9Pb" id="nTx-im-Krt"/>
+                        <outlet property="saveBBI" destination="boG-05-eGJ" id="39e-2v-1Wq"/>
                         <outlet property="titleTextField" destination="ASL-Uj-bur" id="8x9-IJ-Ixb"/>
                     </connections>
                 </viewController>
