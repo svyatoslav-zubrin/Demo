@@ -20,6 +20,7 @@ class CDMNotesViewController
     @IBOutlet weak var notesTableView: UITableView!
     
     private var frc: NSFetchedResultsController?
+    private var selectedIndexPath: NSIndexPath? = nil
     
     
     // MARK: - View lifecycle
@@ -90,6 +91,17 @@ class CDMNotesViewController
         return cell
     }
     
+    // MARK: - UITableViewDelegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        self.selectedIndexPath = indexPath
+        self.notesTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        self.performSegueWithIdentifier("NotesListToNewNote", sender: self)
+    }
+
+    
     // MARK: - NSFetchedResultsControllerDelegate
     
     func controllerDidChangeContent(controller: NSFetchedResultsController)
@@ -97,15 +109,20 @@ class CDMNotesViewController
         self.notesTableView.reloadData()
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if self.selectedIndexPath != nil
+        {
+            if let note = self.frc!.objectAtIndexPath(self.selectedIndexPath!) as? Note
+            {
+                let vc = segue.destinationViewController as CDMNewNoteViewController
+                vc.note = note
+            }
+        }
     }
-    */
 }
 
 // MARK: - Private -
@@ -116,7 +133,7 @@ private extension CDMNotesViewController
     func prepareFRC() -> Void
     {
         var fr = NSFetchRequest(entityName: "Note")
-        fr.sortDescriptors = [self.notesSortByDateDescriptor()]
+        fr.sortDescriptors = [self.notesSortByTitleDescriptor()]
         self.frc = NSFetchedResultsController(fetchRequest: fr,
                                               managedObjectContext: CDMCoreDataManager.sharedManager.moc!,
                                               sectionNameKeyPath: nil,
