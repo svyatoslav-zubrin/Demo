@@ -22,7 +22,6 @@ class CDMNotesViewController
     private var frc: NSFetchedResultsController?
     private var selectedIndexPath: NSIndexPath? = nil
     
-    
     // MARK: - View lifecycle
 
     override func viewDidLoad()
@@ -116,11 +115,7 @@ class CDMNotesViewController
         { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
             self.deleteNoteAtIndexPath(indexPath)
             { (error: NSError?) -> Void in
-                if let err = error
-                {
-                    println("   Unable to delete note: \(err.localizedDescription)")
-                }
-                else
+                if error == nil
                 {
                     self.notesTableView.reloadData()
                 }
@@ -147,13 +142,11 @@ class CDMNotesViewController
 
     func controllerWillChangeContent(controller: NSFetchedResultsController)
     {
-        println("controllerWillChangeContent.beginUpdates")
         self.notesTableView!.beginUpdates()
     }
     
     func controllerDidChangeContent(controller: NSFetchedResultsController!)
     {
-        println("controllerDidChangeContent.endUpdates")
         self.notesTableView!.endUpdates()
     }
 
@@ -163,7 +156,6 @@ class CDMNotesViewController
                     forChangeType type: NSFetchedResultsChangeType,
                     newIndexPath: NSIndexPath?)
     {
-        println("didChangeObjectAtIndexPath")
         switch type
         {
             case .Insert:
