@@ -29,6 +29,8 @@ class CDMNotesViewController
     {
         super.viewDidLoad()
         
+        self.notesTableView.allowsMultipleSelection = false
+        
         self.prepareFRC()
         
         if self.frc!.performFetch(nil)
@@ -71,7 +73,8 @@ class CDMNotesViewController
         {
             if let sections = frc.sections
             {
-                return sections[section].numberOfObjects!
+                let sectionInfo = frc.sections![section] as NSFetchedResultsSectionInfo
+                return sectionInfo.numberOfObjects
             }
         }
         
@@ -88,23 +91,12 @@ class CDMNotesViewController
 
             if let image = note.image
             {
-                println("Image != nil")
                 cell.imageView.image = image
-            }
-            else
-            {
-                println("Image == nil")
             }
         }
         
         return cell
     }
-    
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
-    {
-        return true
-    }
-    
     
     // MARK: - UITableViewDelegate
     
@@ -117,24 +109,32 @@ class CDMNotesViewController
     }
 
     func tableView(tableView: UITableView,
-                   commitEditingStyle editingStyle: UITableViewCellEditingStyle,
-                   forRowAtIndexPath indexPath: NSIndexPath)
+                   editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]?
     {
-        if editingStyle == UITableViewCellEditingStyle.Delete
-        {
-            
-            self.deleteNoteAtIndexPath(indexPath){ (error: NSError?) -> Void in
+        let action =
+        UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete")
+        { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+            self.deleteNoteAtIndexPath(indexPath)
+            { (error: NSError?) -> Void in
                 if let err = error
                 {
-                    println("Unable to delete note: \(err.localizedDescription)")
+                    println("   Unable to delete note: \(err.localizedDescription)")
                 }
                 else
                 {
-                    println("Note was deleted")
                     self.notesTableView.reloadData()
                 }
             }
         }
+        
+        return [action]
+    }
+
+    func tableView(tableView: UITableView,
+                   commitEditingStyle editingStyle: UITableViewCellEditingStyle,
+                   forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        // empty on purpose
     }
     
     func tableView(tableView: UITableView,
@@ -144,12 +144,47 @@ class CDMNotesViewController
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
-    
-    func controllerDidChangeContent(controller: NSFetchedResultsController)
+
+    func controllerWillChangeContent(controller: NSFetchedResultsController)
     {
-        self.notesTableView.reloadData()
+        println("controllerWillChangeContent.beginUpdates")
+        self.notesTableView!.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController!)
+    {
+        println("controllerDidChangeContent.endUpdates")
+        self.notesTableView!.endUpdates()
     }
 
+    func controller(controller: NSFetchedResultsController,
+                    didChangeObject anObject: AnyObject,
+                    atIndexPath indexPath: NSIndexPath?,
+                    forChangeType type: NSFetchedResultsChangeType,
+                    newIndexPath: NSIndexPath?)
+    {
+        println("didChangeObjectAtIndexPath")
+        switch type
+        {
+            case .Insert:
+                self.notesTableView.insertRowsAtIndexPaths([newIndexPath!],
+                                                            withRowAnimation: UITableViewRowAnimation.Automatic)
+            case .Delete:
+                self.notesTableView.deleteRowsAtIndexPaths([indexPath!],
+                                                            withRowAnimation: UITableViewRowAnimation.Automatic)
+            case .Update:
+                let cell = self.notesTableView.cellForRowAtIndexPath(indexPath!)
+                self.configureCell(cell, atIndexPath: indexPath!)
+            case .Move:
+                self.notesTableView.deleteRowsAtIndexPaths([indexPath!],
+                                                            withRowAnimation: UITableViewRowAnimation.Automatic)
+                self.notesTableView.insertRowsAtIndexPaths([newIndexPath!],
+                                                            withRowAnimation: UITableViewRowAnimation.Automatic)
+            default:
+                break
+        }
+    }
+    
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -169,11 +204,23 @@ class CDMNotesViewController
 
 private extension CDMNotesViewController
 {
-
+    func configureCell(cell: UITableViewCell!, atIndexPath indexPath: NSIndexPath!)
+    {
+        if let note = self.frc!.objectAtIndexPath(indexPath) as? Note
+        {
+            cell.textLabel.text = note.title
+            
+            if let image = note.image
+            {
+                cell.imageView.image = image
+            }
+        }
+    }
+    
     func prepareFRC() -> Void
     {
         var fr = NSFetchRequest(entityName: "Note")
-        fr.sortDescriptors = [self.notesSortByTitleDescriptor()]
+        fr.sortDescriptors = [Note.sortByDateDescriptor()]
         self.frc = NSFetchedResultsController(fetchRequest: fr,
                                               managedObjectContext: CDMCoreDataManager.sharedManager.moc!,
                                               sectionNameKeyPath: nil,
@@ -181,23 +228,21 @@ private extension CDMNotesViewController
         self.frc!.delegate = self
     }
     
-    func notesSortByTitleDescriptor() -> NSSortDescriptor
-    {
-        return NSSortDescriptor(key: "title", ascending: true)
-    }
-    
-    func notesSortByDateDescriptor() -> NSSortDescriptor
-    {
-        return NSSortDescriptor(key: "dateCreated", ascending: true)
-    }
-    
     func deleteNoteAtIndexPath(indexPath: NSIndexPath, resultHandler: (error: NSError?) -> Void )
     {
+        var error: NSError? = nil
+        
         if let note = self.frc!.objectAtIndexPath(indexPath) as? Note
         {
             let moc = CDMCoreDataManager.sharedManager.moc!
             moc.deleteObject(note)
             CDMCoreDataManager.sharedManager.saveContext()
         }
+        else
+        {
+            error = NSError(domain: "CoreDataDemoDomain", code: 1001, userInfo: nil)
+        }
+        
+        resultHandler(error: error)
     }
 }
