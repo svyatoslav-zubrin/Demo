@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8D11BF711A05849A004331A8 /* CDMNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11BF701A05849A004331A8 /* CDMNewNoteViewController.swift */; };
+		8D9AF4321A0A851F00CA154E /* MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8D9AF4311A0A851F00CA154E /* MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel */; };
+		8D9AF4391A0B878A00CA154E /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9AF4381A0B878A00CA154E /* Attachment.swift */; };
 		8D9D98351A0575C000ABEA40 /* CDMNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D98341A0575C000ABEA40 /* CDMNotesViewController.swift */; };
 		8D9D983A1A05778400ABEA40 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D98391A05778400ABEA40 /* Note.swift */; };
 		8D9D983D1A05791A00ABEA40 /* CDMCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D983C1A05791A00ABEA40 /* CDMCoreDataManager.swift */; };
@@ -34,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		8D11BF701A05849A004331A8 /* CDMNewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDMNewNoteViewController.swift; path = Classes/ViewControllers/CDMNewNoteViewController.swift; sourceTree = "<group>"; };
+		8D9AF4311A0A851F00CA154E /* MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel; path = Classes/CoreDataStack/MappingModels/MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel; sourceTree = "<group>"; };
+		8D9AF4381A0B878A00CA154E /* Attachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Attachment.swift; path = Classes/CoreDataStack/Model/Attachment.swift; sourceTree = "<group>"; };
 		8D9D98341A0575C000ABEA40 /* CDMNotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDMNotesViewController.swift; path = Classes/ViewControllers/CDMNotesViewController.swift; sourceTree = "<group>"; };
 		8D9D98391A05778400ABEA40 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Note.swift; path = Classes/CoreDataStack/Model/Note.swift; sourceTree = "<group>"; };
 		8D9D983C1A05791A00ABEA40 /* CDMCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDMCoreDataManager.swift; path = Classes/CoreDataStack/CDMCoreDataManager.swift; sourceTree = "<group>"; };
@@ -72,6 +76,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D9AF4331A0A852700CA154E /* MappingModels */ = {
+			isa = PBXGroup;
+			children = (
+				8D9AF4311A0A851F00CA154E /* MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel */,
+			);
+			name = MappingModels;
+			sourceTree = "<group>";
+		};
 		8D9D98361A0575CC00ABEA40 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +108,7 @@
 			children = (
 				8D9D983C1A05791A00ABEA40 /* CDMCoreDataManager.swift */,
 				8DFCEB171A055FD90067DFEB /* MigrationCoreDataDemo.xcdatamodeld */,
+				8D9AF4331A0A852700CA154E /* MappingModels */,
 				8D9D983B1A05778C00ABEA40 /* Model */,
 				8DC1BD621A0796F7001B5F50 /* ValueTransformers */,
 			);
@@ -105,6 +118,7 @@
 		8D9D983B1A05778C00ABEA40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8D9AF4381A0B878A00CA154E /* Attachment.swift */,
 				8D9D98391A05778400ABEA40 /* Note.swift */,
 				8DA8906C1A0A4807006D3BB1 /* NoteHelpers.swift */,
 			);
@@ -283,9 +297,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D9AF4321A0A851F00CA154E /* MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel in Sources */,
 				8D9D983D1A05791A00ABEA40 /* CDMCoreDataManager.swift in Sources */,
 				8D9D98351A0575C000ABEA40 /* CDMNotesViewController.swift in Sources */,
 				8DFCEB191A055FDA0067DFEB /* MigrationCoreDataDemo.xcdatamodeld in Sources */,
+				8D9AF4391A0B878A00CA154E /* Attachment.swift in Sources */,
 				8DFCEB161A055FD90067DFEB /* AppDelegate.swift in Sources */,
 				8D9D98401A0579A900ABEA40 /* CDMUtils.swift in Sources */,
 				8D11BF711A05849A004331A8 /* CDMNewNoteViewController.swift in Sources */,
