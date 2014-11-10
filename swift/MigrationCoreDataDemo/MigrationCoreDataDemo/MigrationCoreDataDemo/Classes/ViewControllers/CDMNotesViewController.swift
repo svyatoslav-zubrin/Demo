@@ -84,15 +84,7 @@ class CDMNotesViewController
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         
-        if let note = self.frc!.objectAtIndexPath(indexPath) as? Note
-        {
-            cell.textLabel.text = note.title
-
-            if let image = note.image
-            {
-                cell.imageView.image = image
-            }
-        }
+        self.configureCell(cell, atIndexPath: indexPath)
         
         return cell
     }

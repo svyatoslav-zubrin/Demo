@@ -113,7 +113,10 @@ private extension CDMNewNoteViewController
         note.dateCreated = NSDate()
         if let image = self.selectedImage
         {
-            note.image = image
+            let attachment = Attachment()
+            attachment.image = image
+            attachment.dateCreated = NSDate()
+            note.attachments = [attachment]
         }
         
         CDMCoreDataManager.sharedManager.saveContext()

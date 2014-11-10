@@ -17,4 +17,6 @@ class Note: NSManagedObject {
     @NSManaged var dateCreated: NSDate
     @NSManaged var displayIndex: NSNumber
     
+    @NSManaged var attachments: [Attachment]?
+    
 }
