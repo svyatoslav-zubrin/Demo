@@ -27,10 +27,11 @@ extension Note
     
     var image: UIImage?
     {
-        if let image = self.attachments?.last?.image as? UIImage
+        if let attachment = self.attachments?.last as? ImageAttachment
         {
-            return image
+            return attachment.image
         }
+        
         return nil
     }
 }

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8D11BF711A05849A004331A8 /* CDMNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11BF701A05849A004331A8 /* CDMNewNoteViewController.swift */; };
+		8D11D14F1A1210510033A7D7 /* ImageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11D14E1A1210510033A7D7 /* ImageAttachment.swift */; };
+		8D37DB211A111CF500B0B463 /* MigrationCoreDataDemoModel_v3_to_v4.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8D37DB201A111CF500B0B463 /* MigrationCoreDataDemoModel_v3_to_v4.xcmappingmodel */; };
+		8D37DB231A111FC100B0B463 /* AttachmentToImageAttachmentMigrationPolicyV3toV4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D37DB221A111FC100B0B463 /* AttachmentToImageAttachmentMigrationPolicyV3toV4.swift */; };
 		8D9AF4321A0A851F00CA154E /* MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8D9AF4311A0A851F00CA154E /* MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel */; };
 		8D9AF4391A0B878A00CA154E /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9AF4381A0B878A00CA154E /* Attachment.swift */; };
 		8D9D98351A0575C000ABEA40 /* CDMNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D98341A0575C000ABEA40 /* CDMNotesViewController.swift */; };
@@ -36,6 +39,10 @@
 
 /* Begin PBXFileReference section */
 		8D11BF701A05849A004331A8 /* CDMNewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDMNewNoteViewController.swift; path = Classes/ViewControllers/CDMNewNoteViewController.swift; sourceTree = "<group>"; };
+		8D11D14E1A1210510033A7D7 /* ImageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageAttachment.swift; path = Classes/CoreDataStack/Model/ImageAttachment.swift; sourceTree = "<group>"; };
+		8D37DB191A1109D900B0B463 /* MigrationCoreDataDemo v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MigrationCoreDataDemo v4.xcdatamodel"; sourceTree = "<group>"; };
+		8D37DB201A111CF500B0B463 /* MigrationCoreDataDemoModel_v3_to_v4.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = MigrationCoreDataDemoModel_v3_to_v4.xcmappingmodel; path = Classes/CoreDataStack/MappingModels/MigrationCoreDataDemoModel_v3_to_v4.xcmappingmodel; sourceTree = "<group>"; };
+		8D37DB221A111FC100B0B463 /* AttachmentToImageAttachmentMigrationPolicyV3toV4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttachmentToImageAttachmentMigrationPolicyV3toV4.swift; path = Classes/CoreDataStack/MigrationPolicies/AttachmentToImageAttachmentMigrationPolicyV3toV4.swift; sourceTree = "<group>"; };
 		8D9AF4311A0A851F00CA154E /* MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel; path = Classes/CoreDataStack/MappingModels/MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel; sourceTree = "<group>"; };
 		8D9AF4381A0B878A00CA154E /* Attachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Attachment.swift; path = Classes/CoreDataStack/Model/Attachment.swift; sourceTree = "<group>"; };
 		8D9D98341A0575C000ABEA40 /* CDMNotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDMNotesViewController.swift; path = Classes/ViewControllers/CDMNotesViewController.swift; sourceTree = "<group>"; };
@@ -76,9 +83,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D37DB241A111FC800B0B463 /* MigrationPolicies */ = {
+			isa = PBXGroup;
+			children = (
+				8D37DB221A111FC100B0B463 /* AttachmentToImageAttachmentMigrationPolicyV3toV4.swift */,
+			);
+			name = MigrationPolicies;
+			sourceTree = "<group>";
+		};
 		8D9AF4331A0A852700CA154E /* MappingModels */ = {
 			isa = PBXGroup;
 			children = (
+				8D37DB201A111CF500B0B463 /* MigrationCoreDataDemoModel_v3_to_v4.xcmappingmodel */,
 				8D9AF4311A0A851F00CA154E /* MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel */,
 			);
 			name = MappingModels;
@@ -111,6 +127,7 @@
 				8D9AF4331A0A852700CA154E /* MappingModels */,
 				8D9D983B1A05778C00ABEA40 /* Model */,
 				8DC1BD621A0796F7001B5F50 /* ValueTransformers */,
+				8D37DB241A111FC800B0B463 /* MigrationPolicies */,
 			);
 			name = CoreDataStack;
 			sourceTree = "<group>";
@@ -118,9 +135,10 @@
 		8D9D983B1A05778C00ABEA40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8D9AF4381A0B878A00CA154E /* Attachment.swift */,
 				8D9D98391A05778400ABEA40 /* Note.swift */,
 				8DA8906C1A0A4807006D3BB1 /* NoteHelpers.swift */,
+				8D9AF4381A0B878A00CA154E /* Attachment.swift */,
+				8D11D14E1A1210510033A7D7 /* ImageAttachment.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -297,6 +315,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D11D14F1A1210510033A7D7 /* ImageAttachment.swift in Sources */,
+				8D37DB231A111FC100B0B463 /* AttachmentToImageAttachmentMigrationPolicyV3toV4.swift in Sources */,
 				8D9AF4321A0A851F00CA154E /* MigrationCoreDataDemoModel_v2_to_v3.xcmappingmodel in Sources */,
 				8D9D983D1A05791A00ABEA40 /* CDMCoreDataManager.swift in Sources */,
 				8D9D98351A0575C000ABEA40 /* CDMNotesViewController.swift in Sources */,
@@ -307,6 +327,7 @@
 				8D11BF711A05849A004331A8 /* CDMNewNoteViewController.swift in Sources */,
 				8DA8906D1A0A4807006D3BB1 /* NoteHelpers.swift in Sources */,
 				8DC1BD611A078AD0001B5F50 /* CDMImageTransformer.swift in Sources */,
+				8D37DB211A111CF500B0B463 /* MigrationCoreDataDemoModel_v3_to_v4.xcmappingmodel in Sources */,
 				8D9D983A1A05778400ABEA40 /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,11 +537,12 @@
 		8DFCEB171A055FD90067DFEB /* MigrationCoreDataDemo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				8D37DB191A1109D900B0B463 /* MigrationCoreDataDemo v4.xcdatamodel */,
 				8DC1BD631A07B937001B5F50 /* MigrationCoreDataDemo v3.xcdatamodel */,
 				8DC1BD5F1A0787D0001B5F50 /* MigrationCoreDataDemo v2.xcdatamodel */,
 				8DFCEB181A055FD90067DFEB /* MigrationCoreDataDemo.xcdatamodel */,
 			);
-			currentVersion = 8DC1BD631A07B937001B5F50 /* MigrationCoreDataDemo v3.xcdatamodel */;
+			currentVersion = 8D37DB191A1109D900B0B463 /* MigrationCoreDataDemo v4.xcdatamodel */;
 			path = MigrationCoreDataDemo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
