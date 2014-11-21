@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D71CC4C1A1B429000078463 /* MasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71CC4B1A1B429000078463 /* MasterTableViewController.swift */; };
+		8D71CC4E1A1B42C200078463 /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71CC4D1A1B42C200078463 /* ForecastViewController.swift */; };
 		8DAE40581A1A079D0018F3A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAE40571A1A079D0018F3A6 /* AppDelegate.swift */; };
-		8DAE405A1A1A079D0018F3A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAE40591A1A079D0018F3A6 /* ViewController.swift */; };
 		8DAE405D1A1A079D0018F3A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DAE405B1A1A079D0018F3A6 /* Main.storyboard */; };
 		8DAE405F1A1A079D0018F3A6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DAE405E1A1A079D0018F3A6 /* Images.xcassets */; };
 		8DAE40621A1A079D0018F3A6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DAE40601A1A079D0018F3A6 /* LaunchScreen.xib */; };
@@ -26,10 +27,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D71CC4B1A1B429000078463 /* MasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MasterTableViewController.swift; path = Classes/ViewCOntrollers/MasterTableViewController.swift; sourceTree = "<group>"; };
+		8D71CC4D1A1B42C200078463 /* ForecastViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForecastViewController.swift; path = Classes/ViewCOntrollers/ForecastViewController.swift; sourceTree = "<group>"; };
 		8DAE40521A1A079D0018F3A6 /* AdaptiveLayoutLearning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptiveLayoutLearning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DAE40561A1A079D0018F3A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DAE40571A1A079D0018F3A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8DAE40591A1A079D0018F3A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8DAE405C1A1A079D0018F3A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8DAE405E1A1A079D0018F3A6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8DAE40611A1A079D0018F3A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -56,6 +58,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D71CC491A1B424D00078463 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8D71CC4A1A1B425400078463 /* ViewControllers */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		8D71CC4A1A1B425400078463 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8D71CC4B1A1B429000078463 /* MasterTableViewController.swift */,
+				8D71CC4D1A1B42C200078463 /* ForecastViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		8DAE40491A1A079D0018F3A6 = {
 			isa = PBXGroup;
 			children = (
@@ -77,8 +96,8 @@
 		8DAE40541A1A079D0018F3A6 /* AdaptiveLayoutLearning */ = {
 			isa = PBXGroup;
 			children = (
+				8D71CC491A1B424D00078463 /* Classes */,
 				8DAE40571A1A079D0018F3A6 /* AppDelegate.swift */,
-				8DAE40591A1A079D0018F3A6 /* ViewController.swift */,
 				8DAE405B1A1A079D0018F3A6 /* Main.storyboard */,
 				8DAE405E1A1A079D0018F3A6 /* Images.xcassets */,
 				8DAE40601A1A079D0018F3A6 /* LaunchScreen.xib */,
@@ -212,8 +231,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DAE405A1A1A079D0018F3A6 /* ViewController.swift in Sources */,
 				8DAE40581A1A079D0018F3A6 /* AppDelegate.swift in Sources */,
+				8D71CC4C1A1B429000078463 /* MasterTableViewController.swift in Sources */,
+				8D71CC4E1A1B42C200078463 /* ForecastViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +427,7 @@
 				8DAE40731A1A079D0018F3A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8DAE40741A1A079D0018F3A6 /* Build configuration list for PBXNativeTarget "AdaptiveLayoutLearningTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +436,7 @@
 				8DAE40761A1A079D0018F3A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
