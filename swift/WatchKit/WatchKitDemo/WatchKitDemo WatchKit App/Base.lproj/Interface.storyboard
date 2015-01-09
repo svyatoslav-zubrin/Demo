@@ -32,7 +32,6 @@
                                     <connections>
                                         <outlet property="iImage" destination="akQ-1K-IjG" id="joh-IV-yeS"/>
                                         <outlet property="iLabel" destination="1r2-al-HIx" id="k0z-xv-6EC"/>
-                                        <segue destination="Hlm-Qp-5ro" kind="push" id="Pxr-YE-ZqY"/>
                                     </connections>
                                 </tableRow>
                             </items>

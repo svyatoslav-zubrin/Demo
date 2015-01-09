@@ -41,6 +41,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func application(application: UIApplication!,
+                     handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]!,
+                     reply: (([NSObject : AnyObject]!) -> Void)!)
+    {
+        println(userInfo)
+        
+        NSUserDefaults.standardUserDefaults().setObject(userInfo["selectedName"], forKey: "selectedName")
+        NSUserDefaults.standardUserDefaults().synchronize()
+                        
+        NSNotificationCenter.defaultCenter().postNotificationName("WATCH_KIT_SELECTED_USER_NAME", object: nil, userInfo: userInfo)
+        
+        reply(nil)
+    }
 }
 
