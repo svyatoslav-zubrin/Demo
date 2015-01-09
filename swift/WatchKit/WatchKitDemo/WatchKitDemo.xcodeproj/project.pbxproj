@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D1246E41A60376600F8C60A /* NameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1246E31A60376600F8C60A /* NameInfo.swift */; };
 		8DE2F13E1A5EDD84006708AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE2F13D1A5EDD84006708AE /* AppDelegate.swift */; };
 		8DE2F1401A5EDD84006708AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE2F13F1A5EDD84006708AE /* ViewController.swift */; };
 		8DE2F1431A5EDD84006708AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DE2F1411A5EDD84006708AE /* Main.storyboard */; };
@@ -64,6 +65,7 @@
 /* Begin PBXFileReference section */
 		8D1246E11A5FF9AD00F8C60A /* WatchKitDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WatchKitDemo.entitlements; sourceTree = "<group>"; };
 		8D1246E21A5FF9E800F8C60A /* WatchKitDemo WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "WatchKitDemo WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		8D1246E31A60376600F8C60A /* NameInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameInfo.swift; sourceTree = "<group>"; };
 		8DE2F1381A5EDD84006708AE /* WatchKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE2F13C1A5EDD84006708AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DE2F13D1A5EDD84006708AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				8D1246E11A5FF9AD00F8C60A /* WatchKitDemo.entitlements */,
 				8DE2F13D1A5EDD84006708AE /* AppDelegate.swift */,
 				8DE2F13F1A5EDD84006708AE /* ViewController.swift */,
+				8D1246E31A60376600F8C60A /* NameInfo.swift */,
 				8DE2F1411A5EDD84006708AE /* Main.storyboard */,
 				8DE2F1441A5EDD84006708AE /* Images.xcassets */,
 				8DE2F1461A5EDD84006708AE /* LaunchScreen.xib */,
@@ -385,6 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D1246E41A60376600F8C60A /* NameInfo.swift in Sources */,
 				8DE2F1401A5EDD84006708AE /* ViewController.swift in Sources */,
 				8DE2F13E1A5EDD84006708AE /* AppDelegate.swift in Sources */,
 			);

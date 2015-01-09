@@ -17,9 +17,10 @@
                                         <items>
                                             <group width="1" alignment="left" id="0vA-jW-b7e">
                                                 <items>
-                                                    <imageView width="40" alignment="left" id="akQ-1K-IjG"/>
+                                                    <imageView width="20" height="20" alignment="left" id="akQ-1K-IjG"/>
                                                     <label width="86" alignment="left" verticalAlignment="center" text="Label" id="1r2-al-HIx">
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                                     </label>
                                                 </items>
                                             </group>
@@ -45,27 +46,6 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="354" y="414"/>
-        </scene>
-        <!--2nd-->
-        <scene sceneID="5yx-lQ-IhX">
-            <objects>
-                <controller title="2nd" id="Hlm-Qp-5ro">
-                    <color key="backgroundColor" red="0.20000000000000001" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <connections>
-                        <segue destination="8qW-TD-LfT" kind="relationship" relationship="nextPage" id="3iK-5Y-DMR"/>
-                    </connections>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="587" y="414"/>
-        </scene>
-        <!--3rd-->
-        <scene sceneID="go8-fg-NSr">
-            <objects>
-                <controller title="3rd" id="8qW-TD-LfT">
-                    <color key="backgroundColor" red="0.2901960784" green="0.6705882353" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="778" y="415"/>
         </scene>
     </scenes>
 </document>

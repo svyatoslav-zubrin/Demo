@@ -14,13 +14,11 @@ class NamesTableInterfaceController: WKInterfaceController
     @IBOutlet weak var table: WKInterfaceTable!
     
     var names: Array<String> = []
-//    let names = ["Slava", "Igor", "Serega", "Leonid"]
+    var selectedIndex: Int?
     
     override func awakeWithContext(context: AnyObject?)
     {
         super.awakeWithContext(context)
-        
-        // Configure interface objects here.
         
         getSharedData()
         loadTableData()
@@ -47,7 +45,18 @@ class NamesTableInterfaceController: WKInterfaceController
         
         // How to pass an action from the WatchKit Extension to binded iOS App?
         WKInterfaceController.openParentApplication(["selectedName": name], reply: { (data, error) -> Void in
-            println("Parent iOS app corrctly handled all the data :)")
+            if let name = data["name"] as? String {
+                if let indx = find(self.names, name) {
+                    
+                    if self.selectedIndex != indx {
+                        if self.selectedIndex != nil {
+                            self.setColor(UIColor.blackColor(), forNameAtIndex: self.selectedIndex!)
+                        }
+                        self.selectedIndex = indx
+                        self.setColor(UIColor.redColor(), forNameAtIndex: self.selectedIndex!)
+                    }
+                }
+            }
         })
     }
     
@@ -75,5 +84,11 @@ class NamesTableInterfaceController: WKInterfaceController
             row.iLabel.setText(name)
             row.iImage.setImageNamed("user_male3-50.png")
         }
+    }
+    
+    private func setColor(_color: UIColor, forNameAtIndex index: Int)
+    {
+        let row = table.rowControllerAtIndex(index) as NameTableRowController
+        row.iLabel.setTextColor(_color)
     }
 }

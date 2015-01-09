@@ -45,14 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]!,
                      reply: (([NSObject : AnyObject]!) -> Void)!)
     {
-        println(userInfo)
+//        NSUserDefaults.standardUserDefaults().setObject(userInfo["selectedName"], forKey: "selectedName")
+//        NSUserDefaults.standardUserDefaults().synchronize()
         
-        NSUserDefaults.standardUserDefaults().setObject(userInfo["selectedName"], forKey: "selectedName")
-        NSUserDefaults.standardUserDefaults().synchronize()
-                        
-        NSNotificationCenter.defaultCenter().postNotificationName("WATCH_KIT_SELECTED_USER_NAME", object: nil, userInfo: userInfo)
-        
-        reply(nil)
+        if let name = userInfo["selectedName"] as? String {
+            let nameInfo = NameInfo(name: name, reply: reply)
+            NSNotificationCenter.defaultCenter().postNotificationName("WATCH_KIT_SELECTED_USER_NAME", object: nameInfo)
+        }
     }
 }
 

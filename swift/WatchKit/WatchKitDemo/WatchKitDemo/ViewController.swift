@@ -90,13 +90,13 @@ class ViewController
         }
     }
     
-    private func handleWatchKitNotification(notification: NSNotification) {
+    func handleWatchKitNotification(notification: NSNotification) {
         println("WATCH_KIT_SELECTED_USER_NAME notification handled in the controller")
         
-        if let userInfo = notification.object as? [String : String] {
-            if let nameStr = userInfo["selectedName"] {
-                watchSelectionLabel.text = nameStr
-            }
+        if let nameInfo = notification.object as? NameInfo {
+            watchSelectionLabel.text = nameInfo.userName
+            
+            nameInfo.replyBlock(["name" : nameInfo.userName])
         }
     }
 }
