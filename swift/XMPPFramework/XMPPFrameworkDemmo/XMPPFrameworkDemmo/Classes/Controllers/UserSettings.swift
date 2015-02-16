@@ -34,7 +34,7 @@ class UserSettings {
             }
         }
     }
-
+    
     var userPassword: String? {
         get {
             return NSUserDefaults.standardUserDefaults().objectForKey("userPassword") as? String

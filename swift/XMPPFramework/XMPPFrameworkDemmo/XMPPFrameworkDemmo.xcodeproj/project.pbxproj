@@ -64,6 +64,9 @@
 		CE1145391A91F74F003C1300 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1145381A91F74F003C1300 /* UserSettings.swift */; };
 		CE11453B1A91FB40003C1300 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11453A1A91FB40003C1300 /* ChatViewController.swift */; };
 		CE11453D1A920111003C1300 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11453C1A920111003C1300 /* Message.swift */; };
+		CE1145421A920490003C1300 /* XMPPCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1145411A920490003C1300 /* XMPPCommunicator.swift */; };
+		CE1145491A921CCE003C1300 /* ChatProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1145481A921CCE003C1300 /* ChatProtocols.swift */; };
+		CE11454B1A922D21003C1300 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11454A1A922D21003C1300 /* Array+Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,6 +192,10 @@
 		CE1145381A91F74F003C1300 /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserSettings.swift; path = Classes/Controllers/UserSettings.swift; sourceTree = "<group>"; };
 		CE11453A1A91FB40003C1300 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = "Classes/View Controllers/ChatViewController.swift"; sourceTree = "<group>"; };
 		CE11453C1A920111003C1300 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Classes/Model/Message.swift; sourceTree = "<group>"; };
+		CE1145411A920490003C1300 /* XMPPCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMPPCommunicator.swift; path = Classes/Controllers/XMPPCommunicator.swift; sourceTree = "<group>"; };
+		CE1145461A9204DE003C1300 /* XMPPFrameworkDemmo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XMPPFrameworkDemmo-Bridging-Header.h"; sourceTree = "<group>"; };
+		CE1145481A921CCE003C1300 /* ChatProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatProtocols.swift; path = Classes/Protocols/ChatProtocols.swift; sourceTree = "<group>"; };
+		CE11454A1A922D21003C1300 /* Array+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array+Helpers.swift"; path = "Classes/Categories/Array+Helpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +244,7 @@
 			children = (
 				CE1144861A91EACB003C1300 /* Classes */,
 				CE1144661A91E84D003C1300 /* AppDelegate.swift */,
+				CE1145461A9204DE003C1300 /* XMPPFrameworkDemmo-Bridging-Header.h */,
 				CE11446A1A91E84D003C1300 /* Main.storyboard */,
 				CE11446D1A91E84D003C1300 /* Images.xcassets */,
 				CE11446F1A91E84D003C1300 /* LaunchScreen.xib */,
@@ -274,6 +282,8 @@
 		CE1144861A91EACB003C1300 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CE1145471A921CA7003C1300 /* Protocols */,
+				CE11454C1A922D26003C1300 /* Categories */,
 				CE1145321A91F0BD003C1300 /* Model */,
 				CE1145371A91F721003C1300 /* Controllers */,
 				CE1145311A91F0B3003C1300 /* View Controllers */,
@@ -597,9 +607,26 @@
 		CE1145371A91F721003C1300 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE1145411A920490003C1300 /* XMPPCommunicator.swift */,
 				CE1145381A91F74F003C1300 /* UserSettings.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		CE1145471A921CA7003C1300 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CE1145481A921CCE003C1300 /* ChatProtocols.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		CE11454C1A922D26003C1300 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				CE11454A1A922D21003C1300 /* Array+Helpers.swift */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -723,6 +750,7 @@
 				CE1145191A91EFC6003C1300 /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				CE11453D1A920111003C1300 /* Message.swift in Sources */,
 				CE1144B61A91EAF3003C1300 /* DDASLLogger.m in Sources */,
+				CE1145491A921CCE003C1300 /* ChatProtocols.swift in Sources */,
 				CE1145201A91EFC6003C1300 /* XMPPElement.m in Sources */,
 				CE1145291A91EFC6003C1300 /* GCDMulticastDelegate.m in Sources */,
 				CE1145211A91EFC6003C1300 /* XMPPIQ.m in Sources */,
@@ -730,6 +758,7 @@
 				CE11451D1A91EFC6003C1300 /* NSNumber+XMPP.m in Sources */,
 				CE11451E1A91EFC6003C1300 /* NSXMLElement+XMPP.m in Sources */,
 				CE1145281A91EFC6003C1300 /* DDList.m in Sources */,
+				CE1145421A920490003C1300 /* XMPPCommunicator.swift in Sources */,
 				CE1145241A91EFC6003C1300 /* XMPPModule.m in Sources */,
 				CE1145221A91EFC6003C1300 /* XMPPJID.m in Sources */,
 				CE1145231A91EFC6003C1300 /* XMPPMessage.m in Sources */,
@@ -747,6 +776,7 @@
 				CE1144B91A91EAF3003C1300 /* DDTTYLogger.m in Sources */,
 				CE1144BF1A91EAF3003C1300 /* DDXMLDocument.m in Sources */,
 				CE11452D1A91EFC6003C1300 /* XMPPStringPrep.m in Sources */,
+				CE11454B1A922D21003C1300 /* Array+Helpers.swift in Sources */,
 				CE1144B71A91EAF3003C1300 /* DDFileLogger.m in Sources */,
 				CE11453B1A91FB40003C1300 /* ChatViewController.swift in Sources */,
 				CE11452E1A91EFC6003C1300 /* XMPPTimer.m in Sources */,
@@ -889,6 +919,7 @@
 					"$(PROJECT_DIR)/XMPPFrameworkDemmo/Classes/Vendor/xmpp/Vendor/libidn",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/XMPPFrameworkDemmo/XMPPFrameworkDemmo-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -903,6 +934,7 @@
 					"$(PROJECT_DIR)/XMPPFrameworkDemmo/Classes/Vendor/xmpp/Vendor/libidn",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/XMPPFrameworkDemmo/XMPPFrameworkDemmo-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -19,8 +19,6 @@ class LoginViewController: UIViewController {
         UserSettings.sharedInstance.userId = usernameTextField.text
         UserSettings.sharedInstance.userPassword = passwordTextField.text
         
-        self.navigationController?.dismissViewControllerAnimated(true, completion: { () -> Void in
-            // do nothing
-        })
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }

@@ -12,9 +12,11 @@ class Message {
     
     private(set) var message: String
     private(set) var senderName: String
+    private(set) var receiverName: String
     
-    init(text: String, sender: String) {
+    init(text: String, sender: String, receiver: String) {
         message = text
         senderName = sender
+        receiverName = receiver
     }
 }

@@ -35,6 +35,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="aLp-rh-dZB" id="dG3-TZ-Luq"/>
+                                    <outlet property="delegate" destination="aLp-rh-dZB" id="vHl-Yx-6hs"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -46,9 +50,16 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="aR8-lC-tmN">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="Account" id="DZ6-00-Nln"/>
+                        <view key="titleView" contentMode="scaleToFill" id="Iy7-0y-9UY">
+                            <rect key="frame" x="284" y="6" width="33" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
                     </navigationItem>
                     <connections>
+                        <outlet property="statusView" destination="Iy7-0y-9UY" id="vlq-oB-xG3"/>
                         <outlet property="tableView" destination="uri-6T-zxu" id="0PS-Da-MMD"/>
                         <segue destination="ElP-Xp-AJ4" kind="show" identifier="BuddiesListToLogin" id="G3P-Ku-6cr"/>
                         <segue destination="k7B-rU-F5L" kind="show" identifier="BuddiesListToChat" id="RoD-ah-Rpk"/>
@@ -56,7 +67,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JMO-kz-GgK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1433" y="0.0"/>
+            <point key="canvasLocation" x="1439" y="0.0"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="mG5-y2-HgZ">

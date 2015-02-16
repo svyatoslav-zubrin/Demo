@@ -18,10 +18,24 @@ class ChatViewController: UIViewController {
     
     // MARK: - Lifecycle
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.title = "Conversation with " + interlocutorName
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+    
         self.textField.becomeFirstResponder()
+        
+        XMPPCommunicator.sharedInstance.messageDelegate = self
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        XMPPCommunicator.sharedInstance.messageDelegate = nil
     }
     
     // MARK: - User actions
@@ -29,12 +43,15 @@ class ChatViewController: UIViewController {
     @IBAction func sendAction(sender: UIButton) {
         if let message = textField.text {
             
-            // TODO: send message through XMPP
-            
             textField.text = ""
             
             let messageText = String(format: "%@:%@", arguments: [message, "you"])
-            messages.append(Message(text: messageText, sender: "you"))
+            let messageObject = Message(text: message/*Text*/,
+                sender: "you",
+                receiver: XMPPCommunicator.sharedInstance.currentUserName)
+            messages.append(messageObject)
+
+            XMPPCommunicator.sharedInstance.sendMessage(messageObject)
             
             tableView.reloadData()
         }
@@ -64,11 +81,9 @@ extension ChatViewController: UITableViewDataSource {
     }
 }
 
-/*
-extension ChatViewController: UITableViewDelegate {
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // start a chat
+extension ChatViewController: MessageDelegate {
+    func newMessageReceived(message: Message) {
+        messages.append(message)
+        tableView.reloadData()
     }
 }
-*/
