@@ -13,7 +13,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
     
-    var interlocutorName: String = ""
+    var interlocutor: Interlocutor! = nil
     var messages: [Message] = []
     
     // MARK: - Lifecycle
@@ -21,7 +21,7 @@ class ChatViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.title = "Conversation with " + interlocutorName
+        self.title = "Conversation with " + interlocutor.name
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -45,15 +45,10 @@ class ChatViewController: UIViewController {
             
             textField.text = ""
             
-            let messageText = String(format: "%@:%@", arguments: [message, "you"])
-            let messageObject = Message(text: message/*Text*/,
-                sender: "you",
-                receiver: XMPPCommunicator.sharedInstance.currentUserName)
-            messages.append(messageObject)
-
+            let messageObject = Message(text: message,
+                sender: XMPPCommunicator.sharedInstance.me,
+                receiver: interlocutor)
             XMPPCommunicator.sharedInstance.sendMessage(messageObject)
-            
-            tableView.reloadData()
         }
     }
 }
@@ -74,7 +69,16 @@ extension ChatViewController: UITableViewDataSource {
         
         let m = messages[indexPath.row]
         cell.textLabel?.text = m.message
-        cell.detailTextLabel?.text = m.senderName
+        cell.detailTextLabel?.text = m.sender.name
+        if m.sender.bareName == XMPPCommunicator.sharedInstance.me.bareName {
+            cell.backgroundColor = UIColor.blueColor()
+            cell.textLabel?.textColor = UIColor.yellowColor()
+            cell.detailTextLabel?.textColor = UIColor.yellowColor()
+        } else {
+            cell.backgroundColor = UIColor.yellowColor()
+            cell.textLabel?.textColor = UIColor.blueColor()
+            cell.detailTextLabel?.textColor = UIColor.blueColor()
+        }
         cell.accessoryType = UITableViewCellAccessoryType.None
         
         return cell

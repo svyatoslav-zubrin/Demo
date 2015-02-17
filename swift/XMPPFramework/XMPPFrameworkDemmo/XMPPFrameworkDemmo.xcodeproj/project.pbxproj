@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE00E1151A935606004CED2B /* Interlocutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E1141A935606004CED2B /* Interlocutor.swift */; };
+		CE00E1171A9367ED004CED2B /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E1161A9367ED004CED2B /* String+Helpers.swift */; };
 		CE1144671A91E84D003C1300 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1144661A91E84D003C1300 /* AppDelegate.swift */; };
 		CE11446C1A91E84D003C1300 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE11446A1A91E84D003C1300 /* Main.storyboard */; };
 		CE11446E1A91E84D003C1300 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE11446D1A91E84D003C1300 /* Images.xcassets */; };
@@ -80,6 +82,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE00E1141A935606004CED2B /* Interlocutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Interlocutor.swift; path = Classes/Model/Interlocutor.swift; sourceTree = "<group>"; };
+		CE00E1161A9367ED004CED2B /* String+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Helpers.swift"; path = "Classes/Categories/String+Helpers.swift"; sourceTree = "<group>"; };
 		CE1144611A91E84D003C1300 /* XMPPFrameworkDemmo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XMPPFrameworkDemmo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1144651A91E84D003C1300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE1144661A91E84D003C1300 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -600,6 +604,7 @@
 			isa = PBXGroup;
 			children = (
 				CE11453C1A920111003C1300 /* Message.swift */,
+				CE00E1141A935606004CED2B /* Interlocutor.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -625,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				CE11454A1A922D21003C1300 /* Array+Helpers.swift */,
+				CE00E1161A9367ED004CED2B /* String+Helpers.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -756,6 +762,7 @@
 				CE1145211A91EFC6003C1300 /* XMPPIQ.m in Sources */,
 				CE1145391A91F74F003C1300 /* UserSettings.swift in Sources */,
 				CE11451D1A91EFC6003C1300 /* NSNumber+XMPP.m in Sources */,
+				CE00E1151A935606004CED2B /* Interlocutor.swift in Sources */,
 				CE11451E1A91EFC6003C1300 /* NSXMLElement+XMPP.m in Sources */,
 				CE1145281A91EFC6003C1300 /* DDList.m in Sources */,
 				CE1145421A920490003C1300 /* XMPPCommunicator.swift in Sources */,
@@ -768,6 +775,7 @@
 				CE1144671A91E84D003C1300 /* AppDelegate.swift in Sources */,
 				CE11451C1A91EFC6003C1300 /* NSData+XMPP.m in Sources */,
 				CE1145251A91EFC6003C1300 /* XMPPParser.m in Sources */,
+				CE00E1171A9367ED004CED2B /* String+Helpers.swift in Sources */,
 				CE1145181A91EFC6003C1300 /* XMPPPlainAuthentication.m in Sources */,
 				CE1145361A91F578003C1300 /* LoginViewController.swift in Sources */,
 				CE1144B51A91EAF3003C1300 /* DDAbstractDatabaseLogger.m in Sources */,

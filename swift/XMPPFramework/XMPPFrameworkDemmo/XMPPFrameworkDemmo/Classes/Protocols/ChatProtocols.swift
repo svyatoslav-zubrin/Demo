@@ -15,11 +15,12 @@ enum ChatStatus {
 protocol ChatDelegate {
     func myStatusChanged(newStatus: ChatStatus)
     
-    func newBuddyOnline(name: String)
-    func buddyWentOffline(name: String)
+    func newBuddyOnline(buddy: Interlocutor)
+    func buddyWentOffline(buddy: Interlocutor)
     func didDisconnect()
 }
 
 protocol MessageDelegate {
     func newMessageReceived(message: Message)
+//    func failedToSendMessage(message: Message)
 }

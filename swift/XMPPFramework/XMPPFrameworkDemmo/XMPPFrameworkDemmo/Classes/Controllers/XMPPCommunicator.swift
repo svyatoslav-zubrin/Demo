@@ -17,28 +17,36 @@ class XMPPCommunicator: NSObject {
     var chatDelegate: ChatDelegate?
     var messageDelegate: MessageDelegate?
     
-    var currentUserName: String {
-        return stream.myJID.user
+    var me: Interlocutor {
+        return Interlocutor(xmppJID: stream.myJID)
     }
     
     // Singleton
     
     class var sharedInstance : XMPPCommunicator {
+        
         struct Static {
+            
             static let instance : XMPPCommunicator = XMPPCommunicator()
         }
+        
         return Static.instance
     }
 
     // MARK: - Lifecycle
     
     override init() {
-        println("XMPPCommunicator.init() called")
         
         stream = XMPPStream()
-        stream.hostName = "szmini.local"
-        stream.hostPort = 5222
+        
+        // my local jabber server
+//        stream.hostName = "szmini.local"
+//        stream.hostPort = 5222
 
+        // qarea's jabber
+        stream.hostName = "jabber.qarea.org"
+        stream.hostPort = 5222
+        
         super.init()
         
         stream.addDelegate(self, delegateQueue: dispatch_get_main_queue())
@@ -47,6 +55,7 @@ class XMPPCommunicator: NSObject {
     // MARK: - Public
     
     func connect() -> Bool {
+        
         var result = false
         
         if !stream.isDisconnected() {
@@ -60,10 +69,7 @@ class XMPPCommunicator: NSObject {
                     stream.myJID = XMPPJID.jidWithString(jabberId)
                     pass = password
                     var error: NSError? = nil
-                    // TODO: get rid of old school connection and replace it with modern one
                     if stream.connectWithTimeout(XMPPStreamTimeoutNone, error: &error) {
-                        // inform about connection problems
-                        println("Connect with timeout called")
                         result = true
                     }
                 }
@@ -76,6 +82,7 @@ class XMPPCommunicator: NSObject {
     }
     
     func disconnect() {
+        
         goOffline()
         stream.disconnect()
     }
@@ -85,7 +92,8 @@ class XMPPCommunicator: NSObject {
         let bodyElement = DDXMLElement(name: "body", stringValue: message.message)
         let msgElement  = DDXMLElement(name: "message")
         msgElement.addAttributeWithName("type", stringValue: "chat")
-        msgElement.addAttributeWithName("to", stringValue: message.receiverName)
+        msgElement.addAttributeWithName("to",   stringValue: message.receiver.bareName)
+        msgElement.addAttributeWithName("from", stringValue: message.sender.bareName)
         msgElement.addChild(bodyElement)
         
         stream.sendElement(msgElement)
@@ -97,8 +105,6 @@ class XMPPCommunicator: NSObject {
 extension XMPPCommunicator: XMPPStreamDelegate {
     
     func xmppStreamDidAuthenticate(sender: XMPPStream!) {
-        println("xmppStreamDidAuthenticate:")
-        
         // authentication successful
         goOnline()
         
@@ -108,8 +114,6 @@ extension XMPPCommunicator: XMPPStreamDelegate {
     }
     
     func xmppStreamDidConnect(sender: XMPPStream!) {
-        println("xmppStreamDidConnect:")
-        
         // connection to the server successful
         isOpen = true
         var error: NSError? = nil
@@ -121,49 +125,84 @@ extension XMPPCommunicator: XMPPStreamDelegate {
     }
     
     func xmppStream(sender: XMPPStream!, didReceivePresence presence: XMPPPresence!) {
-        println("xmppStream:didReceivePresence:")
-        
         // a buddy went offline/online
         let presenceType = presence.type()
         let myUsername = sender.myJID.user
         let presenceFromUser = presence.from().user
         
-        if presenceFromUser != myUsername {
+        let me      = Interlocutor(xmppJID: sender.myJID)
+        let other   = Interlocutor(xmppJID: presence.from())
+        
+        println("Type: \(presence.type()), status: \(presence.status()), show: \(presence.show())")
+        
+        if other != me {
             if presenceType == "available" {
                 if let cd = chatDelegate {
-                    cd.newBuddyOnline(presenceFromUser)
+                    cd.newBuddyOnline(other)
                 }
             } else if presenceType == "unavailable" {
                 if let cd = chatDelegate {
-                    cd.buddyWentOffline(presenceFromUser)
+                    cd.buddyWentOffline(other)
                 }
             }
         }
     }
     
-    func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
-        println("xmppStream:didReceiveMessage:")
-        
-        // message received
-        if message.isMessageWithBody() {
+    func xmppStream(sender: XMPPStream!, didSendMessage message: XMPPMessage!) {
+
+        if message.isChatMessageWithBody() {
             let text = message.body()
-            let from = message.from().user != nil ? message.from().user : ""
-            let to   = message.to().user
-            
-            let m = Message(text: text, sender: from, receiver: to)
-            
-            if let md = messageDelegate {
-                md.newMessageReceived(m)
+            let from = Interlocutor(xmppJID: message.from())
+            let to   = Interlocutor(xmppJID: message.to())
+            if from.isBare()
+                && to.isBare()
+                && countElements(text) > 0 {
+                    
+                    let m = Message(text: text, sender: from, receiver: to)
+                    
+                    if let md = messageDelegate {
+                        md.newMessageReceived(m)
+                    }
             }
         } else {
             println("typing...")
         }
+    }
+    
+    func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
+
+        if message.isChatMessageWithBody() {
+            let text = message.body()
+            let from = Interlocutor(xmppJID: message.from())
+            let to   = Interlocutor(xmppJID: message.to())
+            
+            if from.isBare()
+            && to.isBare()
+            && countElements(text) > 0 {
+                
+                let m = Message(text: text, sender: from, receiver: to)
+                
+                if let md = messageDelegate {
+                    md.newMessageReceived(m)
+                }
+            }
+        } else {
+            println("typing...")
+        }
+    }
+    
+    func xmppStream(sender: XMPPStream!,
+        didFailToSendMessage message: XMPPMessage!,
+        error: NSError!) {
+            
+        println("Failed to send message: \(message) with error: \(error.localizedDescription)")
     }
 }
 
 // MARK: - Private
 
 private extension XMPPCommunicator {
+    
     func goOnline() {
         stream.sendElement(XMPPPresence())
     }

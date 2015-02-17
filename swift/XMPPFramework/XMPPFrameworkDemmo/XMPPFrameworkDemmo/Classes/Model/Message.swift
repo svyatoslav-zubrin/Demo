@@ -11,12 +11,12 @@ import Foundation
 class Message {
     
     private(set) var message: String
-    private(set) var senderName: String
-    private(set) var receiverName: String
+    private(set) var sender: Interlocutor
+    private(set) var receiver: Interlocutor
     
-    init(text: String, sender: String, receiver: String) {
-        message = text
-        senderName = sender
-        receiverName = receiver
+    init(text _text: String, sender _sender: Interlocutor, receiver _receiver: Interlocutor) {
+        message  = _text
+        sender   = _sender
+        receiver = _receiver
     }
 }
