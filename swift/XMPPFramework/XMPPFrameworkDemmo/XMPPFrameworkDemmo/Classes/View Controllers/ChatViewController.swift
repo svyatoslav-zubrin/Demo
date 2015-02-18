@@ -81,7 +81,7 @@ extension ChatViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as ChatCell
         
         cell.senderAndTimeLabel.text = "\(m.sender.bareName) \(m.time)"
-        cell.messageLabel.text = m.message
+        cell.messageLabel.text = m.message.stringBySubstitutingEmoticons()
         
         return cell
     }

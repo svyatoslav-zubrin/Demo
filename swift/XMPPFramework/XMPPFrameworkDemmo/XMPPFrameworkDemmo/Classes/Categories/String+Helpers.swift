@@ -10,7 +10,7 @@ import Foundation
 
 extension String {
  
-    // MARK: - Subscript methods
+    // MARK: - Subscript
     
     subscript (i: Int) -> Character {
         return self[advance(self.startIndex, i)]
@@ -26,7 +26,7 @@ extension String {
 
     }
     
-    // MARK: - Time helper
+    // MARK: - Time
     
     static func getCurrentTime() -> String {
         let nowUTC = NSDate()
@@ -35,5 +35,19 @@ extension String {
         dateFormatter.dateStyle = .MediumStyle
         dateFormatter.timeStyle = .MediumStyle
         return dateFormatter.stringFromDate(nowUTC)
+    }
+    
+    // MARK: - Emoticons
+    
+    func stringBySubstitutingEmoticons() -> String {
+        
+        //See http://www.easyapns.com/iphone-emoji-alerts for a list of emoticons available
+        
+        var res = self.stringByReplacingOccurrencesOfString(":)", withString: "\u{e415}")
+        res = res.stringByReplacingOccurrencesOfString(":(", withString: "\u{e403}")
+        res = res.stringByReplacingOccurrencesOfString(";-)", withString: "\u{e405}")
+        res = res.stringByReplacingOccurrencesOfString(":-x", withString: "\u{e418}")
+        
+        return res;
     }
 }
