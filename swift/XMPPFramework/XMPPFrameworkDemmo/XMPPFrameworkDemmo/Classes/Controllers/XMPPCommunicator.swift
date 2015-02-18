@@ -40,12 +40,12 @@ class XMPPCommunicator: NSObject {
         stream = XMPPStream()
         
         // my local jabber server
-//        stream.hostName = "szmini.local"
-//        stream.hostPort = 5222
+        stream.hostName = "szmini.local"
+        stream.hostPort = 5222
 
         // qarea's jabber
-        stream.hostName = "jabber.qarea.org"
-        stream.hostPort = 5222
+//        stream.hostName = "jabber.qarea.org"
+//        stream.hostPort = 5222
         
         super.init()
         
@@ -94,6 +94,7 @@ class XMPPCommunicator: NSObject {
         msgElement.addAttributeWithName("type", stringValue: "chat")
         msgElement.addAttributeWithName("to",   stringValue: message.receiver.bareName)
         msgElement.addAttributeWithName("from", stringValue: message.sender.bareName)
+        msgElement.addAttributeWithName("time", stringValue: message.time)
         msgElement.addChild(bodyElement)
         
         stream.sendElement(msgElement)
@@ -152,13 +153,14 @@ extension XMPPCommunicator: XMPPStreamDelegate {
 
         if message.isChatMessageWithBody() {
             let text = message.body()
+            let time = message.attributeStringValueForName("time")
             let from = Interlocutor(xmppJID: message.from())
             let to   = Interlocutor(xmppJID: message.to())
             if from.isBare()
                 && to.isBare()
                 && countElements(text) > 0 {
                     
-                    let m = Message(text: text, sender: from, receiver: to)
+                    let m = Message(text: text, sender: from, receiver: to, time: time)
                     
                     if let md = messageDelegate {
                         md.newMessageReceived(m)
@@ -173,6 +175,7 @@ extension XMPPCommunicator: XMPPStreamDelegate {
 
         if message.isChatMessageWithBody() {
             let text = message.body()
+            let time = message.attributeStringValueForName("time")
             let from = Interlocutor(xmppJID: message.from())
             let to   = Interlocutor(xmppJID: message.to())
             
@@ -180,7 +183,7 @@ extension XMPPCommunicator: XMPPStreamDelegate {
             && to.isBare()
             && countElements(text) > 0 {
                 
-                let m = Message(text: text, sender: from, receiver: to)
+                let m = Message(text: text, sender: from, receiver: to, time: time != nil ? time : "")
                 
                 if let md = messageDelegate {
                     md.newMessageReceived(m)

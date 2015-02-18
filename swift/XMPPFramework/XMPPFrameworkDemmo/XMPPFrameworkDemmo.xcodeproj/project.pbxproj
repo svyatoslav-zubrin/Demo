@@ -69,6 +69,7 @@
 		CE1145421A920490003C1300 /* XMPPCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1145411A920490003C1300 /* XMPPCommunicator.swift */; };
 		CE1145491A921CCE003C1300 /* ChatProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1145481A921CCE003C1300 /* ChatProtocols.swift */; };
 		CE11454B1A922D21003C1300 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11454A1A922D21003C1300 /* Array+Helpers.swift */; };
+		CEC29D241A94A88200DFB848 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC29D231A94A88200DFB848 /* ChatCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +201,7 @@
 		CE1145461A9204DE003C1300 /* XMPPFrameworkDemmo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XMPPFrameworkDemmo-Bridging-Header.h"; sourceTree = "<group>"; };
 		CE1145481A921CCE003C1300 /* ChatProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatProtocols.swift; path = Classes/Protocols/ChatProtocols.swift; sourceTree = "<group>"; };
 		CE11454A1A922D21003C1300 /* Array+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array+Helpers.swift"; path = "Classes/Categories/Array+Helpers.swift"; sourceTree = "<group>"; };
+		CEC29D231A94A88200DFB848 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatCell.swift; path = Classes/Views/ChatCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +292,7 @@
 				CE11454C1A922D26003C1300 /* Categories */,
 				CE1145321A91F0BD003C1300 /* Model */,
 				CE1145371A91F721003C1300 /* Controllers */,
+				CEC29D251A94A88600DFB848 /* Views */,
 				CE1145311A91F0B3003C1300 /* View Controllers */,
 				CE1144871A91EAD4003C1300 /* Vendor */,
 			);
@@ -635,6 +638,14 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		CEC29D251A94A88600DFB848 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEC29D231A94A88200DFB848 /* ChatCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -786,6 +797,7 @@
 				CE11452D1A91EFC6003C1300 /* XMPPStringPrep.m in Sources */,
 				CE11454B1A922D21003C1300 /* Array+Helpers.swift in Sources */,
 				CE1144B71A91EAF3003C1300 /* DDFileLogger.m in Sources */,
+				CEC29D241A94A88200DFB848 /* ChatCell.swift in Sources */,
 				CE11453B1A91FB40003C1300 /* ChatViewController.swift in Sources */,
 				CE11452E1A91EFC6003C1300 /* XMPPTimer.m in Sources */,
 			);

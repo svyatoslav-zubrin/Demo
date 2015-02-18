@@ -102,29 +102,95 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="eF7-Bq-KSk">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="78" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="eF7-Bq-KSk">
                                 <rect key="frame" x="0.0" y="111" width="600" height="489"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MessageCell" textLabel="G30-xu-yLn" detailTextLabel="wzL-kz-Mek" style="IBUITableViewCellStyleSubtitle" id="diC-sB-bKK">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InterlocutorMessageCell" rowHeight="78" id="diC-sB-bKK" customClass="ChatCell" customModule="XMPPFrameworkDemmo" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="diC-sB-bKK" id="oCg-wn-vCb">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G30-xu-yLn">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="admin Feb 8, 2015 1:27:16 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34c-UX-OSM">
+                                                    <rect key="frame" x="8" y="10" width="584" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="vnD-Hq-VMG"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wzL-kz-Mek">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlueBubble" translatesAutoresizingMaskIntoConstraints="NO" id="cFh-OW-qCd">
+                                                    <rect key="frame" x="337" y="35" width="255" height="43"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some text message should be here" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YU-MP-sHs">
+                                                    <rect key="frame" x="347" y="42" width="228" height="26"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="34c-UX-OSM" firstAttribute="top" secondItem="oCg-wn-vCb" secondAttribute="top" constant="10" id="4bu-XF-vmy"/>
+                                                <constraint firstItem="34c-UX-OSM" firstAttribute="leading" secondItem="oCg-wn-vCb" secondAttribute="leading" constant="8" id="6ce-v1-WkF"/>
+                                                <constraint firstAttribute="bottom" secondItem="cFh-OW-qCd" secondAttribute="bottom" id="7IO-kQ-VMi"/>
+                                                <constraint firstAttribute="trailing" secondItem="cFh-OW-qCd" secondAttribute="trailing" constant="8" id="SAn-PS-1uU"/>
+                                                <constraint firstAttribute="trailing" secondItem="34c-UX-OSM" secondAttribute="trailing" constant="8" id="XnJ-w5-leH"/>
+                                                <constraint firstItem="2YU-MP-sHs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oCg-wn-vCb" secondAttribute="leading" constant="18" id="aY5-eb-bQF"/>
+                                                <constraint firstItem="2YU-MP-sHs" firstAttribute="leading" secondItem="cFh-OW-qCd" secondAttribute="leading" constant="10" id="f0X-dL-7OJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="2YU-MP-sHs" secondAttribute="trailing" constant="25" id="kLU-Jo-GWc"/>
+                                                <constraint firstAttribute="bottom" secondItem="2YU-MP-sHs" secondAttribute="bottom" constant="10" id="qCg-xf-Geb"/>
+                                                <constraint firstItem="2YU-MP-sHs" firstAttribute="top" secondItem="34c-UX-OSM" secondAttribute="bottom" constant="11" id="u6z-Xz-2gX"/>
+                                                <constraint firstItem="cFh-OW-qCd" firstAttribute="top" secondItem="34c-UX-OSM" secondAttribute="bottom" constant="4" id="xVE-Hc-K5J"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="messageLabel" destination="2YU-MP-sHs" id="2tT-pg-evG"/>
+                                            <outlet property="senderAndTimeLabel" destination="34c-UX-OSM" id="GuX-BN-KIh"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyMessageCell" rowHeight="78" id="6JW-9T-O7d" customClass="ChatCell" customModule="XMPPFrameworkDemmo" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6JW-9T-O7d" id="QCj-ho-YiX">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="admin Feb 8, 2015 1:27:16 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nd-0s-mqx">
+                                                    <rect key="frame" x="8" y="10" width="584" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="sdX-TD-fjt"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OrangeBubble" translatesAutoresizingMaskIntoConstraints="NO" id="OeR-6F-GNu">
+                                                    <rect key="frame" x="8" y="35" width="255" height="43"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some text message should be here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lME-Ic-f6q">
+                                                    <rect key="frame" x="25" y="42" width="228" height="26"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lME-Ic-f6q" firstAttribute="leading" secondItem="QCj-ho-YiX" secondAttribute="leading" constant="25" id="5fC-FV-6xo"/>
+                                                <constraint firstItem="OeR-6F-GNu" firstAttribute="top" secondItem="4nd-0s-mqx" secondAttribute="bottom" constant="4" id="8xs-0w-Hpf"/>
+                                                <constraint firstAttribute="bottom" secondItem="OeR-6F-GNu" secondAttribute="bottom" id="QgB-sA-baP"/>
+                                                <constraint firstItem="lME-Ic-f6q" firstAttribute="top" secondItem="4nd-0s-mqx" secondAttribute="bottom" constant="11" id="Qxd-A9-Fia"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lME-Ic-f6q" secondAttribute="trailing" constant="18" id="YkS-BX-NAb"/>
+                                                <constraint firstItem="4nd-0s-mqx" firstAttribute="leading" secondItem="QCj-ho-YiX" secondAttribute="leading" constant="8" id="bAx-Kd-0Mf"/>
+                                                <constraint firstItem="OeR-6F-GNu" firstAttribute="leading" secondItem="QCj-ho-YiX" secondAttribute="leading" constant="8" id="bTd-uy-2Md"/>
+                                                <constraint firstAttribute="trailing" secondItem="4nd-0s-mqx" secondAttribute="trailing" constant="8" id="e0E-82-c4h"/>
+                                                <constraint firstAttribute="bottom" secondItem="lME-Ic-f6q" secondAttribute="bottom" constant="10" id="wWo-fS-B97"/>
+                                                <constraint firstItem="4nd-0s-mqx" firstAttribute="top" secondItem="QCj-ho-YiX" secondAttribute="top" constant="10" id="yiP-VF-VmC"/>
+                                                <constraint firstItem="lME-Ic-f6q" firstAttribute="trailing" secondItem="OeR-6F-GNu" secondAttribute="trailing" constant="-10" id="zT7-QY-l50"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="messageLabel" destination="lME-Ic-f6q" id="sj9-GW-Mot"/>
+                                            <outlet property="senderAndTimeLabel" destination="4nd-0s-mqx" id="JkC-uO-vda"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -153,7 +219,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qhL-Qx-iSx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2168" y="0.0"/>
+            <point key="canvasLocation" x="2168" y="-15"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="SYA-Dr-EmF">
@@ -239,4 +305,8 @@
             <point key="canvasLocation" x="621" y="0.0"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="BlueBubble" width="15" height="12"/>
+        <image name="OrangeBubble" width="15" height="13"/>
+    </resources>
 </document>

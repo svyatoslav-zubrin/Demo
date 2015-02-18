@@ -18,6 +18,13 @@ class ChatViewController: UIViewController {
     
     // MARK: - Lifecycle
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 78.0
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -47,11 +54,14 @@ class ChatViewController: UIViewController {
             
             let messageObject = Message(text: message,
                 sender: XMPPCommunicator.sharedInstance.me,
-                receiver: interlocutor)
+                receiver: interlocutor,
+                time: String.getCurrentTime())
             XMPPCommunicator.sharedInstance.sendMessage(messageObject)
         }
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension ChatViewController: UITableViewDataSource {
     
@@ -64,26 +74,20 @@ extension ChatViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellId = "MessageCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as UITableViewCell
-        
+
         let m = messages[indexPath.row]
-        cell.textLabel?.text = m.message
-        cell.detailTextLabel?.text = m.sender.name
-        if m.sender.bareName == XMPPCommunicator.sharedInstance.me.bareName {
-            cell.backgroundColor = UIColor.blueColor()
-            cell.textLabel?.textColor = UIColor.yellowColor()
-            cell.detailTextLabel?.textColor = UIColor.yellowColor()
-        } else {
-            cell.backgroundColor = UIColor.yellowColor()
-            cell.textLabel?.textColor = UIColor.blueColor()
-            cell.detailTextLabel?.textColor = UIColor.blueColor()
-        }
-        cell.accessoryType = UITableViewCellAccessoryType.None
+        
+        let cellId = m.sender == XMPPCommunicator.sharedInstance.me ? "MyMessageCell" : "InterlocutorMessageCell"
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as ChatCell
+        
+        cell.senderAndTimeLabel.text = "\(m.sender.bareName) \(m.time)"
+        cell.messageLabel.text = m.message
         
         return cell
     }
 }
+
+// MARK: - MessageDelegate
 
 extension ChatViewController: MessageDelegate {
     func newMessageReceived(message: Message) {

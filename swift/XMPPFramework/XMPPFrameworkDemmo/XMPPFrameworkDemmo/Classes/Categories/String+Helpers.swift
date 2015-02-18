@@ -9,6 +9,8 @@
 import Foundation
 
 extension String {
+ 
+    // MARK: - Subscript methods
     
     subscript (i: Int) -> Character {
         return self[advance(self.startIndex, i)]
@@ -19,6 +21,19 @@ extension String {
     }
 
     subscript (r: Range<Int>) -> String {
-        return substringWithRange(Range(start: advance(startIndex, r.startIndex), end: advance(startIndex, r.endIndex)))
+        return substringWithRange(Range(start: advance(startIndex, r.startIndex),
+                                        end  : advance(startIndex, r.endIndex)))
+
+    }
+    
+    // MARK: - Time helper
+    
+    static func getCurrentTime() -> String {
+        let nowUTC = NSDate()
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.timeZone  = NSTimeZone.localTimeZone()
+        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.timeStyle = .MediumStyle
+        return dateFormatter.stringFromDate(nowUTC)
     }
 }

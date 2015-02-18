@@ -113,9 +113,15 @@ extension BuddiesViewController: ChatDelegate {
     }
     
     func newBuddyOnline(buddy: Interlocutor) {
-        offlineBuddies.removeObject(buddy)
-        onlineBuddies.append(buddy)
-        groupBuddies()
+        if contains(offlineBuddies, buddy) {
+            offlineBuddies.removeObject(buddy)
+        }
+        
+        if !contains(onlineBuddies, buddy) {
+            onlineBuddies.append(buddy)
+            groupBuddies()
+        }
+        
         tableView.reloadData()
     }
     
@@ -140,27 +146,38 @@ private extension BuddiesViewController {
     }
     
     func groupBuddies() {
-        if onlineBuddies.count != 0 {
-            let buddiesSorted = onlineBuddies.sorted{$0.name < $1.name}
-            buddiesGrouped = []
-            var currentPrefix: Character? = nil
-            var group = [Interlocutor]()
-            for buddy in buddiesSorted {
-                
-                let firstLetter = first(buddy.name)
-                
-                if currentPrefix == nil || firstLetter != currentPrefix {
-                    if group.count > 0 {
-                        buddiesGrouped.append(group)
-                        group.removeAll(keepCapacity: false)
-                    }
-                    currentPrefix = firstLetter
+        
+        func distinct<T: Equatable>(source: [T]) -> [T] {
+            var unique = [T]()
+            for item in source {
+                if !contains(unique, item) {
+                    unique.append(item)
                 }
-                
-                group.append(buddy)
             }
+            return unique
         }
         
+        typealias GroupType = (Character, [Interlocutor])
+        
+        let buddiesSorted = onlineBuddies.sorted{$0.name < $1.name}
+        let letters = buddiesSorted.map {
+            (buddy) -> Character in
+            return first(buddy.bareName.uppercaseString)!
+        }
+        
+        let distinctLetters = distinct(letters)
+        
+        var onlineGroups = distinctLetters.map {
+            (letter) -> GroupType in
+            return (letter, self.onlineBuddies.filter {
+                (buddy) -> Bool in
+                    return first(buddy.bareName.uppercaseString) == letter
+                }
+            )
+        }
+        
+        buddiesGrouped = onlineGroups.map {$1}
+
         if offlineBuddies.count != 0 {
             offlineBuddies = offlineBuddies.sorted{$0.name < $1.name}
             buddiesGrouped.append(offlineBuddies)
