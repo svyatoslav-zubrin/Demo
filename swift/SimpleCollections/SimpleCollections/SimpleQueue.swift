@@ -8,25 +8,65 @@
 
 import Foundation
 
-protocol SimpleQueue<Item> {
+protocol SimpleQueue {
+    typealias Item
+    
     func enqueue(item: Item)
     func dequeue() -> Item?
 }
 
+// MARK: - Queue based on immutable array
 
 class QueueBasedOnArray<Item> {
     
-    private let contaner: Array<Item>?
+    private var contaner: Array<Item>?
+    
+    init() {
+        contaner = [Item]()
+    }
     
     func enqueue(item: Item) {
         
     }
     
-    func dequeue(item: Item) {
-        
+    func dequeue() -> Item? {
+        return nil
     }
 }
 
-class QueueBasedOnLinkedList {
+// MARK: - Queue based on linked list
+
+class QueueBasedOnLinkedList<Item> {
     
+    private var contaner: [Item]?
+    
+    init() {
+        // TODO: incorrect implementation
+        contaner = [Item]()
+    }
+    
+    func enqueue(item: Item) {
+        
+    }
+    
+    func dequeue() -> Item? {
+        return nil
+    }
 }
+
+// MARK: Linked List Helpers
+
+class Node<Item> {
+    let value: Item
+    var next: Node?
+    
+    init(value _value: Item, next _next: Node?) {
+        value = _value
+        next = _next
+    }
+    
+    func hasNext() -> Bool {
+        return next != nil
+    }
+}
+

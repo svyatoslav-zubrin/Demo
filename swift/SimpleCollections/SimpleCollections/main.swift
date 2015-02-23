@@ -10,3 +10,11 @@ import Foundation
 
 println("Hello, World!")
 
+var queue: QueueBasedOnLinkedList<Int>? = QueueBasedOnLinkedList<Int>()
+
+if let q = queue {
+    q.enqueue(6)
+    q.enqueue(7)
+    
+    println(q.dequeue() != nil ? "not nil" : "nil")
+}
