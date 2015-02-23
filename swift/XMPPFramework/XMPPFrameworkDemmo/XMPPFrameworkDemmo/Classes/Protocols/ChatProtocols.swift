@@ -22,5 +22,4 @@ protocol ChatDelegate {
 
 protocol MessageDelegate {
     func newMessageReceived(message: Message)
-//    func failedToSendMessage(message: Message)
 }

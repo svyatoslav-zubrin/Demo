@@ -8,47 +8,29 @@
 
 import Foundation
 
-class XMPPCommunicator: NSObject {
+class XMPPCommunicator: BaseCommunicator {
 
-    private var stream: XMPPStream
-    private var pass: String = ""
+    var account: Account
     var isOpen: Bool = false
-    
-    var chatDelegate: ChatDelegate?
-    var messageDelegate: MessageDelegate?
+    private var stream: XMPPStream
     
     var me: Interlocutor {
-        return Interlocutor(xmppJID: stream.myJID)
+        return Interlocutor(xmppJID: stream.myJID, service: account.service)
     }
     
-    // Singleton
-    
-    class var sharedInstance : XMPPCommunicator {
-        
-        struct Static {
-            
-            static let instance : XMPPCommunicator = XMPPCommunicator()
-        }
-        
-        return Static.instance
-    }
-
     // MARK: - Lifecycle
     
-    override init() {
+    init(account _account: Account) {
         
         stream = XMPPStream()
-        
-        // my local jabber server
-        stream.hostName = "szmini.local"
-        stream.hostPort = 5222
+        account = _account
 
-        // qarea's jabber
-//        stream.hostName = "jabber.qarea.org"
-//        stream.hostPort = 5222
+//        service = Service(type: .Local)!
+//        service = Service(type: .QArea)!
         
         super.init()
-        
+
+        configureStreamForService(account.service)
         stream.addDelegate(self, delegateQueue: dispatch_get_main_queue())
     }
     
@@ -59,20 +41,14 @@ class XMPPCommunicator: NSObject {
         var result = false
         
         if !stream.isDisconnected() {
-            println("Already connected")
             result = true
         }
         
         if result == false {
-            if let jabberId = UserSettings.sharedInstance.userId {
-                if let password = UserSettings.sharedInstance.userPassword {
-                    stream.myJID = XMPPJID.jidWithString(jabberId)
-                    pass = password
-                    var error: NSError? = nil
-                    if stream.connectWithTimeout(XMPPStreamTimeoutNone, error: &error) {
-                        result = true
-                    }
-                }
+            stream.myJID = XMPPJID.jidWithString(account.userId)
+            var error: NSError? = nil
+            if stream.connectWithTimeout(XMPPStreamTimeoutNone, error: &error) {
+                result = true
             }
         }
         
@@ -118,7 +94,7 @@ extension XMPPCommunicator: XMPPStreamDelegate {
         // connection to the server successful
         isOpen = true
         var error: NSError? = nil
-        stream.authenticateWithPassword(pass, error: &error)
+        stream.authenticateWithPassword(account.password, error: &error)
         
         if error != nil {
             // TODO: handle error appropriately
@@ -131,8 +107,8 @@ extension XMPPCommunicator: XMPPStreamDelegate {
         let myUsername = sender.myJID.user
         let presenceFromUser = presence.from().user
         
-        let me      = Interlocutor(xmppJID: sender.myJID)
-        let other   = Interlocutor(xmppJID: presence.from())
+        let me      = Interlocutor(xmppJID: sender.myJID, service: account.service)
+        let other   = Interlocutor(xmppJID: presence.from(), service: account.service)
         
         println("Type: \(presence.type()), status: \(presence.status()), show: \(presence.show())")
         
@@ -154,8 +130,8 @@ extension XMPPCommunicator: XMPPStreamDelegate {
         if message.isChatMessageWithBody() {
             let text = message.body()
             let time = message.attributeStringValueForName("time")
-            let from = Interlocutor(xmppJID: message.from())
-            let to   = Interlocutor(xmppJID: message.to())
+            let from = Interlocutor(xmppJID: message.from(), service: account.service)
+            let to   = Interlocutor(xmppJID: message.to(), service: account.service)
             if from.isBare()
                 && to.isBare()
                 && countElements(text) > 0 {
@@ -176,8 +152,8 @@ extension XMPPCommunicator: XMPPStreamDelegate {
         if message.isChatMessageWithBody() {
             let text = message.body()
             let time = message.attributeStringValueForName("time")
-            let from = Interlocutor(xmppJID: message.from())
-            let to   = Interlocutor(xmppJID: message.to())
+            let from = Interlocutor(xmppJID: message.from(), service: account.service)
+            let to   = Interlocutor(xmppJID: message.to(), service: account.service)
             
             if from.isBare()
             && to.isBare()
@@ -205,6 +181,11 @@ extension XMPPCommunicator: XMPPStreamDelegate {
 // MARK: - Private
 
 private extension XMPPCommunicator {
+    
+    func configureStreamForService(_service: Service) {
+        stream.hostName = account.service.hostName
+        stream.hostPort = account.service.hostPort
+    }
     
     func goOnline() {
         stream.sendElement(XMPPPresence())

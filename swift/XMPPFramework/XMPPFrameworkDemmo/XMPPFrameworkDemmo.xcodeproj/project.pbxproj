@@ -69,7 +69,13 @@
 		CE1145421A920490003C1300 /* XMPPCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1145411A920490003C1300 /* XMPPCommunicator.swift */; };
 		CE1145491A921CCE003C1300 /* ChatProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1145481A921CCE003C1300 /* ChatProtocols.swift */; };
 		CE11454B1A922D21003C1300 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11454A1A922D21003C1300 /* Array+Helpers.swift */; };
+		CE3778ED1A95E50E0003FA98 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3778EC1A95E50E0003FA98 /* Service.swift */; };
+		CE3778EF1A95F6870003FA98 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3778EE1A95F6870003FA98 /* Account.swift */; };
 		CEC29D241A94A88200DFB848 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC29D231A94A88200DFB848 /* ChatCell.swift */; };
+		CED4EECC1A9B5559003D2F79 /* CommunicatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED4EECB1A9B5559003D2F79 /* CommunicatorFactory.swift */; };
+		CED4EECE1A9B55BE003D2F79 /* BaseCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED4EECD1A9B55BE003D2F79 /* BaseCommunicator.swift */; };
+		CEF8B44E1A9647CC00C78E48 /* CommunicatorsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF8B44D1A9647CC00C78E48 /* CommunicatorsProvider.swift */; };
+		CEF8B4501A964BBC00C78E48 /* AccountsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF8B44F1A964BBC00C78E48 /* AccountsListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,7 +207,13 @@
 		CE1145461A9204DE003C1300 /* XMPPFrameworkDemmo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XMPPFrameworkDemmo-Bridging-Header.h"; sourceTree = "<group>"; };
 		CE1145481A921CCE003C1300 /* ChatProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatProtocols.swift; path = Classes/Protocols/ChatProtocols.swift; sourceTree = "<group>"; };
 		CE11454A1A922D21003C1300 /* Array+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array+Helpers.swift"; path = "Classes/Categories/Array+Helpers.swift"; sourceTree = "<group>"; };
+		CE3778EC1A95E50E0003FA98 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = Classes/Model/Service.swift; sourceTree = "<group>"; };
+		CE3778EE1A95F6870003FA98 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Account.swift; path = Classes/Model/Account.swift; sourceTree = "<group>"; };
 		CEC29D231A94A88200DFB848 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatCell.swift; path = Classes/Views/ChatCell.swift; sourceTree = "<group>"; };
+		CED4EECB1A9B5559003D2F79 /* CommunicatorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunicatorFactory.swift; sourceTree = "<group>"; };
+		CED4EECD1A9B55BE003D2F79 /* BaseCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseCommunicator.swift; path = Classes/Controllers/BaseCommunicator.swift; sourceTree = "<group>"; };
+		CEF8B44D1A9647CC00C78E48 /* CommunicatorsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommunicatorsProvider.swift; path = Classes/Controllers/CommunicatorsProvider.swift; sourceTree = "<group>"; };
+		CEF8B44F1A964BBC00C78E48 /* AccountsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountsListViewController.swift; path = "Classes/View Controllers/AccountsListViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -599,6 +611,7 @@
 				CE1145331A91F138003C1300 /* BuddiesViewController.swift */,
 				CE1145351A91F578003C1300 /* LoginViewController.swift */,
 				CE11453A1A91FB40003C1300 /* ChatViewController.swift */,
+				CEF8B44F1A964BBC00C78E48 /* AccountsListViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -606,8 +619,10 @@
 		CE1145321A91F0BD003C1300 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CE11453C1A920111003C1300 /* Message.swift */,
+				CE3778EE1A95F6870003FA98 /* Account.swift */,
 				CE00E1141A935606004CED2B /* Interlocutor.swift */,
+				CE11453C1A920111003C1300 /* Message.swift */,
+				CE3778EC1A95E50E0003FA98 /* Service.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -615,7 +630,10 @@
 		CE1145371A91F721003C1300 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CEF8B44D1A9647CC00C78E48 /* CommunicatorsProvider.swift */,
+				CED4EECB1A9B5559003D2F79 /* CommunicatorFactory.swift */,
 				CE1145411A920490003C1300 /* XMPPCommunicator.swift */,
+				CED4EECD1A9B55BE003D2F79 /* BaseCommunicator.swift */,
 				CE1145381A91F74F003C1300 /* UserSettings.swift */,
 			);
 			name = Controllers;
@@ -753,6 +771,7 @@
 				CE1145161A91EFC6003C1300 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				CE11451F1A91EFC6003C1300 /* XMPPConstants.m in Sources */,
 				CE11452C1A91EFC6003C1300 /* XMPPSRVResolver.m in Sources */,
+				CED4EECE1A9B55BE003D2F79 /* BaseCommunicator.swift in Sources */,
 				CE1144BC1A91EAF3003C1300 /* DDMultiFormatter.m in Sources */,
 				CE11451B1A91EFC6003C1300 /* XMPPXOAuth2Google.m in Sources */,
 				CE1145261A91EFC6003C1300 /* XMPPPresence.m in Sources */,
@@ -764,13 +783,16 @@
 				CE1145341A91F138003C1300 /* BuddiesViewController.swift in Sources */,
 				CE1145151A91EFC6003C1300 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				CE1145171A91EFC6003C1300 /* XMPPDigestMD5Authentication.m in Sources */,
+				CEF8B44E1A9647CC00C78E48 /* CommunicatorsProvider.swift in Sources */,
 				CE1145191A91EFC6003C1300 /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				CE11453D1A920111003C1300 /* Message.swift in Sources */,
+				CED4EECC1A9B5559003D2F79 /* CommunicatorFactory.swift in Sources */,
 				CE1144B61A91EAF3003C1300 /* DDASLLogger.m in Sources */,
 				CE1145491A921CCE003C1300 /* ChatProtocols.swift in Sources */,
 				CE1145201A91EFC6003C1300 /* XMPPElement.m in Sources */,
 				CE1145291A91EFC6003C1300 /* GCDMulticastDelegate.m in Sources */,
 				CE1145211A91EFC6003C1300 /* XMPPIQ.m in Sources */,
+				CE3778EF1A95F6870003FA98 /* Account.swift in Sources */,
 				CE1145391A91F74F003C1300 /* UserSettings.swift in Sources */,
 				CE11451D1A91EFC6003C1300 /* NSNumber+XMPP.m in Sources */,
 				CE00E1151A935606004CED2B /* Interlocutor.swift in Sources */,
@@ -786,9 +808,11 @@
 				CE1144671A91E84D003C1300 /* AppDelegate.swift in Sources */,
 				CE11451C1A91EFC6003C1300 /* NSData+XMPP.m in Sources */,
 				CE1145251A91EFC6003C1300 /* XMPPParser.m in Sources */,
+				CE3778ED1A95E50E0003FA98 /* Service.swift in Sources */,
 				CE00E1171A9367ED004CED2B /* String+Helpers.swift in Sources */,
 				CE1145181A91EFC6003C1300 /* XMPPPlainAuthentication.m in Sources */,
 				CE1145361A91F578003C1300 /* LoginViewController.swift in Sources */,
+				CEF8B4501A964BBC00C78E48 /* AccountsListViewController.swift in Sources */,
 				CE1144B51A91EAF3003C1300 /* DDAbstractDatabaseLogger.m in Sources */,
 				CE1144BE1A91EAF3003C1300 /* NSString+DDXML.m in Sources */,
 				CE11452B1A91EFC6003C1300 /* XMPPIDTracker.m in Sources */,

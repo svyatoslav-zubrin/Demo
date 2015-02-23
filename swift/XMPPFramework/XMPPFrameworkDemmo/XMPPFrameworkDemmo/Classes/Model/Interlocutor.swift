@@ -12,14 +12,16 @@ class Interlocutor: Equatable {
     
     private(set) var name: String
     private(set) var bareName: String
+    private(set) var serviceId: String
     
-    init(name _name: String, bareName _bareName: String) {
+    init(name _name: String, bareName _bareName: String, service _service: Service) {
         name = _name
         bareName = _bareName
+        serviceId = _service.id
     }
     
-    convenience init(xmppJID _jid: XMPPJID) {
-        self.init(name: _jid.user, bareName: _jid.bare())
+    convenience init(xmppJID _jid: XMPPJID, service _service: Service) {
+        self.init(name: _jid.user, bareName: _jid.bare(), service: _service)
     }
     
     func isBare() -> Bool {
@@ -31,4 +33,5 @@ class Interlocutor: Equatable {
 
 func ==(lhs: Interlocutor, rhs: Interlocutor) -> Bool {
     return lhs.bareName == rhs.bareName
+        && lhs.serviceId == rhs.serviceId
 }

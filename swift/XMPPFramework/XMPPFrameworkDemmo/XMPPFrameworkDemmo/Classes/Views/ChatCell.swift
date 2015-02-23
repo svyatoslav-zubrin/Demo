@@ -12,8 +12,4 @@ class ChatCell: UITableViewCell {
     @IBOutlet weak var senderAndTimeLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var bgImageView: UIImageView!
-    
-//    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-//        <#code#>
-//    }
 }

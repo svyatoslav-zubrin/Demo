@@ -26,20 +26,20 @@ class BuddiesViewController: UIViewController {
         statusView.layer.cornerRadius = 10
         statusView.clipsToBounds = true
         
-        XMPPCommunicator.sharedInstance.chatDelegate = self
+//        XMPPCommunicator.sharedInstance.chatDelegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        let userId = UserSettings.sharedInstance.userId
-        if userId == nil || countElements(userId!) == 0 {
-            showLogin()
-        } else {
-            if XMPPCommunicator.sharedInstance.connect() {
-                println("Show buddy list!")
-            }
-        }
+//        let userId = UserSettings.sharedInstance.userId
+//        if userId == nil || countElements(userId!) == 0 {
+//            showLogin()
+//        } else {
+////            if XMPPCommunicator.sharedInstance.connect() {
+////                println("Show buddy list!")
+////            }
+//        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

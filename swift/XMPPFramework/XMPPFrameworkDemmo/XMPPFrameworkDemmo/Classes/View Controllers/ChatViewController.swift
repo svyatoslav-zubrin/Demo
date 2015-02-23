@@ -13,8 +13,13 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
     
+    var account: Account! = nil
     var interlocutor: Interlocutor! = nil
     var messages: [Message] = []
+    
+    var communicator: BaseCommunicator {
+        return CommunicatorsProvider.sharedInstance.getCommunicatorByServiceId(account.service.id)!
+    }
     
     // MARK: - Lifecycle
     
@@ -36,13 +41,13 @@ class ChatViewController: UIViewController {
     
         self.textField.becomeFirstResponder()
         
-        XMPPCommunicator.sharedInstance.messageDelegate = self
+        communicator.messageDelegate = self
     }
 
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         
-        XMPPCommunicator.sharedInstance.messageDelegate = nil
+        communicator.messageDelegate = nil
     }
     
     // MARK: - User actions
@@ -52,11 +57,13 @@ class ChatViewController: UIViewController {
             
             textField.text = ""
             
+            let xmppCommunicator = communicator as XMPPCommunicator // TODO: correct classes hierarchi for baseComm...->XMPPComm... to make all properties public in base class
+            
             let messageObject = Message(text: message,
-                sender: XMPPCommunicator.sharedInstance.me,
+                sender: xmppCommunicator.me,
                 receiver: interlocutor,
                 time: String.getCurrentTime())
-            XMPPCommunicator.sharedInstance.sendMessage(messageObject)
+            xmppCommunicator.sendMessage(messageObject)
         }
     }
 }
@@ -77,7 +84,9 @@ extension ChatViewController: UITableViewDataSource {
 
         let m = messages[indexPath.row]
         
-        let cellId = m.sender == XMPPCommunicator.sharedInstance.me ? "MyMessageCell" : "InterlocutorMessageCell"
+        let xmppCommunicator = communicator as XMPPCommunicator // TODO: correct classes hierarchi for baseComm...->XMPPComm... to make all properties public in base class
+        
+        let cellId = m.sender == xmppCommunicator.me ? "MyMessageCell" : "InterlocutorMessageCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as ChatCell
         
         cell.senderAndTimeLabel.text = "\(m.sender.bareName) \(m.time)"

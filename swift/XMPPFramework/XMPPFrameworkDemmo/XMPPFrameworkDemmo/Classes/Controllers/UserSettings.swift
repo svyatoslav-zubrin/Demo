@@ -10,6 +10,8 @@ import Foundation
 
 class UserSettings {
     
+    private(set) var accounts: [Account] = []
+    
     // Singleton
     
     class var sharedInstance : UserSettings {
@@ -19,33 +21,44 @@ class UserSettings {
         return Static.instance
     }
     
-    // Public properties
+    // MARK: - Lifecycle
     
-    var userId: String? {
-        get {
-            return NSUserDefaults.standardUserDefaults().objectForKey("userID") as? String
+    init() {
+        loadStoredAccounts()
+    }
+    
+    // MARK: - Public
+    
+    func addAccount(_account: Account) {
+        accounts.append(_account)
+        store()
+    }
+    
+    func removeAccount(_account: Account) {
+        if contains(accounts, _account) {
+            accounts.removeObject(_account)
+            store()
         }
+    }
+}
+
+// MARK: - Private
+
+private extension UserSettings {
+
+    func loadStoredAccounts() {
+        // TODO: move storage from disk to file
+        if accounts.count > 0 { accounts.removeAll(keepCapacity: true) }
         
-        set {
-            if let v = newValue {
-                let ud = NSUserDefaults.standardUserDefaults()
-                ud.setObject(v, forKey: "userID")
-                ud.synchronize()
-            }
+        if let a = NSUserDefaults.standardUserDefaults().objectForKey("accounts") as? [Account] {
+            accounts = a
         }
     }
     
-    var userPassword: String? {
-        get {
-            return NSUserDefaults.standardUserDefaults().objectForKey("userPassword") as? String
-        }
-        
-        set {
-            if let v = newValue {
-                let ud = NSUserDefaults.standardUserDefaults()
-                ud.setObject(v, forKey: "userPassword")
-                ud.synchronize()
-            }
-        }
+    func store() {
+        // TODO: move storage from disk to file
+        let ud = NSUserDefaults.standardUserDefaults()
+        ud.setObject(accounts, forKey: "accounts")
+        ud.synchronize()
     }
 }
