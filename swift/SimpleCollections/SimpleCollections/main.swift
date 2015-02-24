@@ -10,11 +10,38 @@ import Foundation
 
 println("Hello, World!")
 
-var queue: QueueBasedOnLinkedList<Int>? = QueueBasedOnLinkedList<Int>()
+func testQueueBasedOnLinkedList() {
+    var queue: QueueBasedOnLinkedList<Int>? = QueueBasedOnLinkedList<Int>()
 
-if let q = queue {
-    q.enqueue(6)
-    q.enqueue(7)
-    
-    println(q.dequeue() != nil ? "not nil" : "nil")
+    if let q = queue {
+        q.enqueue(6)
+        q.enqueue(7)
+        q.enqueue(8)
+        
+        if let value = q.dequeue() {
+            println(value)
+        } else {
+            println("empty queue")
+        }
+    }
 }
+
+func testQueueBasedOnArray() {
+    var queue: QueueBasedOnArray<Int>? = QueueBasedOnArray<Int>()
+    
+    if let q = queue {
+        q.enqueue(6)
+        q.enqueue(7)
+        q.enqueue(8)
+        
+        q.dequeue()
+        q.dequeue()
+        if let value = q.dequeue() {
+            println(value)
+        } else {
+            println("empty queue")
+        }
+    }
+}
+
+testQueueBasedOnArray()
