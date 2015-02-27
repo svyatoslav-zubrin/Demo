@@ -13,11 +13,12 @@ enum ChatStatus {
 }
 
 protocol ChatDelegate {
+    // connection status
     func account(_account: Account, changedStatus newStatus: ChatStatus)
-    
+    func accountDidDisconnect(_account: Account)
+    // buddies list
     func newBuddyOnline(buddy: Interlocutor)
     func buddyWentOffline(buddy: Interlocutor)
-    func accountDidDisconnect(_account: Account)
 }
 
 protocol MessageDelegate {
