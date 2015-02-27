@@ -31,13 +31,13 @@ class UserSettings {
     
     func addAccount(_account: Account) {
         accounts.append(_account)
-        store()
+//        store()
     }
     
     func removeAccount(_account: Account) {
         if contains(accounts, _account) {
             accounts.removeObject(_account)
-            store()
+//            store()
         }
     }
 }

@@ -104,7 +104,8 @@ extension BuddiesViewController: UITableViewDelegate {
 
 extension BuddiesViewController: ChatDelegate {
     
-    func myStatusChanged(newStatus: ChatStatus) {
+    func account(_account: Account, changedStatus newStatus: ChatStatus)
+    {
         if newStatus == .Available {
             statusView.backgroundColor = UIColor.greenColor()
         } else {
@@ -132,7 +133,8 @@ extension BuddiesViewController: ChatDelegate {
         tableView.reloadData()
     }
     
-    func didDisconnect() {
+    func accountDidDisconnect(_account: Account)
+    {
         statusView.backgroundColor = UIColor.redColor()
     }
 }

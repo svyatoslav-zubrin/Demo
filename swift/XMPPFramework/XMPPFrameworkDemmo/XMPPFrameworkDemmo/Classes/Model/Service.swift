@@ -18,6 +18,24 @@ enum ServiceType: Int {
     static func count() -> Int {
         return 4
     }
+    
+    func toString() -> String {
+        switch self {
+        case .Custom    : return "Custom service"
+        case .QArea     : return "QArea's jabber"
+        case .GTalk     : return "Google talk"
+        case .Local     : return "Local jabber (debug)"
+        }
+    }
+    
+    var defaultHostParameters: (name: String, port: UInt16) {
+        switch self {
+        case .Custom    : return ("", 5222)
+        case .QArea     : return ("jabber.qarea.org", 5222)
+        case .GTalk     : return ("talk.google.com", 5223)
+        case .Local     : return ("szmini.local", 5222)
+        }
+    }
 }
 
 class Service: Equatable {

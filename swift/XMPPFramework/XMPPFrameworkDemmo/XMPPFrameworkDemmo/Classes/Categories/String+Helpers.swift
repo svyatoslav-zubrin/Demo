@@ -13,14 +13,17 @@ extension String {
     // MARK: - Subscript
     
     subscript (i: Int) -> Character {
+        
         return self[advance(self.startIndex, i)]
     }
     
     subscript (i: Int) -> String {
+        
         return String(self[i] as Character)
     }
 
     subscript (r: Range<Int>) -> String {
+        
         return substringWithRange(Range(start: advance(startIndex, r.startIndex),
                                         end  : advance(startIndex, r.endIndex)))
 
@@ -29,6 +32,7 @@ extension String {
     // MARK: - Time
     
     static func getCurrentTime() -> String {
+        
         let nowUTC = NSDate()
         let dateFormatter = NSDateFormatter()
         dateFormatter.timeZone  = NSTimeZone.localTimeZone()
@@ -49,5 +53,17 @@ extension String {
         res = res.stringByReplacingOccurrencesOfString(":-x", withString: "\u{e418}")
         
         return res;
+    }
+    
+    // MARK: - Validation
+    
+    func isValidEmail() -> Bool {
+        
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        
+        if let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx) {
+            return emailTest.evaluateWithObject(self)
+        }
+        return false
     }
 }

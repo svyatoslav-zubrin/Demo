@@ -69,6 +69,7 @@
 		CE1145421A920490003C1300 /* XMPPCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1145411A920490003C1300 /* XMPPCommunicator.swift */; };
 		CE1145491A921CCE003C1300 /* ChatProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1145481A921CCE003C1300 /* ChatProtocols.swift */; };
 		CE11454B1A922D21003C1300 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11454A1A922D21003C1300 /* Array+Helpers.swift */; };
+		CE209B501AA0C8C100417534 /* UIColor+NamedColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE209B4F1AA0C8C100417534 /* UIColor+NamedColors.swift */; };
 		CE3778ED1A95E50E0003FA98 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3778EC1A95E50E0003FA98 /* Service.swift */; };
 		CE3778EF1A95F6870003FA98 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3778EE1A95F6870003FA98 /* Account.swift */; };
 		CEC29D241A94A88200DFB848 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC29D231A94A88200DFB848 /* ChatCell.swift */; };
@@ -207,6 +208,7 @@
 		CE1145461A9204DE003C1300 /* XMPPFrameworkDemmo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XMPPFrameworkDemmo-Bridging-Header.h"; sourceTree = "<group>"; };
 		CE1145481A921CCE003C1300 /* ChatProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatProtocols.swift; path = Classes/Protocols/ChatProtocols.swift; sourceTree = "<group>"; };
 		CE11454A1A922D21003C1300 /* Array+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array+Helpers.swift"; path = "Classes/Categories/Array+Helpers.swift"; sourceTree = "<group>"; };
+		CE209B4F1AA0C8C100417534 /* UIColor+NamedColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+NamedColors.swift"; path = "Classes/Categories/UIColor+NamedColors.swift"; sourceTree = "<group>"; };
 		CE3778EC1A95E50E0003FA98 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = Classes/Model/Service.swift; sourceTree = "<group>"; };
 		CE3778EE1A95F6870003FA98 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Account.swift; path = Classes/Model/Account.swift; sourceTree = "<group>"; };
 		CEC29D231A94A88200DFB848 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatCell.swift; path = Classes/Views/ChatCell.swift; sourceTree = "<group>"; };
@@ -608,10 +610,10 @@
 		CE1145311A91F0B3003C1300 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				CE1145331A91F138003C1300 /* BuddiesViewController.swift */,
 				CE1145351A91F578003C1300 /* LoginViewController.swift */,
-				CE11453A1A91FB40003C1300 /* ChatViewController.swift */,
 				CEF8B44F1A964BBC00C78E48 /* AccountsListViewController.swift */,
+				CE1145331A91F138003C1300 /* BuddiesViewController.swift */,
+				CE11453A1A91FB40003C1300 /* ChatViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -652,6 +654,7 @@
 			children = (
 				CE11454A1A922D21003C1300 /* Array+Helpers.swift */,
 				CE00E1161A9367ED004CED2B /* String+Helpers.swift */,
+				CE209B4F1AA0C8C100417534 /* UIColor+NamedColors.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -785,6 +788,7 @@
 				CE1145171A91EFC6003C1300 /* XMPPDigestMD5Authentication.m in Sources */,
 				CEF8B44E1A9647CC00C78E48 /* CommunicatorsProvider.swift in Sources */,
 				CE1145191A91EFC6003C1300 /* XMPPSCRAMSHA1Authentication.m in Sources */,
+				CE209B501AA0C8C100417534 /* UIColor+NamedColors.swift in Sources */,
 				CE11453D1A920111003C1300 /* Message.swift in Sources */,
 				CED4EECC1A9B5559003D2F79 /* CommunicatorFactory.swift in Sources */,
 				CE1144B61A91EAF3003C1300 /* DDASLLogger.m in Sources */,

@@ -222,16 +222,30 @@
         <!--Accounts-->
         <scene sceneID="chU-Lx-4lF">
             <objects>
-                <tableViewController id="X1e-iY-KqG" sceneMemberID="viewController">
+                <tableViewController id="X1e-iY-KqG" customClass="AccountsListViewController" customModule="XMPPFrameworkDemmo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="HAT-yQ-7aH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Jyv-nD-dZf">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountCell" textLabel="sMy-I9-WTt" detailTextLabel="SOH-iN-foT" style="IBUITableViewCellStyleSubtitle" id="Jyv-nD-dZf">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jyv-nD-dZf" id="3WP-8O-g34">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sMy-I9-WTt">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SOH-iN-foT">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -257,7 +271,7 @@
             </objects>
             <point key="canvasLocation" x="2392" y="0.0"/>
         </scene>
-        <!--Login View Controller-->
+        <!--New account-->
         <scene sceneID="SYA-Dr-EmF">
             <objects>
                 <viewController id="ElP-Xp-AJ4" customClass="LoginViewController" customModule="XMPPFrameworkDemmo" customModuleProvider="target" sceneMemberID="viewController">
@@ -286,37 +300,25 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLb-Sk-i5D">
-                                <rect key="frame" x="0.0" y="148" width="600" height="162"/>
+                                <rect key="frame" x="0.0" y="137" width="600" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="cfC-Mj-GlE"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="ElP-Xp-AJ4" id="DP3-1G-9lv"/>
                                     <outlet property="delegate" destination="ElP-Xp-AJ4" id="Xsh-BQ-h6Y"/>
                                 </connections>
                             </pickerView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="hostname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EDB-Fl-zLH">
-                                <rect key="frame" x="16" y="318" width="568" height="30"/>
+                                <rect key="frame" x="16" y="296" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="5222" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T8h-6y-gdP">
-                                <rect key="frame" x="16" y="356" width="568" height="30"/>
+                                <rect key="frame" x="16" y="334" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVb-pe-l4m">
-                                <rect key="frame" x="253" y="394" width="94" height="30"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="94" id="TeY-6V-kQF"/>
-                                    <constraint firstAttribute="height" constant="30" id="ThB-vI-oVq"/>
-                                </constraints>
-                                <state key="normal" title="Login">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="loginAction:" destination="ElP-Xp-AJ4" eventType="touchUpInside" id="0fg-8K-kRu"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -324,13 +326,11 @@
                             <constraint firstItem="AGN-G8-apv" firstAttribute="leading" secondItem="WRM-mk-uMo" secondAttribute="leading" constant="16" id="2j9-7O-44v"/>
                             <constraint firstItem="T8h-6y-gdP" firstAttribute="top" secondItem="EDB-Fl-zLH" secondAttribute="bottom" constant="8" id="3fh-ct-KfS"/>
                             <constraint firstItem="EDB-Fl-zLH" firstAttribute="leading" secondItem="WRM-mk-uMo" secondAttribute="leading" constant="16" id="8SB-mg-JiK"/>
-                            <constraint firstAttribute="centerX" secondItem="tVb-pe-l4m" secondAttribute="centerX" id="D06-af-Ovp"/>
                             <constraint firstItem="XYY-a8-NYs" firstAttribute="leading" secondItem="WRM-mk-uMo" secondAttribute="leading" constant="16" id="DE1-hr-eV1"/>
                             <constraint firstAttribute="trailing" secondItem="kLb-Sk-i5D" secondAttribute="trailing" id="DrR-BV-s21"/>
                             <constraint firstItem="kLb-Sk-i5D" firstAttribute="top" secondItem="XYY-a8-NYs" secondAttribute="bottom" constant="8" id="Frd-aQ-yTE"/>
                             <constraint firstAttribute="trailing" secondItem="EDB-Fl-zLH" secondAttribute="trailing" constant="16" id="G6b-L2-Nb7"/>
                             <constraint firstItem="AGN-G8-apv" firstAttribute="top" secondItem="KSQ-k5-RcF" secondAttribute="bottom" constant="8" id="KZB-52-M68"/>
-                            <constraint firstItem="tVb-pe-l4m" firstAttribute="top" secondItem="T8h-6y-gdP" secondAttribute="bottom" constant="8" id="eJt-05-NeH"/>
                             <constraint firstItem="kLb-Sk-i5D" firstAttribute="leading" secondItem="WRM-mk-uMo" secondAttribute="leading" id="hdl-0f-AZf"/>
                             <constraint firstItem="T8h-6y-gdP" firstAttribute="leading" secondItem="WRM-mk-uMo" secondAttribute="leading" constant="16" id="kHk-ca-zFL"/>
                             <constraint firstItem="XYY-a8-NYs" firstAttribute="top" secondItem="AGN-G8-apv" secondAttribute="bottom" constant="8" id="lfA-nH-8Ct"/>
@@ -339,6 +339,13 @@
                             <constraint firstItem="EDB-Fl-zLH" firstAttribute="top" secondItem="kLb-Sk-i5D" secondAttribute="bottom" constant="8" id="sgX-m8-VaJ"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="New account" id="LJp-bj-7oL">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="EY0-aw-LqO">
+                            <connections>
+                                <action selector="saveAction:" destination="ElP-Xp-AJ4" id="SPW-76-5rM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="hostNameTextField" destination="EDB-Fl-zLH" id="lQm-KV-LwT"/>
                         <outlet property="hostPortTextField" destination="T8h-6y-gdP" id="37m-JJ-1Pc"/>
