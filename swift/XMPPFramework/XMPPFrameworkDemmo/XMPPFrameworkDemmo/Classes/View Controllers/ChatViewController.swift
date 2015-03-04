@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ChatViewController: UIViewController {
-
+class ChatViewController: UIViewController
+{
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
     
@@ -17,26 +17,30 @@ class ChatViewController: UIViewController {
     var interlocutor: Interlocutor! = nil
     var messages: [Message] = []
     
-    var communicator: BaseCommunicator {
-        return CommunicatorsProvider.sharedInstance.getCommunicatorByServiceId(account.service.id)!
+    var communicator: BaseCommunicator
+    {
+        return CommunicatorsProvider.sharedInstance.getCommunicatorByAccountId(account.accountId)!
     }
     
     // MARK: - Lifecycle
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 78.0
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool)
+    {
         super.viewWillAppear(animated)
         
         self.title = "Conversation with " + interlocutor.name
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool)
+    {
         super.viewDidAppear(animated)
     
         self.textField.becomeFirstResponder()
@@ -44,7 +48,8 @@ class ChatViewController: UIViewController {
         communicator.messageDelegate = self
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(animated: Bool)
+    {
         super.viewDidDisappear(animated)
         
         communicator.messageDelegate = nil
@@ -52,35 +57,34 @@ class ChatViewController: UIViewController {
     
     // MARK: - User actions
     
-    @IBAction func sendAction(sender: UIButton) {
-        if let message = textField.text {
-            
+    @IBAction func sendAction(sender: UIButton)
+    {
+        if let message = textField.text
+        {
             textField.text = ""
             
-            let xmppCommunicator = communicator as XMPPCommunicator // TODO: correct classes hierarchi for baseComm...->XMPPComm... to make all properties public in base class
-            
-            let messageObject = Message(text: message,
-                sender: xmppCommunicator.me,
-                receiver: interlocutor,
-                time: String.getCurrentTime())
-            xmppCommunicator.sendMessage(messageObject)
+            let xmppCommunicator = communicator as XMPPCommunicator
+            xmppCommunicator.sendMessage(body: message, receiver: interlocutor, date: NSDate())
         }
     }
 }
 
 // MARK: - UITableViewDataSource
 
-extension ChatViewController: UITableViewDataSource {
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+extension ChatViewController: UITableViewDataSource
+{
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         return messages.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
 
         let m = messages[indexPath.row]
         
@@ -88,9 +92,10 @@ extension ChatViewController: UITableViewDataSource {
         
         let cellId = m.sender == xmppCommunicator.me ? "MyMessageCell" : "InterlocutorMessageCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as ChatCell
-        
-        cell.senderAndTimeLabel.text = "\(m.sender.bareName) \(m.time)"
-        cell.messageLabel.text = m.message.stringBySubstitutingEmoticons()
+
+        let dateString = m.date != nil ? Message.dateAsString(m.date!) : ""
+        cell.senderAndTimeLabel.text = "\(m.sender.bareName) \(dateString)"
+        cell.messageLabel.text = m.body.stringBySubstitutingEmoticons()
         
         return cell
     }
@@ -98,8 +103,10 @@ extension ChatViewController: UITableViewDataSource {
 
 // MARK: - MessageDelegate
 
-extension ChatViewController: MessageDelegate {
-    func newMessageReceived(message: Message) {
+extension ChatViewController: MessageDelegate
+{
+    func newMessageReceived(message: Message)
+    {
         messages.append(message)
         tableView.reloadData()
     }

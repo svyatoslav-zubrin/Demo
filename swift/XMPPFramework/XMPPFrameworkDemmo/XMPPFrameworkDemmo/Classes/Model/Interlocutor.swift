@@ -2,36 +2,62 @@
 //  Interlocutor.swift
 //  XMPPFrameworkDemmo
 //
-//  Created by Slava Zubrin on 2/17/15.
+//  Created by Slava Zubrin on 3/4/15.
 //  Copyright (c) 2015 Slava Zubrin. All rights reserved.
 //
 
 import Foundation
+import CoreData
 
-class Interlocutor: Equatable {
-    
-    private(set) var name: String
-    private(set) var bareName: String
-    private(set) var serviceId: String
-    
-    init(name _name: String, bareName _bareName: String, service _service: Service) {
+@objc(Interlocutor) class Interlocutor: NSManagedObject {
+
+    @NSManaged var bareName: String
+    @NSManaged var name: String
+    @NSManaged var receivedMessages: NSSet
+    @NSManaged var sentMessages: NSSet
+
+    @NSManaged var account: Account
+    @NSManaged var ownedAccount: Account
+
+    init(name _name: String,
+         bareName _bareName: String,
+         account _account: Account,
+         inManagedObjectContext _context: NSManagedObjectContext?)
+    {
+        var context = _context
+        if context == nil
+        {
+            context = NSManagedObjectContext.MR_defaultContext()
+        }
+
+        let ed = NSEntityDescription.entityForName("Interlocutor", inManagedObjectContext: context!)
+
+        assert(ed != nil)
+
+        super.init(entity: ed!, insertIntoManagedObjectContext: context!)
+
         name = _name
         bareName = _bareName
-        serviceId = _service.id
+        account = _account
     }
-    
-    convenience init(xmppJID _jid: XMPPJID, service _service: Service) {
-        self.init(name: _jid.user, bareName: _jid.bare(), service: _service)
-    }
-    
-    func isBare() -> Bool {
-        return countElements(bareName) > 0
-    }
-}
 
-// MARK: - Equatable
+    convenience init(name _name: String,
+                     bareName _bareName: String,
+                     account _account: Account)
+    {
+        self.init(name: _name, bareName: _bareName, account: _account, inManagedObjectContext: nil)
+    }
 
-func ==(lhs: Interlocutor, rhs: Interlocutor) -> Bool {
-    return lhs.bareName == rhs.bareName
-        && lhs.serviceId == rhs.serviceId
+    convenience init(xmppJID _jid: XMPPJID,
+                     account _account: Account,
+                     inManagedObjectContext _context: NSManagedObjectContext?)
+    {
+        self.init(name: _jid.user, bareName: _jid.bare(), account: _account, inManagedObjectContext: _context)
+    }
+
+    convenience init(xmppJID _jid: XMPPJID,
+                     account _account: Account)
+    {
+        self.init(xmppJID: _jid, account: _account, inManagedObjectContext: nil)
+    }
 }

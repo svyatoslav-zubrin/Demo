@@ -16,7 +16,7 @@ class XMPPCommunicator: BaseCommunicator
     
     var me: Interlocutor
     {
-        return Interlocutor(xmppJID: stream.myJID, service: account.service)
+        return account.me
     }
     
     // MARK: - Lifecycle
@@ -28,7 +28,7 @@ class XMPPCommunicator: BaseCommunicator
         
         super.init()
 
-        configureStreamForService(account.service)
+        configureStreamForAccount(account)
         stream.addDelegate(self, delegateQueue: dispatch_get_main_queue())
     }
     
@@ -66,17 +66,18 @@ class XMPPCommunicator: BaseCommunicator
         
         println("Disconnected")
     }
-    
-    func sendMessage(message: Message)
+
+    func sendMessage(body _body: String, receiver _receiver: Interlocutor, date _date: NSDate?)
     {
-        let bodyElement = DDXMLElement(name: "body", stringValue: message.message)
+        let bodyElement = DDXMLElement(name: "body", stringValue: _body)
         let msgElement  = DDXMLElement(name: "message")
         msgElement.addAttributeWithName("type", stringValue: "chat")
-        msgElement.addAttributeWithName("to",   stringValue: message.receiver.bareName)
-        msgElement.addAttributeWithName("from", stringValue: message.sender.bareName)
-        msgElement.addAttributeWithName("time", stringValue: message.time)
+        msgElement.addAttributeWithName("to",   stringValue: _receiver.bareName)
+        msgElement.addAttributeWithName("from", stringValue: account.me.bareName)
+        let date = _date != nil ? _date : NSDate()
+        msgElement.addAttributeWithName("date", stringValue: String(Message.dateAsString(date!)))
         msgElement.addChild(bodyElement)
-        
+
         stream.sendElement(msgElement)
     }
 }
@@ -131,8 +132,8 @@ extension XMPPCommunicator: XMPPStreamDelegate
         let myUsername = sender.myJID.user
         let presenceFromUser = presence.from().user
         
-        let me      = Interlocutor(xmppJID: sender.myJID, service: account.service)
-        let other   = Interlocutor(xmppJID: presence.from(), service: account.service)
+        let me      = account.me
+        let other   = Interlocutor(xmppJID: presence.from(), account: account)
         
         println("Type: \(presence.type()), status: \(presence.status()), show: \(presence.show())")
         
@@ -160,14 +161,15 @@ extension XMPPCommunicator: XMPPStreamDelegate
         if message.isChatMessageWithBody()
         {
             let text = message.body()
-            let time = message.attributeStringValueForName("time")
-            let from = Interlocutor(xmppJID: message.from(), service: account.service)
-            let to   = Interlocutor(xmppJID: message.to(), service: account.service)
+            let dateString = message.attributeStringValueForName("date")
+            let date = Message.stringAsDate(dateString)
+            let from = Interlocutor(xmppJID: message.from(), account: account)
+            let to   = Interlocutor(xmppJID: message.to(), account: account)
             if from.isBare()
             && to.isBare()
             && countElements(text) > 0
             {
-                let m = Message(text: text, sender: from, receiver: to, time: time)
+                let m = Message(text: text, sender: from, receiver: to, date: date)
                 
                 if let md = messageDelegate
                 {
@@ -186,15 +188,16 @@ extension XMPPCommunicator: XMPPStreamDelegate
         if message.isChatMessageWithBody()
         {
             let text = message.body()
-            let time = message.attributeStringValueForName("time")
-            let from = Interlocutor(xmppJID: message.from(), service: account.service)
-            let to   = Interlocutor(xmppJID: message.to(), service: account.service)
+            let date = Message.stringAsDate(message.attributeStringValueForName("time"))
+            let from = Interlocutor(xmppJID: message.from(), account: account)
+            let to   = Interlocutor(xmppJID: message.to(), account: account)
             
             if from.isBare()
             && to.isBare()
             && countElements(text) > 0
             {
-                let m = Message(text: text, sender: from, receiver: to, time: time != nil ? time : "")
+                // TODO: correct date passing as a parameter
+                let m = Message(text: text, sender: from, receiver: to, date: date)
                 
                 if let md = messageDelegate
                 {
@@ -220,10 +223,10 @@ extension XMPPCommunicator: XMPPStreamDelegate
 
 private extension XMPPCommunicator
 {
-    func configureStreamForService(_service: Service)
+    func configureStreamForAccount(_account: Account)
     {
-        stream.hostName = account.service.hostName
-        stream.hostPort = account.service.hostPort
+        stream.hostName = account.hostName
+        stream.hostPort = UInt16(account.hostPort.integerValue)
     }
     
     func goOnline()

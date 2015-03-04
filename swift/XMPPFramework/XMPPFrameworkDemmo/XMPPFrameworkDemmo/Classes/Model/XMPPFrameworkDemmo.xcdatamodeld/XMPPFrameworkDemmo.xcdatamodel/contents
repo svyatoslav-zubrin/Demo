@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Account" representedClassName="Account" syncable="YES">
+        <attribute name="hostName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hostPort" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serviceType" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="3" defaultValueString="0" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="contacts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Interlocutor" inverseName="account" inverseEntity="Interlocutor" syncable="YES"/>
+        <relationship name="me" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Interlocutor" inverseName="ownedAccount" inverseEntity="Interlocutor" syncable="YES"/>
+    </entity>
+    <entity name="Interlocutor" representedClassName="Interlocutor" syncable="YES">
+        <attribute name="bareName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="contacts" inverseEntity="Account" syncable="YES"/>
+        <relationship name="ownedAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="me" inverseEntity="Account" syncable="YES"/>
+        <relationship name="receivedMessages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Message" inverseName="receiver" inverseEntity="Message" syncable="YES"/>
+        <relationship name="sentMessages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Message" inverseName="sender" inverseEntity="Message" syncable="YES"/>
+    </entity>
+    <entity name="Message" representedClassName="Message" syncable="YES">
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="receiver" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Interlocutor" inverseName="receivedMessages" inverseEntity="Interlocutor" syncable="YES"/>
+        <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Interlocutor" inverseName="sentMessages" inverseEntity="Interlocutor" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Account" positionX="-108" positionY="-207" width="128" height="148"/>
+        <element name="Interlocutor" positionX="133" positionY="-180" width="128" height="133"/>
+        <element name="Message" positionX="340" positionY="-18" width="128" height="103"/>
+    </elements>
+</model>

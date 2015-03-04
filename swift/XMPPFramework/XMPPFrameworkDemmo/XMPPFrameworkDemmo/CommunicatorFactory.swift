@@ -11,7 +11,7 @@ import Foundation
 class CommunicatorFactory {
     
     class func communicatorForAccount(_account: Account) -> BaseCommunicator {
-        switch _account.service.type {
+        switch _account.serviceType {
         default:
             return XMPPCommunicator(account: _account)
         }

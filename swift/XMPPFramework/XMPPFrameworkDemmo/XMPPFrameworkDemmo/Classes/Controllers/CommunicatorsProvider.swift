@@ -9,14 +9,16 @@
 import Foundation
 import UIKit
 
-class CommunicatorsProvider {
-    
+class CommunicatorsProvider
+{
     private var communicators = [XMPPCommunicator]()
     
     // Singleton
     
-    class var sharedInstance : CommunicatorsProvider {
-        struct Static {
+    class var sharedInstance : CommunicatorsProvider
+    {
+        struct Static
+        {
             static let instance : CommunicatorsProvider = CommunicatorsProvider()
         }
         return Static.instance
@@ -25,48 +27,62 @@ class CommunicatorsProvider {
     // MARK: - Public
     // Manage communicators
     
-    func addCommunicator(_communicator: XMPPCommunicator) {
-        if !contains(communicators, _communicator) {
+    func addCommunicator(_communicator: XMPPCommunicator)
+    {
+        if !contains(communicators, _communicator)
+        {
             communicators.append(_communicator)
         }
     }
     
-    func removeCommunicator(_communicator: XMPPCommunicator) {
-        if contains(communicators, _communicator) {
+    func removeCommunicator(_communicator: XMPPCommunicator)
+    {
+        if contains(communicators, _communicator)
+        {
             communicators.removeObject(_communicator)
         }
     }
     
-    func getCommunicatorByServiceId(_serviceId: String) -> XMPPCommunicator? {
-        return first(communicators.filter{$0.account.service.id == _serviceId})
+    func getCommunicatorByAccountId(_accountId: String) -> BaseCommunicator?
+    {
+        return first(communicators.filter{$0.account.accountId == _accountId})
     }
 
     // Manage connections status
     
-    func connect(inout error: NSError?) {
+    func connect(inout error: NSError?)
+    {
         var failedToConnectCommunicators = [XMPPCommunicator]()
 
-        for communicator in communicators {
-            if !communicator.connect() {
+        for communicator in communicators
+        {
+            if !communicator.connect()
+            {
                 failedToConnectCommunicators.append(communicator)
             }
         }
         
-        if failedToConnectCommunicators.count > 0 {
+        if failedToConnectCommunicators.count > 0
+        {
             var description = "Accounts failed to connect:"
-            for communicator in failedToConnectCommunicators {
+            for communicator in failedToConnectCommunicators
+            {
                 description += " " + communicator.account.humanReadableName + ","
             }
             description = description.substringToIndex(description.endIndex.predecessor())
             
             error = NSError(domain: "", code: 10001, userInfo: [NSLocalizedDescriptionKey : description])
-        } else {
+        }
+        else
+        {
             error = nil
         }
     }
     
-    func disconnect() {
-        for communicator in communicators {
+    func disconnect()
+    {
+        for communicator in communicators
+        {
             communicator.disconnect()
         }
     }

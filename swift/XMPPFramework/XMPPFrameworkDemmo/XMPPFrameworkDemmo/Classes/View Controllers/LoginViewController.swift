@@ -50,7 +50,8 @@ class LoginViewController: UIViewController
     
     // MARK: - Lifecycle
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool)
+    {
         super.viewDidAppear(animated)
 
         // DEBUG
@@ -67,23 +68,46 @@ class LoginViewController: UIViewController
     {
         if isFormValid
         {
-            var service: Service? = nil
-            let selectedServiceTypeIndex = serviceTypePicker.selectedRowInComponent(0)
-            if  selectedServiceTypeIndex == ServiceType.Custom.rawValue {
-                service = Service(type: ServiceType(rawValue: selectedServiceTypeIndex)!)
-            } else {
-                let hostName = hostNameTextField.text
-                let hostPort = hostPortTextField.text.toInt()!
-                service = Service(hostName: hostName)//, hostPort: hostPort)
-            }
-            
-            let userId = usernameTextField.text
-            let userPassword = passwordTextField.text
-            var acc = Account(userIdentifier: userId, password: userPassword, service: service!)
-            
-            UserSettings.sharedInstance.addAccount(acc)
-            
-            self.navigationController?.popViewControllerAnimated(true)
+            MagicalRecord.saveWithBlock(
+                { (context: NSManagedObjectContext!) -> Void in
+                    let account = Account.MR_createInContext(context) as Account
+                    
+                    let selectedServiceTypeIndex = self.serviceTypePicker.selectedRowInComponent(0)
+                    account.serviceType = selectedServiceTypeIndex
+                    if  selectedServiceTypeIndex == ServiceType.Custom.rawValue
+                    {
+                        account.hostName = self.hostNameTextField.text
+                        account.hostPort = self.hostPortTextField.text.toInt()!
+                    }
+                    else
+                    {
+                        if let service = ServiceType(rawValue: selectedServiceTypeIndex)
+                        {
+                            account.hostName = service.defaultHostParameters.name
+                            account.hostPort = service.defaultHostParameters.port
+                        }
+                    }
+                    
+                    let userId = self.usernameTextField.text
+                    let userPassword = self.passwordTextField.text
+                    account.userId = userId
+                    account.password = userPassword
+                },
+                completion:
+                { (success: Bool, error: NSError!) -> Void in
+                    if success
+                    {
+//                        UserSettings.sharedInstance.addAccount(account)
+                    }
+                    else
+                    {
+                        println("Error saving account to the local DB: \(error)")
+                        // TODO: inform user about error
+                    }
+                    
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+            )
         }
         else
         {
@@ -91,8 +115,8 @@ class LoginViewController: UIViewController
                 message: "Please, check if all needed fields are filled correctly and try to save the account again",
                 preferredStyle: UIAlertControllerStyle.Alert)
             let okAction = UIAlertAction(title: "OK",
-                 style: UIAlertActionStyle.Cancel,
-                 handler: nil)
+                style: UIAlertActionStyle.Cancel,
+                handler: nil)
             alert.addAction(okAction)
             self.presentViewController(alert, animated: true, completion: nil)
         }

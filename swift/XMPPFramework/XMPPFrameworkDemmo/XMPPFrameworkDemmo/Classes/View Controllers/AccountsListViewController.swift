@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class AccountsListViewController: UITableViewController
 {
     private var indexPathOfSelectedAccount: NSIndexPath?
+    
+    private var frc: NSFetchedResultsController!
     
     private var accounts: [Account]
     {
@@ -22,8 +25,14 @@ class AccountsListViewController: UITableViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        frc = Account.MR_fetchAllGroupedBy("serviceType",
+                withPredicate: nil,
+                sortedBy: "serviceType",
+                ascending: true,
+                delegate: self)
 
-        if UserSettings.sharedInstance.accounts.count == 0
+        if frc.fetchedObjects?.count == 0
         {
             performSegueWithIdentifier("AccountsListToLogin", sender: self)
         }
@@ -32,28 +41,28 @@ class AccountsListViewController: UITableViewController
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
-        
-        for account in accounts
-        {
-            if let comm = CommunicatorsProvider.sharedInstance.getCommunicatorByServiceId(account.service.id)
-            {
-                comm.chatDelegate = self
-            }
-        }
-        
+
+//        for account in accounts
+//        {
+//            if let comm = CommunicatorsProvider.sharedInstance.getCommunicatorByAccountId(account.accountId)
+//            {
+//                comm.chatDelegate = self
+//            }
+//        }
+
         tableView.reloadData()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        for account in accounts
-        {
-            if let comm = CommunicatorsProvider.sharedInstance.getCommunicatorByServiceId(account.service.id)
-            {
-                comm.chatDelegate = nil
-            }
-        }
+
+//        for account in accounts
+//        {
+//            if let comm = CommunicatorsProvider.sharedInstance.getCommunicatorByAccountId(account.accountId)
+//            {
+//                comm.chatDelegate = nil
+//            }
+//        }
     }
 
     // MARK: - Navigation
@@ -65,7 +74,9 @@ class AccountsListViewController: UITableViewController
         {
             if let dvc = segue.destinationViewController as? LoginViewController
             {
-                let account = UserSettings.sharedInstance.accounts[iPath!.row]
+//                let account = UserSettings.sharedInstance.accounts[iPath!.row]
+                let section: NSFetchedResultsSectionInfo = frc.sections![iPath!.section] as NSFetchedResultsSectionInfo
+                let account = section.objects[iPath!.row] as Account
                 dvc.previewModeForAccount(account)
             }
         }
@@ -75,21 +86,21 @@ class AccountsListViewController: UITableViewController
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return 1
+        return frc.sections!.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return UserSettings.sharedInstance.accounts.count
+        return (frc.sections![section] as NSFetchedResultsSectionInfo).objects.count //UserSettings.sharedInstance.accounts.count
     }
     
     override func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as UITableViewCell
-        let account = accounts[indexPath.row]
+        let account = (frc.sections![indexPath.section] as NSFetchedResultsSectionInfo).objects[indexPath.row] as Account
         cell.textLabel?.text = account.humanReadableName
-        cell.detailTextLabel?.text = "\(account.service.hostName):\(account.service.hostPort)"
+        cell.detailTextLabel?.text = "\(account.hostName):\(account.hostPort)"
         cell.imageView?.image = account.isOnline()
             ? UIImage(named: "Connected")
             : UIImage(named: "Disconnected")
@@ -115,7 +126,7 @@ class AccountsListViewController: UITableViewController
     override func tableView(tableView: UITableView,
         editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]?
     {
-        let account = accounts[indexPath.row]
+        let account = (frc.sections![indexPath.section] as NSFetchedResultsSectionInfo).objects[indexPath.row] as Account
         
         // login/logout button
         
@@ -123,7 +134,8 @@ class AccountsListViewController: UITableViewController
         let action = UITableViewRowAction(style: UITableViewRowActionStyle.Default,
             title: isOnline ? "Logout" : "Login",
             handler: { action, indexpath in
-                if let communicator = CommunicatorsProvider.sharedInstance.getCommunicatorByServiceId(account.service.id)
+                if let communicator = CommunicatorsProvider.sharedInstance.getCommunicatorByAccountId(account.accountId)
+                        as? XMPPCommunicator
                 {
                     // use existing communicator
                     if isOnline
@@ -175,13 +187,14 @@ class AccountsListViewController: UITableViewController
             handler: { action, indexpath in
                 if isOnline
                 {
-                    if let communicator = CommunicatorsProvider.sharedInstance.getCommunicatorByServiceId(account.service.id)
+                    if let communicator = CommunicatorsProvider.sharedInstance.getCommunicatorByAccountId(account.accountId)
+                            as? XMPPCommunicator
                     {
                         communicator.disconnect()
                     }
                 }
                 
-                UserSettings.sharedInstance.removeAccount(account)
+//                UserSettings.sharedInstance.removeAccount(account)
                 
                 tableView.beginUpdates() // optional
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -218,5 +231,13 @@ extension AccountsListViewController: ChatDelegate
     
     func buddyWentOffline(buddy: Interlocutor) {
         // stub implementation (no optional methods for swift protocols)
+    }
+}
+
+extension AccountsListViewController: NSFetchedResultsControllerDelegate
+{
+    func controllerDidChangeContent(controller: NSFetchedResultsController)
+    {
+        tableView.reloadData()
     }
 }

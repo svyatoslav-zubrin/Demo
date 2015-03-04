@@ -2,45 +2,21 @@
 //  Account.swift
 //  XMPPFrameworkDemmo
 //
-//  Created by Slava Zubrin on 2/19/15.
+//  Created by Slava Zubrin on 3/4/15.
 //  Copyright (c) 2015 Slava Zubrin. All rights reserved.
 //
 
 import Foundation
+import CoreData
 
-class Account: Equatable
+@objc(Account) class Account: NSManagedObject
 {
-    let service: Service
-    private(set) var userId: String
-    private(set) var password: String
-    
-    init(userIdentifier _uid: String, password _pass: String, service _service: Service)
-    {
-        service = _service
-        userId = _uid
-        password = _pass
-    }
-    
-    var humanReadableName: String
-    {
-        return userId
-    }
-    
-    func isOnline() -> Bool
-    {
-        var isOnline = false
-        if let communicator = CommunicatorsProvider.sharedInstance.getCommunicatorByServiceId(service.id)
-        {
-            isOnline = communicator.isOpen
-        }
-        return isOnline
-    }
-}
+    @NSManaged var password: String
+    @NSManaged var userId: String
+    @NSManaged var hostName: String
+    @NSManaged var hostPort: NSNumber
+    @NSManaged var serviceType: NSNumber
 
-// MARK: - Equatable
-
-func ==(lhs: Account, rhs: Account) -> Bool
-{
-    return lhs.userId == rhs.userId
-        && lhs.service == rhs.service
+    @NSManaged var me: Interlocutor
+    @NSManaged var contacts: NSSet
 }

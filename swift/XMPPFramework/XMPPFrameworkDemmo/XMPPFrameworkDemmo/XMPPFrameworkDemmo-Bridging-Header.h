@@ -7,3 +7,5 @@
 //
 
 #import "XMPP.h"
+#import "CoreData+MagicalRecord.h"
+
