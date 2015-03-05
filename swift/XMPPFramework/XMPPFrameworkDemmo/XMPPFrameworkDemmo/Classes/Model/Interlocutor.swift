@@ -19,6 +19,7 @@ import CoreData
     @NSManaged var account: Account
     @NSManaged var ownedAccount: Account
 
+    convenience
     init(name _name: String,
          bareName _bareName: String,
          account _account: Account,
@@ -34,29 +35,34 @@ import CoreData
 
         assert(ed != nil)
 
-        super.init(entity: ed!, insertIntoManagedObjectContext: context!)
+        self.init(entity: ed!, insertIntoManagedObjectContext: context!)
 
         name = _name
         bareName = _bareName
-        account = _account
+        
+        let localAccount = _account.MR_inContext(context) as Account
+        account = localAccount
     }
 
-    convenience init(name _name: String,
-                     bareName _bareName: String,
-                     account _account: Account)
+    convenience
+    init(name _name: String,
+         bareName _bareName: String,
+         account _account: Account)
     {
         self.init(name: _name, bareName: _bareName, account: _account, inManagedObjectContext: nil)
     }
 
-    convenience init(xmppJID _jid: XMPPJID,
-                     account _account: Account,
-                     inManagedObjectContext _context: NSManagedObjectContext?)
+    convenience
+    init(xmppJID _jid: XMPPJID,
+         account _account: Account,
+         inManagedObjectContext _context: NSManagedObjectContext?)
     {
         self.init(name: _jid.user, bareName: _jid.bare(), account: _account, inManagedObjectContext: _context)
     }
 
-    convenience init(xmppJID _jid: XMPPJID,
-                     account _account: Account)
+    convenience
+    init(xmppJID _jid: XMPPJID,
+         account _account: Account)
     {
         self.init(xmppJID: _jid, account: _account, inManagedObjectContext: nil)
     }

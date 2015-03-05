@@ -97,6 +97,9 @@ extension XMPPCommunicator: XMPPStreamDelegate
         {
             cd.account(account, changedStatus: .Available)
         }
+        
+        
+        getContactsList()
     }
     
     func xmppStream(sender: XMPPStream!, didNotAuthenticate error: DDXMLElement!)
@@ -125,6 +128,63 @@ extension XMPPCommunicator: XMPPStreamDelegate
         }
     }
     
+    func xmppStream(sender: XMPPStream!, didFailToSendIQ iq: XMPPIQ!, error: NSError!)
+    {
+        println("Error sending iq: \(iq), error: \(error)")
+    }
+    
+    func xmppStream(sender: XMPPStream!, didReceiveIQ iq: XMPPIQ!) -> Bool
+    {
+        println("xmppStream:didReceiveIQ:")
+        
+        if let queryElement = iq.elementForName("query", xmlns: "jabber:iq:roster")
+        {
+            let itemElenments = queryElement.elementsForName("item")
+            for itemElement in itemElenments
+            {
+                println(itemElement.attributeForName("jid").stringValue())
+                
+                MagicalRecord.saveWithBlock(
+                { (context: NSManagedObjectContext!) -> Void in
+                    let localAccount = self.account.MR_inContext(context) as Account
+                    
+                    let jid  = itemElement.attributeForName("jid").stringValue()
+                    let name = itemElement.attributeForName("name").stringValue()
+                    
+                    if var buddy = Interlocutor.MR_findFirstByAttribute("bareName", withValue: jid)
+                        as? Interlocutor
+                    {
+                        if buddy.name != name
+                        {
+                            buddy.name = name
+                        }
+                    }
+                    else
+                    {
+                        let newBuddy = Interlocutor(name: name,
+                                bareName: jid,
+                                account: self.account,
+                                inManagedObjectContext: context)
+                    }
+                })
+            }
+        }
+        
+        return false
+        /*
+        NSXMLElement *queryElement = [iq elementForName: @"query" xmlns: @"jabber:iq:roster"];
+        if (queryElement)
+        {
+        NSArray *itemElements = [queryElement elementsForName: @"item"];
+        for (int i=0; i<[itemElements count]; i++)
+        {
+        NSLog(@"Friend: %@",[[itemElements[i] attributeForName:@"jid"]stringValue]);
+        
+        }
+        }
+        */
+    }
+    
     func xmppStream(sender: XMPPStream!, didReceivePresence presence: XMPPPresence!)
     {
         // a buddy went offline/online
@@ -135,7 +195,7 @@ extension XMPPCommunicator: XMPPStreamDelegate
         let me      = account.me
         let other   = Interlocutor(xmppJID: presence.from(), account: account)
         
-        println("Type: \(presence.type()), status: \(presence.status()), show: \(presence.show())")
+//        println("Type: \(presence.type()), status: \(presence.status()), show: \(presence.show())")
         
         if other != me
         {
@@ -179,7 +239,7 @@ extension XMPPCommunicator: XMPPStreamDelegate
         }
         else
         {
-            println("typing...")
+//            println("typing...")
         }
     }
     
@@ -196,7 +256,6 @@ extension XMPPCommunicator: XMPPStreamDelegate
             && to.isBare()
             && countElements(text) > 0
             {
-                // TODO: correct date passing as a parameter
                 let m = Message(text: text, sender: from, receiver: to, date: date)
                 
                 if let md = messageDelegate
@@ -207,7 +266,7 @@ extension XMPPCommunicator: XMPPStreamDelegate
         }
         else
         {
-            println("typing...")
+//            println("typing...")
         }
     }
     
@@ -237,5 +296,20 @@ private extension XMPPCommunicator
     func goOffline()
     {
         stream.sendElement(XMPPPresence(type: "unavailable"))
+    }
+    
+    func getContactsList()
+    {
+        var error: NSError? = nil
+        
+        let query = DDXMLElement(XMLString: "<query xmlns='jabber:iq:roster'/>", error: &error)
+        
+        let iq = DDXMLElement(name: "iq")
+        iq.addAttributeWithName("type", stringValue: "get")
+        iq.addAttributeWithName("id", stringValue: "ANY_ID_NAME")
+        iq.addAttributeWithName("from", stringValue: "ANY_ID_NAME@"+account.hostName)
+        iq.addChild(query)
+        
+        stream.sendElement(iq)
     }
 }
