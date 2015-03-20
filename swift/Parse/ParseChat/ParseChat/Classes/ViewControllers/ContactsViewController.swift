@@ -10,6 +10,7 @@ import UIKit
 
 class ContactsViewController: PFQueryTableViewController
 {
+    @IBOutlet weak var revealButton: UIButton!
     @IBOutlet weak var logoutBBI: UIBarButtonItem!
     
     // MARK: - Initialization
@@ -22,6 +23,7 @@ class ContactsViewController: PFQueryTableViewController
     
     private func setup()
     {
+        parseClassName = "User"
         textKey = "username"
         pullToRefreshEnabled = true
         paginationEnabled = true
@@ -29,6 +31,13 @@ class ContactsViewController: PFQueryTableViewController
     }
     
     // MARK: - View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        
+        tuneRevealControllerInteraction()
+    }
     
     override func viewDidAppear(animated: Bool)
     {
@@ -98,6 +107,8 @@ extension ContactsViewController: LoginProcessorDelegate
     {
         logoutBBI.enabled = !success
         
+        clear()
+        
         LoginProcessor.sharedInstance.delegate = self
         LoginProcessor.sharedInstance.startLoginProcessFrom(self)
     }
@@ -108,6 +119,17 @@ extension ContactsViewController: LoginProcessorDelegate
 private
 extension ContactsViewController
 {
+    func tuneRevealControllerInteraction()
+    {
+        if self.revealViewController() != nil
+        {
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            revealButton.addTarget(self.revealViewController(),
+                action: "revealToggle:",
+                forControlEvents: UIControlEvents.TouchUpInside)
+        }
+    }
+    
     func handleAuthorizationFinish(success: Bool, user: PFUser?, error: LoginProcessorError?)
     {
         if success == true

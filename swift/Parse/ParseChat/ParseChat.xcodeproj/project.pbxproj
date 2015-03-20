@@ -32,6 +32,8 @@
 		CE1865881ABB2EF900D9F65C /* LoginProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1865871ABB2EF900D9F65C /* LoginProcessor.swift */; };
 		CE18658A1ABC01D900D9F65C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1865891ABC01D900D9F65C /* LoginViewController.swift */; };
 		CE18658C1ABC04A300D9F65C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE18658B1ABC04A300D9F65C /* SignupViewController.swift */; };
+		CE1865921ABC3B2F00D9F65C /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1865911ABC3B2F00D9F65C /* SWRevealViewController.m */; };
+		CE1865951ABC3C9400D9F65C /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1865941ABC3C9400D9F65C /* UserProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,9 @@
 		CE1865871ABB2EF900D9F65C /* LoginProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginProcessor.swift; path = Classes/Controllers/LoginProcessor.swift; sourceTree = "<group>"; };
 		CE1865891ABC01D900D9F65C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Classes/ViewControllers/LoginViewController.swift; sourceTree = "<group>"; };
 		CE18658B1ABC04A300D9F65C /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupViewController.swift; path = Classes/ViewControllers/SignupViewController.swift; sourceTree = "<group>"; };
+		CE1865901ABC3B2F00D9F65C /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = Vendor/SWRevealViewController/SWRevealViewController.h; sourceTree = SOURCE_ROOT; };
+		CE1865911ABC3B2F00D9F65C /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Vendor/SWRevealViewController/SWRevealViewController.m; sourceTree = SOURCE_ROOT; };
+		CE1865941ABC3C9400D9F65C /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileViewController.swift; path = Classes/ViewControllers/UserProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +176,7 @@
 		CE1865571ABB114500D9F65C /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				CE1865931ABC3B5000D9F65C /* SWRevealViewController */,
 				CE18655C1ABB116800D9F65C /* ParseSDK */,
 			);
 			name = Vendor;
@@ -210,6 +216,7 @@
 		CE1865781ABB14A100D9F65C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE1865941ABC3C9400D9F65C /* UserProfileViewController.swift */,
 				CE18657E1ABB154600D9F65C /* ContactsViewController.swift */,
 				CE1865891ABC01D900D9F65C /* LoginViewController.swift */,
 				CE18658B1ABC04A300D9F65C /* SignupViewController.swift */,
@@ -250,6 +257,15 @@
 			children = (
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		CE1865931ABC3B5000D9F65C /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CE1865901ABC3B2F00D9F65C /* SWRevealViewController.h */,
+				CE1865911ABC3B2F00D9F65C /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,9 +370,11 @@
 			files = (
 				CE18658A1ABC01D900D9F65C /* LoginViewController.swift in Sources */,
 				CE1865881ABB2EF900D9F65C /* LoginProcessor.swift in Sources */,
+				CE1865951ABC3C9400D9F65C /* UserProfileViewController.swift in Sources */,
 				CE18658C1ABC04A300D9F65C /* SignupViewController.swift in Sources */,
 				CE18657D1ABB152E00D9F65C /* AppDelegate.swift in Sources */,
 				CE18657F1ABB154600D9F65C /* ContactsViewController.swift in Sources */,
+				CE1865921ABC3B2F00D9F65C /* SWRevealViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
