@@ -8,6 +8,20 @@
 
 import Foundation
 
+enum LoginProcessorError
+{
+    case InvalidData
+    case Cancelled
+    case Undefined
+}
+
+protocol LoginProcessorDelegate
+{
+    func loginFinished(success:  Bool, user: PFUser?, error: LoginProcessorError?) -> Void
+    func signupFinished(success: Bool, user: PFUser?, error: LoginProcessorError?) -> Void
+    func logoutFinished(success: Bool, error: LoginProcessorError?) -> Void
+}
+
 class LoginProcessor: NSObject
 {
     // MARK: - Singleton
@@ -21,24 +35,30 @@ class LoginProcessor: NSObject
  
     // MARK - Properties
     
-    private var loginEntryController: UIViewController! = nil
+    var delegate: LoginProcessorDelegate? = nil
     
     // MARK: - Public
 
     func startLoginProcessFrom(controller: UIViewController)
     {
-        let loginVC = PFLogInViewController()
-        loginVC.logInView.logo = nil
+        let loginVC = LoginViewController()
         loginVC.delegate = self
         
-        let signupVC = PFSignUpViewController()
-        signupVC.signUpView.logo = nil
+        let signupVC = SignupViewController()
         signupVC.delegate = self
         
         loginVC.signUpController = signupVC
         
-        loginEntryController = controller
-        loginEntryController.presentViewController(loginVC, animated: true, completion: nil)
+        controller.presentViewController(loginVC, animated: true, completion: nil)
+    }
+    
+    func startLogoutProcess()
+    {
+        PFUser.logOut()
+        
+        if let d = delegate {
+            d.logoutFinished(true, error: nil)
+        }
     }
 }
 
@@ -60,29 +80,35 @@ extension LoginProcessor : PFLogInViewControllerDelegate
         
         // TODO: inform user that some information is missing
         println("Some user info is missing")
+        if let d = delegate {
+            d.loginFinished(false, user: nil, error: LoginProcessorError.InvalidData)
+        }
 
         return false; // Interrupt login process
     }
     
     func logInViewControllerDidCancelLogIn(logInController: PFLogInViewController!)
     {
-        loginEntryController.dismissViewControllerAnimated(true, completion: nil)
+        if let d = delegate {
+            d.loginFinished(false, user: nil, error: LoginProcessorError.Cancelled)
+        }
     }
     
     func logInViewController(logInController: PFLogInViewController!,
         didFailToLogInWithError error: NSError!)
     {
-        // TODO: inform user that something goes wrong with login process
+        if let d = delegate {
+            d.loginFinished(false, user: nil, error: LoginProcessorError.Undefined)
+        }
         println("Something goes wrong with login: \(error.localizedDescription)")
     }
     
     func logInViewController(logInController: PFLogInViewController!,
         didLogInUser user: PFUser!)
     {
-        loginEntryController.dismissViewControllerAnimated(true, completion:
-        { () -> Void in
-            self.loginEntryController = nil
-        })
+        if let d = delegate {
+            d.loginFinished(true, user: user, error: nil)
+        }
     }
 }
 
@@ -90,7 +116,57 @@ extension LoginProcessor : PFLogInViewControllerDelegate
 
 extension LoginProcessor : PFSignUpViewControllerDelegate
 {
+    func signUpViewController(signUpController: PFSignUpViewController!,
+        shouldBeginSignUp info: [NSObject : AnyObject]!) -> Bool
+    {
+        var isInformationComplete = true
+        
+        // loop through all of the submitted data
+        for (key, value) in info
+        {
+            let v = value as? String
+            if v == nil || countElements(v!) <= 0
+            {
+                isInformationComplete = false
+                break
+            }
+        }
+        
+        // Display an alert if a field wasn't completed
+        if isInformationComplete == false
+        {
+            if let d = delegate {
+                d.signupFinished(false, user: nil, error: LoginProcessorError.InvalidData)
+            }
+            println("Missing Information: make sure you fill out all of the information!")
+        }
+        
+        return isInformationComplete;
+    }
     
+    func signUpViewControllerDidCancelSignUp(signUpController: PFSignUpViewController!)
+    {
+        if let d = delegate {
+            d.signupFinished(false, user: nil, error: LoginProcessorError.Cancelled)
+        }
+    }
+    
+    func signUpViewController(signUpController: PFSignUpViewController!,
+        didFailToSignUpWithError error: NSError!)
+    {
+        if let d = delegate {
+            d.signupFinished(false, user: nil, error: LoginProcessorError.Undefined)
+        }
+        println("Something goes wrong with signup: \(error.localizedDescription)")
+    }
+    
+    func signUpViewController(signUpController: PFSignUpViewController!,
+        didSignUpUser user: PFUser!)
+    {
+        if let d = delegate {
+            d.signupFinished(true, user: user, error: nil)
+        }
+    }
 }
 
 

@@ -30,6 +30,8 @@
 		CE1865841ABB2CAF00D9F65C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE1865831ABB2CAF00D9F65C /* Social.framework */; };
 		CE1865861ABB2CB500D9F65C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE1865851ABB2CB500D9F65C /* Accounts.framework */; };
 		CE1865881ABB2EF900D9F65C /* LoginProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1865871ABB2EF900D9F65C /* LoginProcessor.swift */; };
+		CE18658A1ABC01D900D9F65C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1865891ABC01D900D9F65C /* LoginViewController.swift */; };
+		CE18658C1ABC04A300D9F65C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE18658B1ABC04A300D9F65C /* SignupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		CE1865831ABB2CAF00D9F65C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		CE1865851ABB2CB500D9F65C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		CE1865871ABB2EF900D9F65C /* LoginProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginProcessor.swift; path = Classes/Controllers/LoginProcessor.swift; sourceTree = "<group>"; };
+		CE1865891ABC01D900D9F65C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Classes/ViewControllers/LoginViewController.swift; sourceTree = "<group>"; };
+		CE18658B1ABC04A300D9F65C /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupViewController.swift; path = Classes/ViewControllers/SignupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +211,8 @@
 			isa = PBXGroup;
 			children = (
 				CE18657E1ABB154600D9F65C /* ContactsViewController.swift */,
+				CE1865891ABC01D900D9F65C /* LoginViewController.swift */,
+				CE18658B1ABC04A300D9F65C /* SignupViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -215,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				CE18657A1ABB151400D9F65C /* Global */,
+				CE18658D1ABC2A6000D9F65C /* Model */,
 				CE1865801ABB28E300D9F65C /* Controllers */,
 				CE1865781ABB14A100D9F65C /* ViewControllers */,
 			);
@@ -236,6 +243,13 @@
 				CE1865871ABB2EF900D9F65C /* LoginProcessor.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		CE18658D1ABC2A6000D9F65C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,7 +352,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE18658A1ABC01D900D9F65C /* LoginViewController.swift in Sources */,
 				CE1865881ABB2EF900D9F65C /* LoginProcessor.swift in Sources */,
+				CE18658C1ABC04A300D9F65C /* SignupViewController.swift in Sources */,
 				CE18657D1ABB152E00D9F65C /* AppDelegate.swift in Sources */,
 				CE18657F1ABB154600D9F65C /* ContactsViewController.swift in Sources */,
 			);
