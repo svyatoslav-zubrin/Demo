@@ -13,6 +13,10 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var avatarImageView: UIImageView!
     
+    var imageMaker = ImageMaker()
+    
+    // MARK: - View lifecycle
+    
     override
     func viewDidLoad()
     {
@@ -28,7 +32,26 @@ class UserProfileViewController: UIViewController {
         setup()
     }
 
-    private
+    // MARK: - User actions
+    
+    @IBAction func avatarAction(sender: UIButton)
+    {
+        imageMaker.getPhotoFrom(self, handler:
+        { (success: Bool, image: UIImage?) -> Void in
+            if let i = image
+            {
+                self.avatarImageView.image = i
+            }
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+    }
+}
+
+// MARK: - Private
+
+private extension UserProfileViewController
+{
     func setup()
     {
         if let user = PFUser.currentUser()

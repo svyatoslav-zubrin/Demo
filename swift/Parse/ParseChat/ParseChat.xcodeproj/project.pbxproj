@@ -34,6 +34,7 @@
 		CE18658C1ABC04A300D9F65C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE18658B1ABC04A300D9F65C /* SignupViewController.swift */; };
 		CE1865921ABC3B2F00D9F65C /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1865911ABC3B2F00D9F65C /* SWRevealViewController.m */; };
 		CE1865951ABC3C9400D9F65C /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1865941ABC3C9400D9F65C /* UserProfileViewController.swift */; };
+		CE1865971ABC578D00D9F65C /* ImageMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1865961ABC578D00D9F65C /* ImageMaker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		CE1865901ABC3B2F00D9F65C /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = Vendor/SWRevealViewController/SWRevealViewController.h; sourceTree = SOURCE_ROOT; };
 		CE1865911ABC3B2F00D9F65C /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Vendor/SWRevealViewController/SWRevealViewController.m; sourceTree = SOURCE_ROOT; };
 		CE1865941ABC3C9400D9F65C /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileViewController.swift; path = Classes/ViewControllers/UserProfileViewController.swift; sourceTree = "<group>"; };
+		CE1865961ABC578D00D9F65C /* ImageMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageMaker.swift; path = Classes/Controllers/ImageMaker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				CE1865871ABB2EF900D9F65C /* LoginProcessor.swift */,
+				CE1865961ABC578D00D9F65C /* ImageMaker.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				CE18658C1ABC04A300D9F65C /* SignupViewController.swift in Sources */,
 				CE18657D1ABB152E00D9F65C /* AppDelegate.swift in Sources */,
 				CE18657F1ABB154600D9F65C /* ContactsViewController.swift in Sources */,
+				CE1865971ABC578D00D9F65C /* ImageMaker.swift in Sources */,
 				CE1865921ABC3B2F00D9F65C /* SWRevealViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
