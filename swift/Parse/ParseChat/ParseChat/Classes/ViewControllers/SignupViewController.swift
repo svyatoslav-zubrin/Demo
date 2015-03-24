@@ -10,7 +10,8 @@ import UIKit
 
 class SignupViewController: PFSignUpViewController
 {
-    override func viewDidLoad()
+    override
+    func viewDidLoad()
     {
         super.viewDidLoad()
         
@@ -18,7 +19,8 @@ class SignupViewController: PFSignUpViewController
         self.signUpView.logo = UIImageView(image: logoImage!)
     }
     
-    override func viewDidLayoutSubviews()
+    override
+    func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
         

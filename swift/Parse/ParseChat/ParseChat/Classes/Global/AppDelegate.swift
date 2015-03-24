@@ -7,21 +7,17 @@
 //
 
 import UIKit
-
+import Parse
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+class AppDelegate: UIResponder, UIApplicationDelegate
+{
     var window: UIWindow?
-
 
     func application(application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     {
-        Parse.enableLocalDatastore()
-        Parse.setApplicationId("2NbwQuZiBp9WL55ubR3H3UScfVs5DwXOwhp1Ix1y",
-                clientKey: "30S1nIoGjd9ErjgIvtvHnetfEyJNy2BEge8wuSM0")
-        
+        setupParse()
         return true
     }
 
@@ -46,7 +42,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+}
 
-
+private
+extension AppDelegate
+{
+    func setupParse()
+    {
+        // enable local DB
+        Parse.enableLocalDatastore()
+        // set app id and key
+        Parse.setApplicationId("2NbwQuZiBp9WL55ubR3H3UScfVs5DwXOwhp1Ix1y",
+                               clientKey: "30S1nIoGjd9ErjgIvtvHnetfEyJNy2BEge8wuSM0")
+    }
 }
 

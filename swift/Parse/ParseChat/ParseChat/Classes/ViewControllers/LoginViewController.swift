@@ -10,7 +10,8 @@ import Foundation
 
 class LoginViewController: PFLogInViewController
 {
-    override func viewDidLoad()
+    override
+    func viewDidLoad()
     {
         super.viewDidLoad()
         
@@ -18,7 +19,8 @@ class LoginViewController: PFLogInViewController
         self.logInView.logo = UIImageView(image: logoImage!)
     }
     
-    override func viewDidLayoutSubviews()
+    override
+    func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
         

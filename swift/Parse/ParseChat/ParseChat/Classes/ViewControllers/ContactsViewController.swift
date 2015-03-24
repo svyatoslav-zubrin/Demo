@@ -7,39 +7,46 @@
 //
 
 import UIKit
+import ParseUI
 
 class ContactsViewController: PFQueryTableViewController
 {
     @IBOutlet weak var revealButton: UIButton!
     @IBOutlet weak var logoutBBI: UIBarButtonItem!
-    
+
     // MARK: - Initialization
-    
-    required init(coder aDecoder: NSCoder)
+
+    required
+    init(coder aDecoder: NSCoder)
     {
         super.init(coder: aDecoder)
         setup()
     }
-    
-    private func setup()
+
+    private
+    func setup()
     {
         parseClassName = "User"
         textKey = "username"
+        imageKey = "avatar"
+        placeholderImage = UIImage(named: "Profile.png")
         pullToRefreshEnabled = true
         paginationEnabled = true
         objectsPerPage = 25
     }
-    
+
     // MARK: - View lifecycle
-    
-    override func viewDidLoad()
+
+    override
+    func viewDidLoad()
     {
         super.viewDidLoad()
-        
+
         tuneRevealControllerInteraction()
     }
-    
-    override func viewDidAppear(animated: Bool)
+
+    override
+    func viewDidAppear(animated: Bool)
     {
         super.viewDidAppear(animated)
 
@@ -47,7 +54,7 @@ class ContactsViewController: PFQueryTableViewController
         {
             LoginProcessor.sharedInstance.delegate = self
             LoginProcessor.sharedInstance.startLoginProcessFrom(self)
-            
+
             logoutBBI.enabled = false
         }
         else
@@ -55,10 +62,11 @@ class ContactsViewController: PFQueryTableViewController
             logoutBBI.enabled = true
         }
     }
-    
+
     // MARK: - User actions
-    
-    @IBAction func debugAction(sender: UIButton)
+
+    @IBAction
+    func debugAction(sender: UIButton)
     {
         let query = PFUser.query()
         query.findObjectsInBackgroundWithBlock(
@@ -66,8 +74,9 @@ class ContactsViewController: PFQueryTableViewController
             println("\(users.count) users found")
         })
     }
-    
-    @IBAction func LogoutAction(sender: UIButton)
+
+    @IBAction
+    func LogoutAction(sender: UIButton)
     {
         LoginProcessor.sharedInstance.delegate = self
         LoginProcessor.sharedInstance.startLogoutProcess()
@@ -78,15 +87,49 @@ class ContactsViewController: PFQueryTableViewController
 
 extension ContactsViewController
 {
-    override func queryForTable() -> PFQuery!
+    override
+    func queryForTable() -> PFQuery!
     {
         super.queryForTable()
-        
+
+        println("queryForTable called")
+
+        let currentUser = PFUser.currentUser()
+        if currentUser == nil
+        {
+            return nil
+        }
+
         let query = PFUser.query()
         query.whereKey("username", notEqualTo: PFUser.currentUser().username)
-        
+
         return query
     }
+
+//    override
+//    func tableView(tableView: UITableView!,
+//                   cellForRowAtIndexPath indexPath: NSIndexPath!,
+//                   object: PFObject!) -> PFTableViewCell!
+//    {
+//        let cell = tableView.dequeueReusableCellWithIdentifier("ContactCell", forIndexPath: indexPath) as PFTableViewCell
+//
+//        let user = objects[indexPath.row] as PFUser
+//        cell.textLabel!.text = user.username
+//        if let avatarUrlString = user.avatarURL
+//        {
+//            if let url = NSURL(string: avatarUrlString)
+//            {
+//                if let data = NSData(contentsOfURL: url)
+//                {
+//                    cell.imageView!.image = UIImage(data: data)
+//                }
+//            }
+//        }
+//
+//        // TODO: something goes wrong here in this method...
+//
+//        return cell
+//    }
 }
 
 // MARK: - LoginProcessorDelegate
@@ -97,18 +140,18 @@ extension ContactsViewController: LoginProcessorDelegate
     {
         handleAuthorizationFinish(success, user: user, error: error)
     }
-    
+
     func signupFinished(success: Bool, user: PFUser?, error: LoginProcessorError?)
     {
         handleAuthorizationFinish(success, user: user, error: error)
     }
-    
+
     func logoutFinished(success: Bool, error: LoginProcessorError?)
     {
         logoutBBI.enabled = !success
-        
+
         clear()
-        
+
         LoginProcessor.sharedInstance.delegate = self
         LoginProcessor.sharedInstance.startLoginProcessFrom(self)
     }
@@ -125,11 +168,11 @@ extension ContactsViewController
         {
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             revealButton.addTarget(self.revealViewController(),
-                action: "revealToggle:",
-                forControlEvents: UIControlEvents.TouchUpInside)
+                                   action: "revealToggle:",
+                                   forControlEvents: UIControlEvents.TouchUpInside)
         }
     }
-    
+
     func handleAuthorizationFinish(success: Bool, user: PFUser?, error: LoginProcessorError?)
     {
         if success == true
@@ -137,19 +180,19 @@ extension ContactsViewController
             logoutBBI.enabled = true
             dismissViewControllerAnimated(true, completion:
             { () -> Void in
-                    self.loadObjects()
+                self.loadObjects()
             })
         }
         else
         {
             switch error!
             {
-            case LoginProcessorError.InvalidData:
-                println("invalid data provided...")
-            case LoginProcessorError.Cancelled:
-                println("login process canceled")
-            default:
-                println("unknown error during signup")
+                case LoginProcessorError.InvalidData:
+                    println("invalid data provided...")
+                case LoginProcessorError.Cancelled:
+                    println("login process canceled")
+                default:
+                    println("unknown error during signup")
             }
         }
     }

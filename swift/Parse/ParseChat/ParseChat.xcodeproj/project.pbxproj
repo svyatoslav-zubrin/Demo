@@ -33,8 +33,11 @@
 		CE18658A1ABC01D900D9F65C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1865891ABC01D900D9F65C /* LoginViewController.swift */; };
 		CE18658C1ABC04A300D9F65C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE18658B1ABC04A300D9F65C /* SignupViewController.swift */; };
 		CE1865921ABC3B2F00D9F65C /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1865911ABC3B2F00D9F65C /* SWRevealViewController.m */; };
-		CE1865951ABC3C9400D9F65C /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1865941ABC3C9400D9F65C /* UserProfileViewController.swift */; };
 		CE1865971ABC578D00D9F65C /* ImageMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1865961ABC578D00D9F65C /* ImageMaker.swift */; };
+		E47E903E487AB6B619ED3FA3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47E948873006BD3D36F7A2C /* Message.swift */; };
+		E47E918927BDB683647D0433 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47E9C878B0CD7125ECC4D4A /* UserProfileViewController.swift */; };
+		E47E93F2948E765896ED6B27 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47E93655EB15FC205A8C727 /* ChatViewController.swift */; };
+		E47E9A2E0491E7E8A9A2EC7D /* PFUser+Accessors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47E9F6471404F401DC41AEB /* PFUser+Accessors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,8 +83,11 @@
 		CE18658B1ABC04A300D9F65C /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupViewController.swift; path = Classes/ViewControllers/SignupViewController.swift; sourceTree = "<group>"; };
 		CE1865901ABC3B2F00D9F65C /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = Vendor/SWRevealViewController/SWRevealViewController.h; sourceTree = SOURCE_ROOT; };
 		CE1865911ABC3B2F00D9F65C /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Vendor/SWRevealViewController/SWRevealViewController.m; sourceTree = SOURCE_ROOT; };
-		CE1865941ABC3C9400D9F65C /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileViewController.swift; path = Classes/ViewControllers/UserProfileViewController.swift; sourceTree = "<group>"; };
 		CE1865961ABC578D00D9F65C /* ImageMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageMaker.swift; path = Classes/Controllers/ImageMaker.swift; sourceTree = "<group>"; };
+		E47E93655EB15FC205A8C727 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = Classes/ViewControllers/ChatViewController.swift; sourceTree = "<group>"; };
+		E47E948873006BD3D36F7A2C /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Classes/Model/Message.swift; sourceTree = "<group>"; };
+		E47E9C878B0CD7125ECC4D4A /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileViewController.swift; path = Classes/ViewControllers/UserProfileViewController.swift; sourceTree = "<group>"; };
+		E47E9F6471404F401DC41AEB /* PFUser+Accessors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PFUser+Accessors.swift"; path = "Classes/Model/PFUser+Accessors.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +124,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE0DA8541AC04E6600CCDBD2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		CE1865291ABB106300D9F65C = {
 			isa = PBXGroup;
 			children = (
@@ -218,10 +231,11 @@
 		CE1865781ABB14A100D9F65C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				CE1865941ABC3C9400D9F65C /* UserProfileViewController.swift */,
 				CE18657E1ABB154600D9F65C /* ContactsViewController.swift */,
 				CE1865891ABC01D900D9F65C /* LoginViewController.swift */,
 				CE18658B1ABC04A300D9F65C /* SignupViewController.swift */,
+				E47E9C878B0CD7125ECC4D4A /* UserProfileViewController.swift */,
+				E47E93655EB15FC205A8C727 /* ChatViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -231,6 +245,7 @@
 			children = (
 				CE18657A1ABB151400D9F65C /* Global */,
 				CE18658D1ABC2A6000D9F65C /* Model */,
+				CE0DA8541AC04E6600CCDBD2 /* Views */,
 				CE1865801ABB28E300D9F65C /* Controllers */,
 				CE1865781ABB14A100D9F65C /* ViewControllers */,
 			);
@@ -258,6 +273,8 @@
 		CE18658D1ABC2A6000D9F65C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E47E9F6471404F401DC41AEB /* PFUser+Accessors.swift */,
+				E47E948873006BD3D36F7A2C /* Message.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -373,12 +390,15 @@
 			files = (
 				CE18658A1ABC01D900D9F65C /* LoginViewController.swift in Sources */,
 				CE1865881ABB2EF900D9F65C /* LoginProcessor.swift in Sources */,
-				CE1865951ABC3C9400D9F65C /* UserProfileViewController.swift in Sources */,
 				CE18658C1ABC04A300D9F65C /* SignupViewController.swift in Sources */,
 				CE18657D1ABB152E00D9F65C /* AppDelegate.swift in Sources */,
 				CE18657F1ABB154600D9F65C /* ContactsViewController.swift in Sources */,
 				CE1865971ABC578D00D9F65C /* ImageMaker.swift in Sources */,
 				CE1865921ABC3B2F00D9F65C /* SWRevealViewController.m in Sources */,
+				E47E918927BDB683647D0433 /* UserProfileViewController.swift in Sources */,
+				E47E9A2E0491E7E8A9A2EC7D /* PFUser+Accessors.swift in Sources */,
+				E47E93F2948E765896ED6B27 /* ChatViewController.swift in Sources */,
+				E47E903E487AB6B619ED3FA3 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +603,7 @@
 				CE1865531ABB106300D9F65C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE1865541ABB106300D9F65C /* Build configuration list for PBXNativeTarget "ParseChatTests" */ = {
 			isa = XCConfigurationList;
@@ -591,6 +612,7 @@
 				CE1865561ABB106300D9F65C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
