@@ -51,6 +51,8 @@ extension AppDelegate
     {
         // enable local DB
         Parse.enableLocalDatastore()
+        // register custom classes
+        Message.registerSubclass()
         // set app id and key
         Parse.setApplicationId("2NbwQuZiBp9WL55ubR3H3UScfVs5DwXOwhp1Ix1y",
                                clientKey: "30S1nIoGjd9ErjgIvtvHnetfEyJNy2BEge8wuSM0")

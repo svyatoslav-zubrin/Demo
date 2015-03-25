@@ -11,8 +11,18 @@ import ParseUI
 
 class ContactsViewController: PFQueryTableViewController
 {
+ 
+    private enum SegueIdentifiers: String
+    {
+        case SEGUE_CONTACTS_TO_CHAT = "ContactsToChatSegue"
+    }
+    
+    //
+    
     @IBOutlet weak var revealButton: UIButton!
     @IBOutlet weak var logoutBBI: UIBarButtonItem!
+    
+    private var userSelectedForChat: PFUser? = nil
 
     // MARK: - Initialization
 
@@ -66,20 +76,26 @@ class ContactsViewController: PFQueryTableViewController
     // MARK: - User actions
 
     @IBAction
-    func debugAction(sender: UIButton)
-    {
-        let query = PFUser.query()
-        query.findObjectsInBackgroundWithBlock(
-        { (users: [AnyObject]!, error: NSError!) -> Void in
-            println("\(users.count) users found")
-        })
-    }
-
-    @IBAction
     func LogoutAction(sender: UIButton)
     {
         LoginProcessor.sharedInstance.delegate = self
         LoginProcessor.sharedInstance.startLogoutProcess()
+    }
+    
+    // MARK: - Navigation
+    
+    override
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        super.prepareForSegue(segue, sender: sender)
+        
+        if segue.identifier == SegueIdentifiers.SEGUE_CONTACTS_TO_CHAT.rawValue
+        {
+            if let dvc = segue.destinationViewController as? ChatViewController
+            {
+                dvc.interlocutor = userSelectedForChat
+            }
+        }
     }
 }
 
@@ -105,31 +121,16 @@ extension ContactsViewController
 
         return query
     }
-
-//    override
-//    func tableView(tableView: UITableView!,
-//                   cellForRowAtIndexPath indexPath: NSIndexPath!,
-//                   object: PFObject!) -> PFTableViewCell!
-//    {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("ContactCell", forIndexPath: indexPath) as PFTableViewCell
-//
-//        let user = objects[indexPath.row] as PFUser
-//        cell.textLabel!.text = user.username
-//        if let avatarUrlString = user.avatarURL
-//        {
-//            if let url = NSURL(string: avatarUrlString)
-//            {
-//                if let data = NSData(contentsOfURL: url)
-//                {
-//                    cell.imageView!.image = UIImage(data: data)
-//                }
-//            }
-//        }
-//
-//        // TODO: something goes wrong here in this method...
-//
-//        return cell
-//    }
+    
+    override
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        userSelectedForChat = objects[indexPath.row] as? PFUser
+        
+        self.performSegueWithIdentifier(
+            SegueIdentifiers.SEGUE_CONTACTS_TO_CHAT.rawValue,
+            sender: self)
+    }
 }
 
 // MARK: - LoginProcessorDelegate
