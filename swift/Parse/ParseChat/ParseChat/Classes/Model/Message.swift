@@ -8,19 +8,38 @@ import Parse
 
 class Message: PFObject, PFSubclassing
 {
-    private enum AssociatedKeys: String
+    enum AssociatedKeys: String
     {
-        case SenderRelation = "sender_relation"
-        case ReceiverRelation = "receiver_relation"
+        case Sender = "sender"
+        case Receiver = "receiver"
     }
 
     @NSManaged var body: String
     // linked objects
     private(set) var sender: PFUser!
+    {
+        get
+        {
+            return self[AssociatedKeys.Sender.rawValue] as? PFUser
+        }
+        
+        set
+        {
+            self[AssociatedKeys.Sender.rawValue] = newValue
+        }
+    }
     private(set) var receiver: PFUser!
-    // relations
-    private var senderRelation: PFRelation!
-    private var receiverRelation: PFRelation!
+    {
+        get
+        {
+            return self[AssociatedKeys.Receiver.rawValue] as? PFUser
+        }
+        
+        set
+        {
+            self[AssociatedKeys.Receiver.rawValue] = newValue
+        }
+    }
 
     convenience
     init(_ _body: String,
@@ -33,12 +52,6 @@ class Message: PFObject, PFSubclassing
 
         sender = _sender
         receiver = _receiver
-
-        senderRelation = self.relationForKey(AssociatedKeys.SenderRelation.rawValue)
-        senderRelation.addObject(_sender)
-
-        receiverRelation = self.relationForKey(AssociatedKeys.ReceiverRelation.rawValue)
-        receiverRelation.addObject(_receiver)
     }
 
     class func parseClassName() -> String

@@ -32,5 +32,4 @@ class SignupViewController: PFSignUpViewController
             logoImage!.size.width,
             logoImage!.size.height)
     }
-
 }

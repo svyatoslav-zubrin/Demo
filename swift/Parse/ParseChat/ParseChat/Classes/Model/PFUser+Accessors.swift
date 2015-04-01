@@ -13,9 +13,11 @@ extension PFUser
     {
         case Avatar = "avatar"
         case AvatarURL = "avatar_URL"
+        case Messages = "messages"
     }
 
-    // avatar
+    // MARK: - Avatar
+
     var avatar: PFFile?
     {
         set
@@ -70,4 +72,31 @@ extension PFUser
             return self[AssociatedKeys.AvatarURL.rawValue] as? String
         }
     }
+
+//    // MARK: - Messages
+//
+//    private(set) var messages: [Message]?
+//    {
+//        set
+//        {
+//            self[AssociatedKeys.Messages.rawValue] = messages
+//        }
+//
+//        get
+//        {
+//            return self[AssociatedKeys.Messages.rawValue] as? [Message]
+//        }
+//    }
+//
+//    func addMessage(message: Message)
+//    {
+//        if let messages = self.messages
+//        {
+//            messages.append(message)
+//        }
+//        else
+//        {
+//            self.messages = [message]
+//        }
+//    }
 }

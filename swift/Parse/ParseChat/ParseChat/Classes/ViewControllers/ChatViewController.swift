@@ -79,6 +79,8 @@ class ChatViewController: UIViewController
                     {
                         self.inputTextView.text = ""
                         self.inputTextView.resignFirstResponder()
+                        
+                        self.tableView.reloadData()
                     }
                     else
                     {
@@ -149,25 +151,41 @@ extension ChatViewController
     
     func fetchHistory()
     {
-        // TODO: debug code...
-
         let me = PFUser.currentUser()
-
-        let m1 = Message("Message from other user", sender: interlocutor, receiver: me)
-        let m2 = Message("There should be another very long message from other user. Probably he wants to explain something and make it obvious to me.", sender: interlocutor, receiver: me)
-        let m3 = Message("And here is my answer: got it, OK.", sender: me, receiver: interlocutor)
-
-        messages.append(m1)
-        messages.append(m2)
-        messages.append(m3)
+        
+        let query = Message.query()
+        query.whereKey(Message.AssociatedKeys.Receiver.rawValue, containedIn: [me!, interlocutor!])
+        query.whereKey(Message.AssociatedKeys.Sender.rawValue, containedIn: [me!, interlocutor!])
+        query.findObjectsInBackgroundWithBlock(
+        { (objects: [AnyObject]!, error: NSError!) -> Void in
+            if error != nil
+            {
+                println("Error fetching messages: \(error)")
+            }
+            else
+            {
+                if var objects = objects as? [Message]
+                {
+                    println("Objects: \(objects)")
+                    
+                    objects.sort(
+                        {$0.createdAt.compare($1.createdAt) == NSComparisonResult.OrderedAscending})
+                    self.messages = objects
+                    self.tableView.reloadData()
+                }
+            }
+        })
     }
     
-    func sendMessage(_ text: String, _ handler: (success: Bool) -> Void)
+    func sendMessage(text: String, _ handler: (success: Bool) -> Void)
     {
-        println("send message: \(text)")
-        
-        // TODO: send message
-        
-        handler(success: true)
+        let me = PFUser.currentUser()
+        let message = Message(text, sender: me, receiver: interlocutor)
+
+        message.saveInBackgroundWithBlock()
+        { (success: Bool, error: NSError!) in
+            self.messages.append(message)
+            handler(success: true)
+        }
     }
 }
