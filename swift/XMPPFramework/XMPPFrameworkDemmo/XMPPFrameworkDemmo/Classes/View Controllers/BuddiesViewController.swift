@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
-class BuddiesViewController: UIViewController {
-
+class BuddiesViewController: UIViewController
+{
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var statusView: UIView!
+
+    var frc: NSFetchedResultsController! = nil
     
     private var onlineBuddies: [Interlocutor] = []
     private var offlineBuddies: [Interlocutor] = []
@@ -20,35 +22,29 @@ class BuddiesViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
-        statusView.layer.cornerRadius = 10
-        statusView.clipsToBounds = true
-        
-//        XMPPCommunicator.sharedInstance.chatDelegate = self
+        frc = Interlocutor.MR_fetchAllGroupedBy("group",
+            withPredicate: nil,
+            sortedBy: "group,name",
+            ascending: true,
+            delegate: self)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        let userId = UserSettings.sharedInstance.userId
-//        if userId == nil || countElements(userId!) == 0 {
-//            showLogin()
-//        } else {
-////            if XMPPCommunicator.sharedInstance.connect() {
-////                println("Show buddy list!")
-////            }
-//        }
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
         super.prepareForSegue(segue, sender: sender)
         
-        if segue.identifier == "BuddiesListToChat" {
+        if segue.identifier == "BuddiesListToChat"
+        {
             let dvc = segue.destinationViewController as ChatViewController
-            if let iPath = iPathOfSelectedBuddy {
-                dvc.interlocutor = buddiesGrouped[iPath.section][iPath.row]
+            if let iPath = iPathOfSelectedBuddy
+            {
+                let i = frc.objectAtIndexPath(iPath) as Interlocutor;
+                dvc.account = i.account
+                dvc.interlocutor = i
             }
         }
     }
@@ -56,34 +52,73 @@ class BuddiesViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 
-extension BuddiesViewController: UITableViewDataSource {
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return buddiesGrouped.count
+extension BuddiesViewController: UITableViewDataSource
+{
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    {
+        if let sections = frc.sections
+        {
+            return sections.count
+        }
+        else
+        {
+            if let fos = frc.fetchedObjects
+            {
+                return fos.count > 0 ? 1 : 0
+            }
+            else
+            {
+                return 0
+            }
+        }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return buddiesGrouped[section].count
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        if let sections = frc.sections
+        {
+            return sections[section].numberOfObjects
+        }
+        else
+        {
+            if let fos = frc.fetchedObjects
+            {
+                return fos.count
+            }
+            else
+            {
+                return 0
+            }
+        }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView,
+        cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
         let cellId = "OnlineBuddyCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as UITableViewCell
-        let buddy = buddiesGrouped[indexPath.section][indexPath.row]
-        cell.textLabel!.text = buddy.bareName
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        cell.backgroundColor = isOfflineBuddiesGroup(indexPath.section)
-                                    ? UIColor.redColor()
-                                    : UIColor.whiteColor()
-        cell.selectionStyle = .None
+    
+        if let buddy = frc.objectAtIndexPath(indexPath) as? Interlocutor
+        {
+            cell.textLabel!.text = buddy.name
+            cell.detailTextLabel!.text = buddy.bareName + " (" + buddy.group + ")"
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            cell.selectionStyle = .None
+        }
+        
         return cell
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if isOfflineBuddiesGroup(section) {
-            return "Offline users"
-        } else {
-            return String(first(buddiesGrouped[section].first!.bareName)!)
+    func tableView(tableView: UITableView,
+        titleForHeaderInSection section: Int) -> String?
+    {
+        if let sections = frc.sections
+        {
+            return sections[section].name
+        }
+        else
+        {
+            return ""
         }
     }
 }
@@ -92,11 +127,20 @@ extension BuddiesViewController: UITableViewDataSource {
 
 extension BuddiesViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if !isOfflineBuddiesGroup(indexPath.section) {
-            iPathOfSelectedBuddy = indexPath
-            self.performSegueWithIdentifier("BuddiesListToChat", sender: self)
-        }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        iPathOfSelectedBuddy = indexPath
+        self.performSegueWithIdentifier("BuddiesListToChat", sender: self)
+    }
+}
+
+// MARK: - NSFetchedResultsControllerDelegate
+
+extension BuddiesViewController: NSFetchedResultsControllerDelegate
+{
+    func controllerDidChangeContent(controller: NSFetchedResultsController)
+    {
+        tableView.reloadData()
     }
 }
 
@@ -106,19 +150,17 @@ extension BuddiesViewController: ChatDelegate {
     
     func account(_account: Account, changedStatus newStatus: ChatStatus)
     {
-        if newStatus == .Available {
-            statusView.backgroundColor = UIColor.greenColor()
-        } else {
-            statusView.backgroundColor = UIColor.redColor()
-        }
     }
     
-    func newBuddyOnline(buddy: Interlocutor) {
-        if contains(offlineBuddies, buddy) {
+    func newBuddyOnline(buddy: Interlocutor)
+    {
+        if contains(offlineBuddies, buddy)
+        {
             offlineBuddies.removeObject(buddy)
         }
         
-        if !contains(onlineBuddies, buddy) {
+        if !contains(onlineBuddies, buddy)
+        {
             onlineBuddies.append(buddy)
             groupBuddies()
         }
@@ -126,7 +168,8 @@ extension BuddiesViewController: ChatDelegate {
         tableView.reloadData()
     }
     
-    func buddyWentOffline(buddy: Interlocutor) {
+    func buddyWentOffline(buddy: Interlocutor)
+    {
         onlineBuddies.removeObject(buddy)
         offlineBuddies.append(buddy)
         groupBuddies()
@@ -135,24 +178,29 @@ extension BuddiesViewController: ChatDelegate {
     
     func accountDidDisconnect(_account: Account)
     {
-        statusView.backgroundColor = UIColor.redColor()
+
     }
 }
 
 // MARK: - Private
 
-private extension BuddiesViewController {
-    
-    func showLogin() {
+private extension BuddiesViewController
+{
+    func showLogin()
+    {
         self.performSegueWithIdentifier("BuddiesListToLogin", sender: self)
     }
     
-    func groupBuddies() {
+    func groupBuddies()
+    {
         
-        func distinct<T: Equatable>(source: [T]) -> [T] {
+        func distinct<T: Equatable>(source: [T]) -> [T]
+        {
             var unique = [T]()
-            for item in source {
-                if !contains(unique, item) {
+            for item in source
+            {
+                if !contains(unique, item)
+                {
                     unique.append(item)
                 }
             }
@@ -162,31 +210,27 @@ private extension BuddiesViewController {
         typealias GroupType = (Character, [Interlocutor])
         
         let buddiesSorted = onlineBuddies.sorted{$0.name < $1.name}
-        let letters = buddiesSorted.map {
-            (buddy) -> Character in
+        let letters = buddiesSorted.map
+        { (buddy) -> Character in
             return first(buddy.bareName.uppercaseString)!
         }
         
         let distinctLetters = distinct(letters)
         
-        var onlineGroups = distinctLetters.map {
-            (letter) -> GroupType in
-            return (letter, self.onlineBuddies.filter {
-                (buddy) -> Bool in
-                    return first(buddy.bareName.uppercaseString) == letter
-                }
-            )
+        var onlineGroups = distinctLetters.map
+        { (letter) -> GroupType in
+            return (letter, self.onlineBuddies.filter
+            { (buddy) -> Bool in
+                return first(buddy.bareName.uppercaseString) == letter
+            })
         }
         
         buddiesGrouped = onlineGroups.map {$1}
 
-        if offlineBuddies.count != 0 {
+        if offlineBuddies.count != 0
+        {
             offlineBuddies = offlineBuddies.sorted{$0.name < $1.name}
             buddiesGrouped.append(offlineBuddies)
         }
-    }
-    
-    func isOfflineBuddiesGroup(sectionIndex: Int) -> Bool {
-        return offlineBuddies.count > 0 && sectionIndex == buddiesGrouped.count - 1
     }
 }

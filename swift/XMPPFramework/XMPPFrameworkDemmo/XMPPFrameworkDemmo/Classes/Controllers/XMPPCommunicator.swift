@@ -139,78 +139,101 @@ extension XMPPCommunicator: XMPPStreamDelegate
         
         if let queryElement = iq.elementForName("query", xmlns: "jabber:iq:roster")
         {
-            let itemElenments = queryElement.elementsForName("item")
+            let itemElenments = queryElement.elementsForName("item") as [DDXMLElement]
             for itemElement in itemElenments
             {
                 println(itemElement.attributeForName("jid").stringValue())
                 
-                MagicalRecord.saveWithBlock(
+                MagicalRecord.saveWithBlockAndWait
                 { (context: NSManagedObjectContext!) -> Void in
                     let localAccount = self.account.MR_inContext(context) as Account
                     
                     let jid  = itemElement.attributeForName("jid").stringValue()
                     let name = itemElement.attributeForName("name").stringValue()
-                    
-                    if var buddy = Interlocutor.MR_findFirstByAttribute("bareName", withValue: jid)
+                    var groupName: String? = nil
+                    let groups = itemElement.elementsForName("group") as? [DDXMLElement]
+                    if let groups = groups
+                    {
+                        if let group = first(groups)
+                        {
+                            groupName = group.stringValue()
+                        }
+                    }
+
+                    println("group: \(groupName)")
+
+                    if var buddy = Interlocutor.MR_findFirstByAttribute("bareName",
+                        withValue: jid, inContext: context)
                         as? Interlocutor
                     {
+                        println("old buddy: \(buddy.name):'\(buddy.group)'")
                         if buddy.name != name
                         {
+//                            println("NAME SET!!!")
                             buddy.name = name
                         }
+                        
+                        if groupName != nil && buddy.group != groupName
+                        {
+//                            println("GROUP SET!!!")
+                            buddy.group = groupName!
+                        }
+                        
+                        println("new buddy: \(buddy.name):'\(buddy.group)'")
                     }
                     else
                     {
                         let newBuddy = Interlocutor(name: name,
-                                bareName: jid,
-                                account: self.account,
-                                inManagedObjectContext: context)
+                            bareName: jid,
+                            group: nil,
+                            account: self.account,
+                            inManagedObjectContext: context)
                     }
-                })
+                }
             }
         }
         
         return false
-        /*
-        NSXMLElement *queryElement = [iq elementForName: @"query" xmlns: @"jabber:iq:roster"];
-        if (queryElement)
-        {
-        NSArray *itemElements = [queryElement elementsForName: @"item"];
-        for (int i=0; i<[itemElements count]; i++)
-        {
-        NSLog(@"Friend: %@",[[itemElements[i] attributeForName:@"jid"]stringValue]);
-        
-        }
-        }
-        */
     }
     
     func xmppStream(sender: XMPPStream!, didReceivePresence presence: XMPPPresence!)
     {
         // a buddy went offline/online
-        let presenceType = presence.type()
-        let myUsername = sender.myJID.user
+        let presenceType     = presence.type()
         let presenceFromUser = presence.from().user
+
+        // create interlocutor if there is no such
+        var other =
+        Interlocutor.MR_findFirstByAttribute("bareName", withValue: presence.from().bare())
+            as? Interlocutor
         
-        let me      = account.me
-        let other   = Interlocutor(xmppJID: presence.from(), account: account)
+        if other == nil
+        {
+            println("new Interlocutor from presence data")
+            MagicalRecord.saveWithBlockAndWait
+            { (context: NSManagedObjectContext!) -> Void in
+                other = Interlocutor(xmppJID: presence.from(),
+                    group: nil,
+                    account: self.account,
+                    inManagedObjectContext: context)
+            }
+        }
         
-//        println("Type: \(presence.type()), status: \(presence.status()), show: \(presence.show())")
-        
-        if other != me
+       // inform delegate
+        if other?.bareName != account.me.bareName
         {
             if presenceType == "available"
             {
                 if let cd = chatDelegate
                 {
-                    cd.newBuddyOnline(other)
+                    cd.newBuddyOnline(other!)
                 }
             }
             else if presenceType == "unavailable"
             {
                 if let cd = chatDelegate
                 {
-                    cd.buddyWentOffline(other)
+                    cd.buddyWentOffline(other!)
                 }
             }
         }
@@ -220,26 +243,7 @@ extension XMPPCommunicator: XMPPStreamDelegate
     {
         if message.isChatMessageWithBody()
         {
-            let text = message.body()
-            let dateString = message.attributeStringValueForName("date")
-            let date = Message.stringAsDate(dateString)
-            let from = Interlocutor(xmppJID: message.from(), account: account)
-            let to   = Interlocutor(xmppJID: message.to(), account: account)
-            if from.isBare()
-            && to.isBare()
-            && countElements(text) > 0
-            {
-                let m = Message(text: text, sender: from, receiver: to, date: date)
-                
-                if let md = messageDelegate
-                {
-                    md.newMessageReceived(m)
-                }
-            }
-        }
-        else
-        {
-//            println("typing...")
+            handleNewChatMessageWithBody(message)
         }
     }
     
@@ -247,26 +251,7 @@ extension XMPPCommunicator: XMPPStreamDelegate
     {
         if message.isChatMessageWithBody()
         {
-            let text = message.body()
-            let date = Message.stringAsDate(message.attributeStringValueForName("time"))
-            let from = Interlocutor(xmppJID: message.from(), account: account)
-            let to   = Interlocutor(xmppJID: message.to(), account: account)
-            
-            if from.isBare()
-            && to.isBare()
-            && countElements(text) > 0
-            {
-                let m = Message(text: text, sender: from, receiver: to, date: date)
-                
-                if let md = messageDelegate
-                {
-                    md.newMessageReceived(m)
-                }
-            }
-        }
-        else
-        {
-//            println("typing...")
+            handleNewChatMessageWithBody(message)
         }
     }
     
@@ -311,5 +296,65 @@ private extension XMPPCommunicator
         iq.addChild(query)
         
         stream.sendElement(iq)
+    }
+    
+    func handleNewChatMessageWithBody(message: XMPPMessage!)
+    {
+        let text = message.body()
+        var date: NSDate! = nil
+        if let dateString = message.attributeStringValueForName("date") {
+            date = Message.stringAsDate(dateString)
+        } else {
+            date = NSDate()
+        }
+        
+        var from = Interlocutor.MR_findFirstByAttribute("bareName",
+            withValue: message.from().bare()) as? Interlocutor
+        if from == nil
+        {
+            MagicalRecord.saveWithBlockAndWait
+            { (context: NSManagedObjectContext!) -> Void in
+                from = Interlocutor(xmppJID: message.from(),
+                    group: nil,
+                    account: self.account,
+                    inManagedObjectContext: context)
+                println("New interlocutor (from) saving: \(from)");
+            }
+        }
+        var to = Interlocutor.MR_findFirstByAttribute("bareName",
+            withValue: message.to().bare()) as? Interlocutor
+        if to == nil
+        {
+            MagicalRecord.saveWithBlockAndWait
+            { (context: NSManagedObjectContext!) -> Void in
+                to = Interlocutor(xmppJID: message.to(),
+                    group: nil,
+                    account: self.account,
+                    inManagedObjectContext: context)
+                println("New interlocutor (to) saving: \(to)");
+            }
+        }
+        
+        if from!.isBare()
+            && to!.isBare()
+            && countElements(text) > 0
+        {
+            var m: Message! = nil
+            MagicalRecord.saveWithBlockAndWait
+            { (context: NSManagedObjectContext!) -> Void in
+                m = Message(text: text,
+                    sender: from!,
+                    receiver: to!,
+                    date: date,
+                    inManagedObjectContext: context)
+                println("New message saving: \(m)");
+            }
+            
+            if let md = messageDelegate
+            {
+                println("Informing delegate about new message");
+                md.newMessageReceived(m)
+            }
+        }
     }
 }

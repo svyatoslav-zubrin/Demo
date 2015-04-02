@@ -19,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         MagicalRecord.setupAutoMigratingCoreDataStack()
 
+        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).last! as String
+        println(path)
+        
         return true
     }
 

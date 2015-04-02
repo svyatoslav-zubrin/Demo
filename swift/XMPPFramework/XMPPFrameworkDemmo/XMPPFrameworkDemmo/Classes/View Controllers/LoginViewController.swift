@@ -55,11 +55,11 @@ class LoginViewController: UIViewController
         super.viewDidAppear(animated)
 
         // DEBUG
-        usernameTextField.text = "user1@szmini.local"
-        passwordTextField.text = "password"
-        hostNameTextField.text = "szmini.local"
+        usernameTextField.text = "zubrin@jabber.qarea.org"
+        passwordTextField.text = "qarea3ub"
+        hostNameTextField.text = "jabber.qarea.org"
         hostPortTextField.text = "5222"
-        serviceTypePicker.selectRow(ServiceType.Local.rawValue, inComponent: 0, animated: true)
+        serviceTypePicker.selectRow(ServiceType.QArea.rawValue, inComponent: 0, animated: true)
     }
     
     // MARK: - User actions
@@ -70,6 +70,8 @@ class LoginViewController: UIViewController
         {
             MagicalRecord.saveWithBlock(
                 { (context: NSManagedObjectContext!) -> Void in
+                    
+                    // account
                     let account = Account.MR_createInContext(context) as Account
                     
                     let selectedServiceTypeIndex = self.serviceTypePicker.selectedRowInComponent(0)
@@ -92,6 +94,14 @@ class LoginViewController: UIViewController
                     let userPassword = self.passwordTextField.text
                     account.userId = userId
                     account.password = userPassword
+                    
+                    // me
+                    let me = Interlocutor(name: "Me",
+                        bareName: userId,
+                        group: nil,
+                        account: account,
+                        inManagedObjectContext: context)
+                    account.me = me
                 },
                 completion:
                 { (success: Bool, error: NSError!) -> Void in

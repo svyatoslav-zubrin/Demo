@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--Buddies View Controller-->
+        <!--Contacts-->
         <scene sceneID="Dst-Br-E9m">
             <objects>
                 <viewController id="aLp-rh-dZB" customClass="BuddiesViewController" customModule="XMPPFrameworkDemmo" customModuleProvider="target" sceneMemberID="viewController">
@@ -55,16 +55,8 @@
                             <constraint firstAttribute="trailing" secondItem="uri-6T-zxu" secondAttribute="trailing" id="tpd-nB-Bsu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="aR8-lC-tmN">
-                        <nil key="title"/>
-                        <view key="titleView" contentMode="scaleToFill" id="Iy7-0y-9UY">
-                            <rect key="frame" x="284" y="6" width="33" height="33"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </view>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Contacts" id="aR8-lC-tmN"/>
                     <connections>
-                        <outlet property="statusView" destination="Iy7-0y-9UY" id="vlq-oB-xG3"/>
                         <outlet property="tableView" destination="uri-6T-zxu" id="0PS-Da-MMD"/>
                         <segue destination="k7B-rU-F5L" kind="show" identifier="BuddiesListToChat" id="RoD-ah-Rpk"/>
                     </connections>

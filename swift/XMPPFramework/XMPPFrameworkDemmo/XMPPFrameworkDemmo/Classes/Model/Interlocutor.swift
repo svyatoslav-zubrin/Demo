@@ -9,10 +9,11 @@
 import Foundation
 import CoreData
 
-@objc(Interlocutor) class Interlocutor: NSManagedObject {
-
+@objc(Interlocutor) class Interlocutor: NSManagedObject
+{
     @NSManaged var bareName: String
     @NSManaged var name: String
+    @NSManaged var group: String
     @NSManaged var receivedMessages: NSSet
     @NSManaged var sentMessages: NSSet
 
@@ -22,6 +23,7 @@ import CoreData
     convenience
     init(name _name: String,
          bareName _bareName: String,
+         group _group: String?,
          account _account: Account,
          inManagedObjectContext _context: NSManagedObjectContext?)
     {
@@ -39,7 +41,15 @@ import CoreData
 
         name = _name
         bareName = _bareName
-        
+        if let g = _group
+        {
+            group = g
+        }
+        else
+        {
+            group = ""
+        }
+
         let localAccount = _account.MR_inContext(context) as Account
         account = localAccount
     }
@@ -47,23 +57,37 @@ import CoreData
     convenience
     init(name _name: String,
          bareName _bareName: String,
+         group _group: String?,
          account _account: Account)
     {
-        self.init(name: _name, bareName: _bareName, account: _account, inManagedObjectContext: nil)
+        self.init(name: _name,
+                bareName: _bareName,
+                group: _group,
+                account: _account,
+                inManagedObjectContext: nil)
     }
 
     convenience
     init(xmppJID _jid: XMPPJID,
+         group _group: String?,
          account _account: Account,
          inManagedObjectContext _context: NSManagedObjectContext?)
     {
-        self.init(name: _jid.user, bareName: _jid.bare(), account: _account, inManagedObjectContext: _context)
+        self.init(name: _jid.user,
+                bareName: _jid.bare(),
+                group: _group,
+                account: _account,
+                inManagedObjectContext: _context)
     }
 
     convenience
     init(xmppJID _jid: XMPPJID,
+         group _group: String?,
          account _account: Account)
     {
-        self.init(xmppJID: _jid, account: _account, inManagedObjectContext: nil)
+        self.init(xmppJID: _jid,
+                group: _group,
+                account: _account,
+                inManagedObjectContext: nil)
     }
 }

@@ -11,6 +11,7 @@
     </entity>
     <entity name="Interlocutor" representedClassName="Interlocutor" syncable="YES">
         <attribute name="bareName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="contacts" inverseEntity="Account" syncable="YES"/>
         <relationship name="ownedAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="me" inverseEntity="Account" syncable="YES"/>
@@ -25,7 +26,7 @@
     </entity>
     <elements>
         <element name="Account" positionX="-108" positionY="-207" width="128" height="150"/>
-        <element name="Interlocutor" positionX="133" positionY="-180" width="128" height="133"/>
+        <element name="Interlocutor" positionX="133" positionY="-180" width="128" height="150"/>
         <element name="Message" positionX="340" positionY="-18" width="128" height="103"/>
     </elements>
 </model>

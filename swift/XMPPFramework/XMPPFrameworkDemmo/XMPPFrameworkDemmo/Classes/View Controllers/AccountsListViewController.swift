@@ -11,14 +11,8 @@ import CoreData
 
 class AccountsListViewController: UITableViewController
 {
-    private var indexPathOfSelectedAccount: NSIndexPath?
-    
     private var frc: NSFetchedResultsController!
-    
-    private var accounts: [Account]
-    {
-        return UserSettings.sharedInstance.accounts
-    }
+    private var indexPathOfSelectedAccount: NSIndexPath?
     
     // MARK: - Lifecycle
     
@@ -208,6 +202,8 @@ class AccountsListViewController: UITableViewController
     // MARK: - UITableViewDelegate
 }
 
+// MARK: - ChatDelegate
+
 extension AccountsListViewController: ChatDelegate
 {
     func accountDidDisconnect(_account: Account)
@@ -218,10 +214,8 @@ extension AccountsListViewController: ChatDelegate
     func account(_account: Account,
                  changedStatus newStatus: ChatStatus)
     {
-        // TODO: implementation needed
-        if let index = find(accounts, _account)
+        if let iPath = frc.indexPathForObject(_account)
         {
-            let iPath = NSIndexPath(forRow: index, inSection: 0)
             tableView.reloadRowsAtIndexPaths([iPath],
                 withRowAnimation: UITableViewRowAnimation.Automatic)
         }
@@ -239,6 +233,8 @@ extension AccountsListViewController: ChatDelegate
         // stub implementation (no optional methods for swift protocols)
     }
 }
+
+// MARK: - NSFetchedResultsControllerDelegate
 
 extension AccountsListViewController: NSFetchedResultsControllerDelegate
 {

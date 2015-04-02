@@ -17,6 +17,8 @@ class ChatViewController: UIViewController
     var interlocutor: Interlocutor! = nil
     var messages: [Message] = []
     
+    var frc:NSFetchedResultsController! = nil
+    
     var communicator: BaseCommunicator
     {
         return CommunicatorsProvider.sharedInstance.getCommunicatorByAccountId(account.accountId)!
@@ -30,6 +32,8 @@ class ChatViewController: UIViewController
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 78.0
+        
+        fetchMessages()
     }
     
     override func viewWillAppear(animated: Bool)
@@ -80,14 +84,21 @@ extension ChatViewController: UITableViewDataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return messages.count
+        if let objects = frc.fetchedObjects
+        {
+            return objects.count;
+        }
+        else
+        {
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
 
-        let m = messages[indexPath.row]
-        
+        let m = frc.objectAtIndexPath(indexPath) as Message
+
         let xmppCommunicator = communicator as XMPPCommunicator // TODO: correct classes hierarchi for baseComm...->XMPPComm... to make all properties public in base class
         
         let cellId = m.sender == xmppCommunicator.me ? "MyMessageCell" : "InterlocutorMessageCell"
@@ -101,6 +112,16 @@ extension ChatViewController: UITableViewDataSource
     }
 }
 
+// MARK: - NSFetchedResultsControllerDelegate
+
+extension ChatViewController: NSFetchedResultsControllerDelegate
+{
+    func controllerDidChangeContent(controller: NSFetchedResultsController)
+    {
+        self.tableView.reloadData()
+    }
+}
+
 // MARK: - MessageDelegate
 
 extension ChatViewController: MessageDelegate
@@ -109,5 +130,27 @@ extension ChatViewController: MessageDelegate
     {
         messages.append(message)
         tableView.reloadData()
+    }
+}
+
+// MARK: - Private
+
+private
+extension ChatViewController
+{
+    func fetchMessages()
+    {
+        let predicateToMe = NSPredicate(format: "SELF.receiver.name = %@ && SELF.sender.name = %@",
+            argumentArray: [account.me.name, interlocutor.name])
+        let predicateFromMe = NSPredicate(format: "SELF.sender.name = %@ && SELF.receiver.name = %@",
+            argumentArray: [account.me.name, interlocutor.name])
+        let predicate = NSCompoundPredicate(type: NSCompoundPredicateType.OrPredicateType,
+            subpredicates: [predicateToMe, predicateFromMe])
+        
+        frc = Message.MR_fetchAllSortedBy("date",
+            ascending: true,
+            withPredicate: predicate,
+            groupBy: nil,
+            delegate: self);
     }
 }

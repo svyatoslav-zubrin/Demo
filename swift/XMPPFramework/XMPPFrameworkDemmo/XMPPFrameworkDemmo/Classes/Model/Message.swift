@@ -18,6 +18,7 @@ import CoreData
 
     // Lifecycle
 
+    convenience
     init(text _text: String,
          sender _sender: Interlocutor,
          receiver _receiver: Interlocutor,
@@ -33,19 +34,24 @@ import CoreData
 
         assert(ed != nil)
 
-        super.init(entity: ed!, insertIntoManagedObjectContext: context)
+        self.init(entity: ed!, insertIntoManagedObjectContext: context)
 
         body = _text
-        sender = _sender
-        receiver = _receiver
         date = _date
+        sender = _sender.MR_inContext(context) as Interlocutor
+        receiver = _receiver.MR_inContext(context) as Interlocutor
     }
 
-    convenience init(text _text: String,
-                     sender _sender: Interlocutor,
-                     receiver _receiver: Interlocutor,
-                     date _date: NSDate?)
+    convenience
+    init(text _text: String,
+         sender _sender: Interlocutor,
+         receiver _receiver: Interlocutor,
+         date _date: NSDate?)
     {
-        self.init(text: _text, sender: _sender, receiver: _receiver, date: _date, inManagedObjectContext: nil)
+        self.init(text: _text,
+            sender: _sender,
+            receiver: _receiver,
+            date: _date,
+            inManagedObjectContext: nil)
     }
 }
